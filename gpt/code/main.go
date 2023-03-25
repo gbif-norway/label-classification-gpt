@@ -32,6 +32,7 @@ func main() {
 	}
 	defer ch.Close()
 
+	
 	qIn, err := ch.QueueDeclare(
 		inputQueueName,
 		false,

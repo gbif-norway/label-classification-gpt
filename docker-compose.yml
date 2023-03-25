@@ -1,21 +1,28 @@
 version: '3'
 
 services:
-  service:
-    build: .
-    image: gbifnorway/label-clasification-gpt:latest
-    platform: linux/amd64
-    volumes:
-      - .:/src
-    env_file: .env
-    depends_on:
-      - rabbitmq
   rabbitmq:
     image: rabbitmq:3-management-alpine
-    container_name: 'rabbitmq'
+    container_name: rabbitmq
     ports:
         - 5672:5672
         - 15672:15672
     volumes:
-        - ~/.docker-conf/rabbitmq/data/:/var/lib/rabbitmq/
-        - ~/.docker-conf/rabbitmq/log/:/var/log/rabbitmq
+        - ./rabbitmq/data/:/var/lib/rabbitmq/
+        - ./rabbitmq/log/:/var/log/rabbitmq
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:15672"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+  gpt:
+    build: ./gpt
+    image: gbifnorway/label-clasification-gpt:latest
+    container_name: gpt
+    platform: linux/amd64
+    env_file: .env
+    restart: on-failure
+    depends_on:
+      - rabbitmq
+    links: 
+      - rabbitmq

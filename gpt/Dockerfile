@@ -1,6 +1,6 @@
 FROM golang:1.19.3-alpine AS build
 WORKDIR /app
-COPY . ./
+COPY ./code ./
 RUN go mod download
 RUN go build -o /label-classification-gpt
 
