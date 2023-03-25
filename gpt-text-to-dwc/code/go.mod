@@ -1,4 +1,4 @@
-module label-classification-gpt
+module gpt-text-to-dwc
 
 go 1.18
 

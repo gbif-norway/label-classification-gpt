@@ -16,8 +16,8 @@ services:
       timeout: 10s
       retries: 5
   gpt:
-    build: ./gpt
-    image: gbifnorway/label-clasification-gpt:latest
+    build: ./gpt-text-to-dwc
+    image: gbifnorway/gpt-text-to-dwc:latest
     container_name: gpt
     platform: linux/amd64
     env_file: .env

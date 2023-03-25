@@ -2,7 +2,7 @@ package main
 
 import (
 	"encoding/json"
-	gpt "label-classification-gpt/api"
+	gpt "gpt-text-to-dwc/api"
 	"log"
 	"os"
 
