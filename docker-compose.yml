@@ -26,3 +26,31 @@ services:
       - rabbitmq
     links: 
       - rabbitmq
+  annotate:
+    build: ./annotate
+    image: gbifnorway/annotate:latest
+    container_name: annotate
+    platform: linux/amd64
+    env_file: .env
+    restart: on-failure
+    depends_on:
+      - rabbitmq
+    links: 
+      - rabbitmq
+  python:
+    build: ./python-interactive
+    container_name: python
+    platform: linux/amd64
+    env_file: .env
+    restart: on-failure
+    depends_on:
+      - rabbitmq
+    links: 
+      - rabbitmq
+    entrypoint: /bin/bash
+    stdin_open: true
+    tty: true
+    ports:
+      - "8888:8888"
+    volumes:
+      - ./python-interactive/code:/srv
