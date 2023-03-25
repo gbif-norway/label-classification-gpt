@@ -16,8 +16,6 @@ const ()
 
 func main() {
 	var rabbitMQURI = os.Getenv("RABBIT_MQ_URI")
-	var apiKey = os.Getenv("GPT_API_KEY")
-	var model = os.Getenv("GPT_MODEL")
 	var inputQueueName = os.Getenv("INPUT_QUEUE_GPT")
 	var outputQueueName = os.Getenv("OUTPUT_QUEUE_GPT")
 	conn, err := amqp.Dial(rabbitMQURI)
@@ -72,15 +70,21 @@ func main() {
 
 	forever := make(chan bool)
 
+	type Message struct {
+		ID      string `json:"id"`
+		Text    string `json:"text"`
+	}
+
 	go func() {
 		for d := range msgs {
-			var ocrText string
-			if err := json.Unmarshal(d.Body, &ocrText); err != nil {
+			var msg Message
+			if err := json.Unmarshal(d.Body, &msg); err != nil {
 				log.Printf("Failed to decode message: %s", err)
+				log.Printf("Failed to decode message: %s", d.Body)
 				continue
 			}
 
-			response, err := gpt.ExtractDWC(apiKey, model, &ocrText)
+			response, err := gpt.ExtractDWC(msg.Text)
 			if err != nil {
 				log.Printf("Error running extractDWC: %s", err)
 				continue
@@ -92,6 +96,17 @@ func main() {
 				continue
 			}
 
+			newMsg := Message{
+				ID:      msg.ID,
+				Text:    string(responseBytes),
+			}
+
+			msgBytes, err := json.Marshal(newMsg)
+			if err != nil {
+				log.Printf("Failed to encode message: %s", err)
+				return
+			}
+
 			err = ch.Publish(
 				"",
 				qOut.Name,
@@ -99,7 +114,7 @@ func main() {
 				false,
 				amqp.Publishing{
 					ContentType: "application/json",
-					Body:        responseBytes,
+					Body:        msgBytes,
 				})
 			if err != nil {
 				log.Printf("Failed to publish a message: %s", err)

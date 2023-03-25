@@ -6,6 +6,9 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
+	"os"
+	"errors"
+	"log"
 )
 
 type Message struct {
@@ -13,7 +16,7 @@ type Message struct {
 	Content string `json:"content"`
 }
 
-func ExtractDWC(apiKey string, model string, ocrText *string) (map[string]interface{}, error) {
+func ExtractDWC(ocrText string) (map[string]interface{}, error) {
 	url := "https://api.openai.com/v1/chat/completions"
 	systemPrompt := ` As an adept herbarium digitization system, I accurately classify extracted text from herbarium specimen scans into appropriate Darwin Core terms. When multiple strings fit one term, they are separated by "|".
 
@@ -41,22 +44,25 @@ func ExtractDWC(apiKey string, model string, ocrText *string) (map[string]interf
 	If I cannot identify information for a specific term, I leave it empty.
 	My responses are provided as minified JSON.`
 
+	log.Printf("Extracting DWC from: %s", ocrText)
+
+	if ocrText == "" {
+		return nil, errors.New("No text provided")
+	}
+
 	messages := []Message{
 		{
 			Role:    "system",
 			Content: systemPrompt,
 		},
-	}
-
-	if ocrText != nil {
-		messages = append(messages, Message{
+		{
 			Role:    "user",
-			Content: *ocrText,
-		})
+			Content: ocrText,
+		},
 	}
 
 	data := map[string]interface{}{
-		"model":    model,
+		"model":    os.Getenv("GPT_MODEL"),
 		"messages": messages,
 	}
 
@@ -71,7 +77,7 @@ func ExtractDWC(apiKey string, model string, ocrText *string) (map[string]interf
 	}
 
 	req.Header.Set("Content-Type", "application/json")
-	req.Header.Set("Authorization", fmt.Sprintf("Bearer %s", apiKey))
+	req.Header.Set("Authorization", fmt.Sprintf("Bearer %s", os.Getenv("GPT_API_KEY")))
 
 	client := &http.Client{}
 	resp, err := client.Do(req)
@@ -91,5 +97,7 @@ func ExtractDWC(apiKey string, model string, ocrText *string) (map[string]interf
 		return nil, err
 	}
 
+	log.Printf("Received from GPT")
+	
 	return jsonResponse, nil
 }
