@@ -18,8 +18,8 @@ func main() {
 	var rabbitMQURI = os.Getenv("RABBIT_MQ_URI")
 	var apiKey = os.Getenv("GPT_API_KEY")
 	var model = os.Getenv("GPT_MODEL")
-	var inputQueueName = os.Getenv("INPUT_QUEUE")
-	var outputQueueName = os.Getenv("OUTPUT_QUEUE")
+	var inputQueueName = os.Getenv("INPUT_QUEUE_GPT")
+	var outputQueueName = os.Getenv("OUTPUT_QUEUE_GPT")
 	conn, err := amqp.Dial(rabbitMQURI)
 	if err != nil {
 		log.Fatalf("Failed to connect to RabbitMQ: %s", err)
