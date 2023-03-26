@@ -12,10 +12,7 @@ import (
 const ()
 
 func main() {
-	var rabbitMQURI = os.Getenv("RABBIT_MQ_URI")
-	var inputQueueName = os.Getenv("INPUT_QUEUE_ANNOTATE")
-	var outputQueueName = os.Getenv("OUTPUT_QUEUE_ANNOTATE")
-	conn, err := amqp.Dial(rabbitMQURI)
+	conn, err := amqp.Dial(os.Getenv("RABBIT_MQ_URI"))
 	if err != nil {
 		log.Fatalf("Failed to connect to RabbitMQ: %s", err)
 	}
@@ -28,7 +25,7 @@ func main() {
 	defer ch.Close()
 
 	qIn, err := ch.QueueDeclare(
-		inputQueueName,
+		os.Getenv("INPUT_QUEUE_ANNOTATE_GPT"),
 		false,
 		false,
 		false,
@@ -40,7 +37,7 @@ func main() {
 	}
 
 	qOut, err := ch.QueueDeclare(
-		outputQueueName,
+		os.Getenv("OUTPUT_QUEUE_ANNOTATE"),
 		false,
 		false,
 		false,
@@ -79,7 +76,7 @@ func main() {
 				continue
 			}
 
-			response, err := annotate.Annotate(&msg.ID, &msg.Text, "TESTRUKAYA", "TESTRUKAYA")
+			response, err := annotate.Annotate(&msg.ID, &msg.Text, "gpt4", "")
 			if err != nil {
 				log.Printf("Error running annotate: %s", err)
 				continue

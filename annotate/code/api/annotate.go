@@ -7,10 +7,12 @@ import (
 	"net/http"
 	"io/ioutil"
 	"os"
+	"log"
 )
 
 func Annotate(ID *string, text *string, source string, notes string) (map[string]interface{}, error) {
 	var url = os.Getenv("ANNOTATER_URI")
+	log.Printf("Starting annotation process for: %s", text)
 
 	headers := map[string]string{
 		"Authorization": fmt.Sprintf("Token %s", os.Getenv("ANNOTATER_KEY")),
@@ -25,13 +27,13 @@ func Annotate(ID *string, text *string, source string, notes string) (map[string
 
 	jsonData, err := json.Marshal(data)
 	if err != nil {
-		fmt.Println("Error in marshalling JSON data:", err)
+		log.Printf("Error in marshalling JSON data:", err)
 		return nil, nil
 	}
 
 	req, err := http.NewRequest("POST", url, bytes.NewBuffer(jsonData))
 	if err != nil {
-		fmt.Println("Error in creating a new request:", err)
+		log.Printf("Error in creating a new request:", err)
 		return nil, nil
 	}
 
@@ -43,7 +45,7 @@ func Annotate(ID *string, text *string, source string, notes string) (map[string
 	client := &http.Client{}
 	resp, err := client.Do(req)
 	if err != nil {
-		fmt.Println("Error in sending request:", err)
+		log.Printf("Error in sending request:", err)
 		return nil, nil
 	}
 	defer resp.Body.Close()
@@ -59,5 +61,6 @@ func Annotate(ID *string, text *string, source string, notes string) (map[string
 		return nil, err
 	}
 
+	log.Printf("Finished annotation process")
 	return jsonResponse, nil
 }
