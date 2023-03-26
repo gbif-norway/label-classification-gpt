@@ -9,16 +9,11 @@ import (
 	"github.com/streadway/amqp"
 )
 
-// Insert the extractDWC function from the previous response here.
-
 // Configuration settings.
 const ()
 
 func main() {
-	var rabbitMQURI = os.Getenv("RABBIT_MQ_URI")
-	var inputQueueName = os.Getenv("INPUT_QUEUE_GPT")
-	var outputQueueName = os.Getenv("OUTPUT_QUEUE_GPT")
-	conn, err := amqp.Dial(rabbitMQURI)
+	conn, err := amqp.Dial(os.Getenv("RABBIT_MQ_URI"))
 	if err != nil {
 		log.Fatalf("Failed to connect to RabbitMQ: %s", err)
 	}
@@ -30,9 +25,8 @@ func main() {
 	}
 	defer ch.Close()
 
-	
 	qIn, err := ch.QueueDeclare(
-		inputQueueName,
+		os.Getenv("INPUT_QUEUE_GPT"),
 		false,
 		false,
 		false,
@@ -44,7 +38,7 @@ func main() {
 	}
 
 	qOut, err := ch.QueueDeclare(
-		outputQueueName,
+		os.Getenv("OUTPUT_QUEUE_GPT"),
 		false,
 		false,
 		false,
@@ -83,12 +77,12 @@ func main() {
 				log.Printf("Failed to decode message: %s", d.Body)
 				continue
 			}
-
+			
 			response, err := gpt.ExtractDWC(msg.Text)
 			if err != nil {
 				log.Printf("Error running extractDWC: %s", err)
 				continue
-			}
+			} 
 
 			responseBytes, err := json.Marshal(response)
 			if err != nil {

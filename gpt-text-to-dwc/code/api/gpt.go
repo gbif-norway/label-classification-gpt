@@ -18,9 +18,8 @@ type Message struct {
 
 func ExtractDWC(ocrText string) (map[string]interface{}, error) {
 	url := "https://api.openai.com/v1/chat/completions"
-	systemPrompt := ` As an adept herbarium digitization system, I accurately classify extracted text from herbarium specimen scans into appropriate Darwin Core terms. When multiple strings fit one term, they are separated by "|".
+	systemPrompt := `I accurately classify extracted OCR text from herbarium specimen scans into only the following Darwin Core terms:
 
-	I only extract following DWC terms:
 	- scientificName: Full scientific name, not containing identification qualifications.
 	- catalogNumber: Unique identifier for the record in the dataset or collection.
 	- recordNumber: Identifier given during recording, often linking field notes and Occurrence record.
@@ -41,8 +40,8 @@ func ExtractDWC(ocrText string) (map[string]interface{}, error) {
 	- maximumElevationInMeters: The upper limit of the range of elevation in meters.
 	- verbatimElevation: The original description of the elevation.
 
-	If I cannot identify information for a specific term, I leave it empty.
-	My responses are provided as minified JSON.`
+	"|" separates multiple strings in one term. If I can't identify information for a specific term, I don't include it.
+	My responses are minified JSON.`
 
 	log.Printf("Extracting DWC from: %s", ocrText)
 
@@ -97,7 +96,7 @@ func ExtractDWC(ocrText string) (map[string]interface{}, error) {
 		return nil, err
 	}
 
-	log.Printf("Received from GPT")
+	log.Printf("Finished extracting DWC. Result: %s", jsonResponse)
 	
 	return jsonResponse, nil
 }
