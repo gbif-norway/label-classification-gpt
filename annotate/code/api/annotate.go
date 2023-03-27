@@ -18,9 +18,15 @@ func Annotate(ID *string, text *string, source string, notes string) (map[string
 		"Authorization": fmt.Sprintf("Token %s", os.Getenv("ANNOTATER_KEY")),
 	}
 
+	var annotation interface{}
+	if err := json.Unmarshal([]byte(*text), &annotation); err != nil {
+		// If the text couldn't be parsed as JSON, use it as a string
+		annotation = *text
+	}
+
 	data := map[string]interface{}{
 		"resolvable_object_id": ID,
-		"annotation":           text,
+		"annotation":           annotation,
 		"source":               source,
 		"notes":                notes,
 	}
@@ -46,12 +52,13 @@ func Annotate(ID *string, text *string, source string, notes string) (map[string
 	resp, err := client.Do(req)
 	if err != nil {
 		log.Printf("Error in sending request:", err)
-		return nil, nil
+		return nil, err
 	}
 	defer resp.Body.Close()
 
 	body, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
+		log.Printf("Error in reading request:", err)
 		return nil, err
 	}
 
