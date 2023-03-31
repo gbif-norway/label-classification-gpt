@@ -22,6 +22,23 @@ func Annotate(ID *string, text *string, source string, notes string) (map[string
 	if err := json.Unmarshal([]byte(*text), &annotation); err != nil {
 		// If the text couldn't be parsed as JSON, use it as a string
 		annotation = *text
+	} else {
+		// If the annotation was successfully parsed as JSON, try to parse message["content"] if it exists
+		if annMap, ok := annotation.(map[string]interface{}); ok {
+			if choices, ok := annMap["choices"].([]interface{}); ok {
+				for _, choice := range choices {
+					if choiceMap, ok := choice.(map[string]interface{}); ok {
+						if message, ok := choiceMap["message"].(map[string]interface{}); ok {
+							content := message["content"].(string)
+							var contentJSON interface{}
+							if err := json.Unmarshal([]byte(content), &contentJSON); err == nil {
+								message["content"] = contentJSON
+							}
+						}
+					}
+				}
+			}
+		}
 	}
 
 	data := map[string]interface{}{
