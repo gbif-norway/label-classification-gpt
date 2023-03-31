@@ -4,7 +4,6 @@ import pickle
 import pycountry
 import psycopg2
 import os
-from taxonerd import TaxoNERD
 
 def lines(text):
     return re.split('\n', text)
@@ -61,12 +60,6 @@ def fuzzy_search(candidate, table, column, additional_where=''):
             #else:
             #    print(f'No matches within allowed distance found for {candidate} with distance {max_distance(len(candidate))}.')
     return (None, None)
-
-def scientific_name_taxonerd(full):
-    taxonerd = TaxoNERD(prefer_gpu=False)
-    nlp = taxonerd.load(model="en_core_eco_md", exclude=[], linker="taxref", threshold=0.7)
-    entities = taxonerd.find_in_text(full)
-    import pdb; pdb.set_trace()
 
 def scientific_name_fuzzymatch_against_gbif(full):
     #print('-----Searching taxa-----')
