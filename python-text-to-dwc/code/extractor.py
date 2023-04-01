@@ -61,9 +61,9 @@ def fuzzy_search(candidate, table, column, additional_where=''):
             #    print(f'No matches within allowed distance found for {candidate} with distance {max_distance(len(candidate))}.')
     return (None, None)
 
-def scientific_name_fuzzymatch_against_gbif(full):
+def get_scientific_name(full):
     #print('-----Searching taxa-----')
-    words = _get_latin_words(full)
+    words = _get_latin_words_for_search(full)
     genus = None
 
     for genus_idx, word in enumerate(words):
@@ -174,7 +174,7 @@ def year(full):
 
 def names_known_collectors(full, countrycode):
     #print('-----Searching people-----')
-    candidates = [x.lower() for x in _get_latin_words(full) if len(x) > 4]
+    candidates = [x.lower() for x in _get_latin_words_for_search(full) if len(x) > 4]
     found_names = []
     for candidate in candidates:
         name = exact_search(candidate, table='people', column='person_name')
@@ -211,7 +211,8 @@ def country(lines):
             if country.name.lower() in line.lower():
                 return country.name
 
-def _get_latin_words(line: str) -> List[str]:
-    only_words = re.sub('[^A-Za-z()\s\-]', '', line)
+def _get_latin_words_for_search(full: str) -> List[str]:
+    full = ' '.join(re.split('\n', full))
+    only_words = re.sub('[^A-Za-z()\s\-]', '', full)
     stripped_spaces = re.sub('\s+', ' ', only_words)
-    return [x for x in re.split('\s', stripped_spaces.strip()) if x != '']
+    return [x for x in re.split('\s', stripped_spaces.strip()) if len(x) > 3]

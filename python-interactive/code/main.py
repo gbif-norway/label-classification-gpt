@@ -17,7 +17,7 @@ def publish_to(results, queue):
         
 # Get some ocr text from somewhere... in this case, the annotater api
 url = os.environ['ANNOTATER_URI']
-query_string = f'{url}?source=gcv_ocr_text&notes=ITALY:Test OCR for Padua&limit=20&offset=0'
+query_string = f'{url}?source=gcv_ocr_text&notes=ITALY:Test OCR for Padua&limit=200&offset=0'
 response = requests.get(query_string)
 results = response.json()['results']
 import pdb; pdb.set_trace()

@@ -5,6 +5,7 @@ import extractor
 from typing import NamedTuple
 import json
 import threading
+#import fuzzy_search_python
 
 class Message(NamedTuple):
     ID: str
@@ -13,11 +14,10 @@ class Message(NamedTuple):
 def publish(response):
     connection = pika.BlockingConnection(pika.URLParameters(os.getenv("RABBIT_MQ_URI")))
     channel = connection.channel()
-    out_queue = channel.queue_declare(queue=os.getenv("OUTPUT_QUEUE_PYTHON_DWC"), durable=True)
+    out_queue = channel.queue_declare(queue=os.getenv("OUTPUT_QUEUE_PYTHON_DWC"))
     properties = pika.BasicProperties(content_type='text/plain', delivery_mode=pika.DeliveryMode.Persistent)
     channel.basic_publish(exchange='', routing_key=out_queue.method.queue, body=response, properties=properties)
     connection.close()
-
 
 def ack_message(channel, delivery_tag):
     """Note that `channel` must be the same pika channel instance via which
@@ -47,21 +47,22 @@ def do_work(connection, channel, delivery_tag, body):
         'minimumElevationInMeters': min,
         'maximumElevationInMeters': max,
         'verbatimElevation': elevation,
-        'scientificName': extractor.verbatim_identification_taxonerd(msg.Text),
+        #'scientificName': fuzzy_search_python.get_scientific_name(msg.Text),
+        'scientificName': extractor.get_scientific_name(msg.Text),
         'agents': extractor.names_known_collectors(msg.Text, 'IT')
     }
     response = {k: v for k, v in dwc.items() if v is not None}
     # except Exception as err:
     #     print(f"Error running extractor: {err}")
     #     return
-    print('DONE')
+    print(f'DONE {msg.ID}')
     print(msg.Text)
     print('Converted to:')
     print(response)
     try:
         new_msg = Message(ID=msg.ID, Text=json.dumps(response))
         msg_bytes = json.dumps(new_msg._asdict())
-        #publish(msg_bytes)
+        publish(msg_bytes)
     except Exception as err:
         print(f"Failed to encode message: {err}")
     

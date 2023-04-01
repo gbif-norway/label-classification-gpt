@@ -59,7 +59,7 @@ def populate_people():
 
 def populate_distinct_people_view():
   with get_connection().begin() as conn:
-    conn.execute(text(f'DROP VIEW IF EXISTS distinct_people; CREATE VIEW distinct_people AS SELECT DISTINCT person_name FROM people;'))
+    conn.execute(text(f'DROP VIEW IF EXISTS distinct_person_name; CREATE VIEW distinct_person_name AS SELECT DISTINCT person_name FROM people;'))
 
 def add_fuzzystrmatch():
   with get_connection().begin() as conn:
