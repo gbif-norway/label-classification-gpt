@@ -4,11 +4,13 @@ import requests
 import pandas as pd
 import collections
 
-url = os.environ['ANNOTATER_URI']
-
 def generate_html(dataframe: pd.DataFrame):
-    table_html = dataframe.to_html(index=False, table_id="table", classes='table table-striped', justify='left', escape=False, render_links=True).replace('\\n', '<br>')
+    table_html = dataframe.to_html(index=False, border=0, table_id="table", classes='table table-striped', justify='left', escape=False, render_links=True).replace('\\n', '<br>')
+    # https://codepen.io/mugunthan/pen/RwbVqYO https://mark-rolich.github.io/Magnifier.js/ https://github.com/malaman/js-image-zoom
     script = """
+    <script src="https://code.jquery.com/jquery-3.6.4.slim.min.js" integrity="sha256-a2yjHM4jnF9f54xUQakjZGaqYs/V1CYvWpoqZzC2/Bw=" crossorigin="anonymous"></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"> type="text/javascript"></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"> type="text/javascript"></script>
     <script>
         var options1 = {
             width: 250,
@@ -19,6 +21,9 @@ def generate_html(dataframe: pd.DataFrame):
         containers.forEach((container) => {
             new ImageZoom(container, options1);
         });
+        $(document).ready(function () {
+            $('#table').DataTable();
+        });
     </script>
     """
 
@@ -27,6 +32,7 @@ def generate_html(dataframe: pd.DataFrame):
     <header>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
         <script src="https://unpkg.com/js-image-zoom@0.7.0/js-image-zoom.js" type="application/javascript"></script>
+        <link href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css" rel="stylesheet">
         <style>
         .img-container {{
             max-width: 250px;
@@ -35,6 +41,7 @@ def generate_html(dataframe: pd.DataFrame):
         }}
         .img-container-wrapper {{ width: 550px; display: block;}}
         tbody tr {{ height: 400px; }}
+        body {{ padding: 2em; }}
         </style>
     </header>
     <body>
@@ -44,7 +51,8 @@ def generate_html(dataframe: pd.DataFrame):
     </html>
     """
 
-response = requests.get(f'{url}?source=gcv_ocr_text&notes=ITALY:Test OCR for Padua&limit=200&offset=0&limit=10')
+url = os.environ['ANNOTATER_URI']
+response = requests.get(f'{url}?source=gcv_ocr_text&notes=ITALY:Test OCR for Padua&limit=200&offset=0')
 results = response.json()['results']
 df_dict = {}
 for result in results:
@@ -71,12 +79,13 @@ for result in results:
                 pythondwc['recordedBy'] = '|'.join(pythondwc['agents'])
                 del pythondwc['agents']
             pythondwc = dict(sorted(pythondwc.items()))
-            cols['pythondwc_v1'] = '\n'.join([f'{k}: {v}' for k, v in pythondwc.items()])
+            #cols['pythondwc_v1'] = '\n'.join([f'{k}: {v}' for k, v in pythondwc.items()])
     df_dict[id] = cols
 
 table = pd.DataFrame.from_dict(df_dict, orient='index')
-table.insert(0, 'image', '<div class="img-container-wrapper"><div class="img-container"><img src="' + table.index + '" class="zoom-image"></div></div>')    
+table.insert(0, 'image', '<div class="img-container-wrapper"><div class="img-container"><img src="' + table.index + '" class="zoom-image"></div></div>')    # .str.replace('https://storage.gbif-no.sigma2.no/italy/padua-2023-03-24/', '')
 with open("index.html", "w") as writer:
     writer.write(generate_html(table))
 import pdb; pdb.set_trace()
 table.to_csv('test.csv', index=False)
+

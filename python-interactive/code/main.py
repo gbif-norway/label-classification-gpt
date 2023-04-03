@@ -24,3 +24,4 @@ import pdb; pdb.set_trace()
 
 #publish_to(results, os.environ['INPUT_QUEUE_GPT'])
 #publish_to(results, os.environ['INPUT_QUEUE_PYTHON_DWC'])
+# for result in results: publish_to([result], os.environ['INPUT_QUEUE_PYTHON_DWC'])
