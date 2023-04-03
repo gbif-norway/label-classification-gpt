@@ -4,6 +4,8 @@ import pickle
 import pycountry
 import psycopg2
 import os
+from dateutil.parser import parse
+
 
 def lines(text):
     return re.split('\n', text)
@@ -17,14 +19,6 @@ def get_connection():
       port=os.environ["DO_PG_PORT"]
   )
 
-def max_distance(word_length):
-    if word_length <= 9:
-        return 1
-    elif word_length <= 12:
-        return 2
-    else:
-        return 3
-
 def exact_search(candidate, table, column, additional_where=''):
     with get_connection() as connection:
         with connection.cursor() as cursor:
@@ -35,7 +29,29 @@ def exact_search(candidate, table, column, additional_where=''):
                 return exact_match[0]
     return None
 
-def fuzzy_search(candidate, table, column, additional_where=''):
+def max_distance(word):
+    word_length = len(word)
+    if word_length <= 9:
+        return 1
+    elif word_length <= 12:
+        return 2
+    else:
+        return 3
+    
+def max_distance_fuzzier(word):
+    word_length = len(word)
+    if word_length <= 3:
+        return 1
+    if word_length <= 6:
+        return 2
+    if word_length <= 9:
+        return 3
+    elif word_length <= 12:
+        return 4
+    else:
+        return 5
+
+def fuzzy_search(candidate, table, column, max_distance, additional_where=''):
     if len(candidate) < 3:
         return (None, None)
     print(f'Doing fuzzy search for {candidate} in {column} with {additional_where}')
@@ -44,7 +60,7 @@ def fuzzy_search(candidate, table, column, additional_where=''):
             sql = f"""
                 SELECT {column}, levenshtein({column}, '{candidate}') AS distance
                 FROM {table}
-                WHERE levenshtein({column}, '{candidate}') <= {max_distance(len(candidate))}
+                WHERE levenshtein({column}, '{candidate}') <= {max_distance}
                 {additional_where}
                 ORDER BY distance ASC
                 LIMIT 3;
@@ -61,7 +77,7 @@ def fuzzy_search(candidate, table, column, additional_where=''):
             #    print(f'No matches within allowed distance found for {candidate} with distance {max_distance(len(candidate))}.')
     return (None, None)
 
-def get_scientific_name(full):
+def scientific_name(full):
     #print('-----Searching taxa-----')
     words = _get_latin_words_for_search(full)
     genus = None
@@ -74,7 +90,7 @@ def get_scientific_name(full):
     if not genus:
         min_distance = 9999
         for i, word in enumerate(words):
-            candidate, distance = fuzzy_search(word, table='distinct_genus', column='genus')
+            candidate, distance = fuzzy_search(word, table='distinct_genus', column='genus', max_distance=max_distance(word))
             if candidate and distance <= min_distance:
                 genus = candidate
                 min_distance = distance
@@ -88,7 +104,7 @@ def get_scientific_name(full):
             
         family = None
         for word in words:
-            candidate, distance = (fuzzy_search(word, table='distinct_family', column='family'))
+            candidate, distance = (fuzzy_search(word, table='distinct_family', column='family', max_distance=max_distance(word)))
             if candidate and distance <= min_distance:
                 family = candidate
         return family 
@@ -101,7 +117,7 @@ def get_scientific_name(full):
     where = f"AND genus = '{genus}'"
     epithet = exact_search(epithet_candidate, table='taxonomy', column='infraspecificepithet', additional_where=where)
     if not epithet:
-        epithet, distance = fuzzy_search(epithet_candidate, table='taxonomy', column='infraspecificepithet', additional_where=where)
+        epithet, distance = fuzzy_search(epithet_candidate, table='taxonomy', column='infraspecificepithet', additional_where=where, max_distance=max_distance_fuzzier(word))
     if epithet:
         return f'{genus} {epithet}'
     return genus
@@ -112,7 +128,7 @@ def elevation(full):
     units = r'([mм]|ft)'
     non_digit_la = r'(?!\d)'
     non_digit_lb = r'(?<!\d)'
-    prefix = r'(alt|h|altitude|Высотанадуровнемморя)[\-\.:]*' # Высота над уровнем моря = Height above sea level
+    prefix = r'(alt|h|altitude|height|Высотанадуровнемморя)[\-\.:]*' # Высота над уровнем моря = Height above sea level
 
     for line in lines:
         unspaced_line = line.replace(' ', '')
@@ -139,9 +155,9 @@ def elevation(full):
     if matches:
         return matches.group(2)
 
-    matches = re.search(f'{non_digit_lb}({numbers}{units}?){prefix}', unspaced, re.IGNORECASE|re.UNICODE)
-    if matches:
-        return matches.group(1)
+    # matches = re.search(f'{non_digit_lb}({numbers}{units}?){prefix}', unspaced, re.IGNORECASE|re.UNICODE)
+    # if matches:
+    #     return matches.group(1)
 
     return None
 
@@ -164,13 +180,19 @@ def record_number(lines):
             return matches.group(2)
     return None
 
-def year(full):
+def date(full):
     lines = re.split('\n', full)
+    # for line in lines:
+    #     try:
+    #         date = parse(line, fuzzy=True)
+    #         return date.strftime('%Y-%m-%d')
+    #     except Exception as e:
+    #         pass
     for line in lines:
-        matches = re.search('\n[\s\n\:\.]?((1[789][0-9]|20[0-3])\d)', line)
+        matches = re.search('[\s\:\.]?((1[789][0-9]|20[012])\d)', line)
         if matches:
-            return matches.group(1)
-        return None
+            return matches.group(1).replace(':', '').replace('.', '').replace(' ', '')
+    return None
 
 def names_known_collectors(full, countrycode):
     #print('-----Searching people-----')
@@ -183,7 +205,7 @@ def names_known_collectors(full, countrycode):
     for candidate in candidates:
         if candidate not in found_names:
             where = f" AND countrycode='{countrycode}'" if countrycode else None
-            name, distance = fuzzy_search(candidate, table='people', column='person_name', additional_where=where)
+            name, distance = fuzzy_search(candidate, table='people', column='person_name', additional_where=where, max_distance=max_distance(candidate))
             if name:
                 found_names.append(name)
     return [x.title() for x in found_names]

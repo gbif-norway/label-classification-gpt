@@ -48,7 +48,8 @@ def do_work(connection, channel, delivery_tag, body):
         'maximumElevationInMeters': max,
         'verbatimElevation': elevation,
         #'scientificName': fuzzy_search_python.get_scientific_name(msg.Text),
-        'scientificName': extractor.get_scientific_name(msg.Text),
+        'eventDate': extractor.date(msg.Text),
+        'scientificName': extractor.scientific_name(msg.Text),
         'agents': extractor.names_known_collectors(msg.Text, 'IT')
     }
     response = {k: v for k, v in dwc.items() if v is not None}
