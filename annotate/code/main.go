@@ -20,7 +20,7 @@ func main() {
 	if err != nil { log.Fatalf("Failed to open a channel: %s", err) }
 	defer ch.Close()
 
-	qInGPT, err := ch.QueueDeclare(os.Getenv("INPUT_QUEUE_ANNOTATE_GPT"), false, false, false, false, nil)
+	qInGPT, err := ch.QueueDeclare(os.Getenv("OUTPUT_QUEUE_GPT"), false, false, false, false, nil)
 	if err != nil { log.Fatalf("Failed to declare a queue: %s", err) }
 
 	qOut, err := ch.QueueDeclare(os.Getenv("OUTPUT_QUEUE_ANNOTATE"), false, false, false, false, nil)
