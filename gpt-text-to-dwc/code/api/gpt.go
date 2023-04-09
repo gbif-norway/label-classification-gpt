@@ -17,31 +17,25 @@ type Message struct {
 }
 
 func ExtractDWC(ocrText string) (map[string]interface{}, error) {
+	promptSourceUrl := os.Getenv("GPT_PROMPT")
+	presp, err := http.Get(promptSourceUrl)
+	if err != nil {
+		return nil, err
+	}
+	defer presp.Body.Close()
+
+	if presp.StatusCode != http.StatusOK {
+		return nil, errors.New(fmt.Sprintf("Error fetching the file, status code: %d", presp.StatusCode))
+	}
+
+	pbody, err := ioutil.ReadAll(presp.Body)
+	if err != nil {
+		return nil, err
+	}
+
+	systemPrompt := string(pbody)
+
 	url := "https://api.openai.com/v1/chat/completions"
-	systemPrompt := `I accurately classify extracted OCR text from herbarium specimen scans into ONLY the following Darwin Core terms:
-
-	- scientificName: Full scientific name, not containing identification qualifications.
-	- catalogNumber: Unique identifier for the record in the dataset or collection.
-	- recordNumber: Identifier given during recording, often linking field notes and Occurrence record.
-	- recordedBy: List of people, groups, or organizations responsible for recording the original Occurrence.
-	- year: Four-digit year of the Event.
-	- month: Integer for the month of the Event.
-	- day: Integer for the day of the Event.
-	- dateIdentified: Date when the subject was determined to represent the Taxon.
-	- identifiedBy: Person, group, or organization assigning the Taxon to the subject.
-	- verbatimIdentification: Taxonomic identification as it appeared in the original record.
-	- kingdom: Full scientific name of the kingdom in which the taxon is classified.
-	- country: Name of the country or major administrative unit for the Location.
-	- countryCode: Standard code for the country of the Location.
-	- decimalLatitude: Geographic latitude in decimal degrees of the Location's center.
-	- decimalLongitude: Geographic longitude in decimal degrees of the Location's center.
-	- location: A spatial region or named place.
-	- minimumElevationInMeters: The lower limit of the range of elevation in meters.
-	- maximumElevationInMeters: The upper limit of the range of elevation in meters.
-	- verbatimElevation: The original description of the elevation.
-
-	If there are multiple valid values for a term, I separate them with "|". If I can't identify information for a specific term, and/or the term is blank, I don't include it in my response. I respond in minified JSON.`
-
 	log.Printf("Extracting DWC from: %s", ocrText)
 
 	if ocrText == "" {
