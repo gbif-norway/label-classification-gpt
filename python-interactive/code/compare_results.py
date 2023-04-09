@@ -131,21 +131,44 @@ def get_genus_species(scientific_name):
 def table_text(dwc_dict):
     return '\n'.join([f'{k}: {v}' for k, v in dwc_dict.items()])
 
-filter = 'source=gcv_merged_close_blocks&search=urn:catalog:O&limit=200&offset=0' # for GBIF specimens
-results = query_url(f"{os.environ['ANNOTATER_URI']}?{filter}")
-df_dict = {}
-for result in results:
-    print(result['resolvable_object_id'])
-    ocr = re.sub('UiO : Natural History Museum University of Oslo inches.+\n', '', result['annotation'])
-    img, gbif_dwc = get_gbif_dwc_and_img(result['resolvable_object_id']) # for GBIF specimens
-    cols = { 'image': image_html(img), 'ocr': ocr }
-    common, gbif_dwc_diff, gpt4_diff = compare_dwcs(gbif_dwc, get_gpt4_dwc(result['resolvable_object_id']))
-    common_text = f'<div class="common"><h4>Common</h4>{table_text(common)}</div>'
-    cols['gbif_dwc'] = f'{common_text}<div class="different"><h4>Differing</h4>{table_text(gbif_dwc_diff)}</div>'
-    cols['gpt4_dwc'] = f'{common_text}<div class="different"><h4>Differing</h4>{table_text(gpt4_diff)}</div>'
-    df_dict[result['resolvable_object_id']] = cols
+def make_gbif_gpt4_comparison_tables(filter):
+    results = query_url(f"{os.environ['ANNOTATER_URI']}?{filter}")
+    html_dict = {}
+    df_dict = {}
+    for result in results:
+        print(result['resolvable_object_id'])
+        ocr = re.sub('UiO : Natural History Museum University of Oslo inches.+\n', '', result['annotation'])
+        img, gbif_dwc = get_gbif_dwc_and_img(result['resolvable_object_id'])
+        common, gbif_dwc_diff, gpt4_diff = compare_dwcs(gbif_dwc, get_gpt4_dwc(result['resolvable_object_id']))
+        common_text = f'<div class="common"><h4>Common</h4>{table_text(common)}</div>'
+        html_dict[result['resolvable_object_id']] = {
+            'image': image_html(img),
+            'ocr': ocr,
+            'gbif_dwc': f'{common_text}<div class="different"><h4>Differing</h4>{table_text(gbif_dwc_diff)}</div>',
+            'gpt4_dwc': f'{common_text}<div class="different"><h4>Differing</h4>{table_text(gpt4_diff)}</div>'
+        }
+        df_dict[result['resolvable_object_id']] = {
+            'image': image_html(img),
+            'ocr': ocr,
+            'common': common,
+            'gbif_dwc_diff': gbif_dwc_diff,
+            'gpt4_diff': gpt4_diff
+        }
 
-table = pd.DataFrame.from_dict(df_dict, orient='index')
-with open("index-uio.html", "w") as writer:
-    writer.write(generate_html(table))
+    return pd.DataFrame.from_dict(html_dict, orient='index'), pd.DataFrame.from_dict(df_dict, orient='index')
+
+filter = 'source=gcv_merged_close_blocks&search=urn:catalog:O&limit=200&offset=0'
+html_table, df_table = make_gbif_gpt4_comparison_tables(filter)
+with open('index-uio.html', 'w') as writer:
+    writer.write(generate_html(html_table))
 import pdb; pdb.set_trace()
+
+
+# filter = 'source=gcv_ocr_text&notes=ITALY:Test OCR for Padua&limit=200&offset=0' # for Italy specimens
+# img, gbif_dwc = id, None # for Italy specimens # .str.replace('https://storage.gbif-no.sigma2.no/italy/padua-2023-03-24/', '')
+    
+            # pythondwc = annotation['annotation']
+            # if 'agents' in pythondwc:
+            #     pythondwc['recordedBy'] = '|'.join(pythondwc['agents'])
+            #     del pythondwc['agents']
+            # pythondwc = dict(sorted(pythondwc.items()))
