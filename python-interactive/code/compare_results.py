@@ -25,14 +25,7 @@ def generate_html(dataframe: pd.DataFrame):
             new ImageZoom(container, options1);
         });
         $(document).ready(function () {
-            $('#table').DataTable( {
-            "columns": [
-                null,
-                null,
-                { "width": "390px" },
-                { "width": "390px" }
-            ]
-            } );
+            $('#table').DataTable( { "columns": [ null, null, { "width": "390px" }, { "width": "390px" } ] } );
         });
     </script>
     """
@@ -64,27 +57,8 @@ def generate_html(dataframe: pd.DataFrame):
     </html>
     """
 
-def get_dwc_fields(record):
-    dwcs = { key:value for (key,value) in record.items() if key in FIELDS and value is not None }
-    if 'elevation' in dwcs:
-        dwcs['verbatimElevation'] = dwcs['elevation']
-        del dwcs['elevation']
-    if 'location' in dwcs:
-        dwcs['locality'] = dwcs['location']
-        del dwcs['location']
-    return dwcs
-
 def image_html(img_url):
     return f'<div class="img-container-wrapper"><div class="img-container"><img src="{img_url}" class="zoom-image"></div></div>'
-
-def get_dwc_and_img_from_gbif(occurrenceID):
-    query_string = f'https://api.gbif.org/v1/occurrence/search?datasetKey=68a0650f-96ae-499c-8b2a-a4f92c01e4b3&occurrenceID={occurrenceID}&mediaType=StillImage&multimedia=true'
-    response = requests.get(query_string)
-    if response.status_code == requests.codes.ok:
-        results = response.json().get('results')
-        img = results[0]['media'][0]['identifier']
-        return img, get_dwc_fields(results[0])
-    return None, None
 
 def query_url(url):
     max_retries = 20
@@ -101,70 +75,77 @@ def query_url(url):
     
     raise Exception(f'URL {url} is still inaccessible')
 
-url = os.environ['ANNOTATER_URI']
-# filter = 'source=gcv_ocr_text&notes=ITALY:Test OCR for Padua&limit=200&offset=0' # for Italy specimens
+def get_gbif_dwc_and_img(occurrenceID, datasetKey='68a0650f-96ae-499c-8b2a-a4f92c01e4b3'):
+    query_string = f'https://api.gbif.org/v1/occurrence/search?datasetKey={datasetKey}&occurrenceID={occurrenceID}&mediaType=StillImage&multimedia=true'
+    results = query_url(query_string)
+    img = results[0]['media'][0]['identifier']
+    return img, results[0]
+
+def get_gpt4_dwc(id):
+    gpt4 = query_url(f"{os.environ['ANNOTATER_URI']}?resolvable_object_id={id}&source=gpt4&limit=1")  # Should give most recent gpt4 annotation
+    gpt4_ann = gpt4[0]['annotation']
+    try:
+        gpt4_ann = gpt4_ann['choices'][0]['message']['content']
+    except KeyError:
+        pass
+    return gpt4_ann
+
+def get_dwc_fields(record):
+    dwcs = {key: value for (key, value) in record.items() if key in FIELDS and value is not None}
+    dwcs = rename_keys(dwcs, {'elevation': 'verbatimElevation', 'location': 'locality'})
+    return dwcs
+
+def rename_keys(dct, key_map):
+    return {key_map.get(key, key): value for key, value in dct.items()}
+
+def standardise_dwcs_for_comparison(dict1, dict2):
+    dict1, dict2 = get_dwc_fields(dict1), get_dwc_fields(dict2)
+    all_keys = set(dict1.keys()) | set(dict2.keys())
+    dict1, dict2 = map_dicts_to_keys(dict1, dict2, all_keys)
+    return sort_dict(dict1), sort_dict(dict2)
+
+def map_dicts_to_keys(dict1, dict2, keys):
+    return ({key: dict1.get(key, None) for key in keys},
+            {key: dict2.get(key, None) for key in keys})
+
+def sort_dict(dct):
+    return dict(sorted(dct.items()))
+
+def compare_dwcs(dict1, dict2):
+    dict1, dict2 = standardise_dwcs_for_comparison(dict1, dict2)
+    common = {k: v for k, v in dict1.items() if str(dict2[k]).lower() == str(dict1[k]).lower()}
+    handle_scientific_name(common, dict1, dict2)
+    return (common,
+            {k: v for k, v in dict1.items() if k not in common},
+            {k: v for k, v in dict2.items() if k not in common})
+
+def handle_scientific_name(common, dict1, dict2):
+    if 'scientificName' not in common and dict1['scientificName'] is not None and dict2['scientificName'] is not None:
+        name1, name2 = map(get_genus_species, (dict1['scientificName'], dict2['scientificName']))
+        if name1 == name2:
+            common['scientificName'] = name1.title()
+
+def get_genus_species(scientific_name):
+    return ' '.join(scientific_name.split(' ')[0:2]).lower()
+
+def table_text(dwc_dict):
+    return '\n'.join([f'{k}: {v}' for k, v in dwc_dict.items()])
+
 filter = 'source=gcv_merged_close_blocks&search=urn:catalog:O&limit=200&offset=0' # for GBIF specimens
-results = query_url(f'{url}?{filter}')
+results = query_url(f"{os.environ['ANNOTATER_URI']}?{filter}")
 df_dict = {}
 for result in results:
-    id = result['resolvable_object_id']
-    print(id)
-    #if not result['annotation'].startswith('UiO : Natural History Museum University of Oslo inches'):
+    print(result['resolvable_object_id'])
     ocr = re.sub('UiO : Natural History Museum University of Oslo inches.+\n', '', result['annotation'])
-    # img, gbif_dwc = id, None # for Italy specimens # .str.replace('https://storage.gbif-no.sigma2.no/italy/padua-2023-03-24/', '')
-    img, gbif_dwc = get_dwc_and_img_from_gbif(id) # for GBIF specimens
+    img, gbif_dwc = get_gbif_dwc_and_img(result['resolvable_object_id']) # for GBIF specimens
     cols = { 'image': image_html(img), 'ocr': ocr }
-    annotations = query_url(f"{url}?resolvable_object_id={id}&source=gpt4")
-    # Should make it so we get the most recent gpt4 annotation maybe?
-    if not annotations:
-        import pdb; pdb.set_trace()
-    for annotation in annotations:
-        if annotation['source'] == 'gpt4': 
-            try:
-                gpt4 = annotation['annotation']['choices'][0]['message']['content']
-            except KeyError:
-                gpt4 = annotation['annotation']
-            gpt4 = {k: v for k, v in gpt4.items() if v}
-            gpt4 = get_dwc_fields(gpt4)
-            gpt4 = dict(sorted(gpt4.items()))
-            break
-            # for i in range(3):
-            #     if f'gpt4_{i}' not in cols:
-            #         cols[f'gpt4_{i}'] = gpt4
-            #         break
-        if annotation['source'] == 'pythondwc_v1':
-            pythondwc = annotation['annotation']
-            if 'agents' in pythondwc:
-                pythondwc['recordedBy'] = '|'.join(pythondwc['agents'])
-                del pythondwc['agents']
-            pythondwc = dict(sorted(pythondwc.items()))
-            #cols['pythondwc_v1'] = '\n'.join([f'{k}: {v}' for k, v in pythondwc.items()])
-    if gbif_dwc:
-        all_keys = set(gbif_dwc.keys()) | set(gpt4.keys())
-        gbif_dwc = {key: gbif_dwc.get(key, None) for key in all_keys}
-        gpt4 = {key: gpt4.get(key, None) for key in all_keys}
-        #cols['gbif_dwc'] = '\n'.join([f'{k}: {v}' for k, v in dict(sorted(gbif_dwc.items())).items()])
-        #cols['gpt4'] = '\n'.join([f'{k}: {v}' for k, v in dict(sorted(gpt4.items())).items()])
-        gbif_items = dict(sorted(gbif_dwc.items()))
-        common = [f'{k}: {v}' for k, v in gbif_items.items() if str(gpt4[k]).lower() == str(gbif_dwc[k]).lower()]
-        if 'scientificName' not in common and gbif_items['scientificName'] is not None and gpt4['scientificName'] is not None: 
-            if ' '.join(gbif_items['scientificName'].split(' ')[0:2]).lower() == ' '.join(gpt4['scientificName'].split(' ')[0:2]).lower():
-                common.append(f"scientificName: {gbif_items['scientificName'].split(' ')[0:2]}")
-                del gbif_items['scientificName']
-                del gpt4['scientificName']
-        common_dwcs = '\n'.join(common)
-        gbif_items_text = '\n'.join([f'{k}: {v}' for k, v in gbif_items.items() if str(gpt4[k]).lower() != str(gbif_dwc[k]).lower()])
-        cols['gbif_dwc'] = f'<div class="common"><h4>Common</h4>{common_dwcs}</div><div class="different"><h4>Differing</h4>{gbif_items_text}</div>'
-        gpt4_items = dict(sorted(gpt4.items()))
-        gpt4_items_text = '\n'.join([f'{k}: {v}' for k, v in gpt4_items.items() if str(gpt4[k]).lower() != str(gbif_dwc[k]).lower()])
-        cols['gpt4'] = f'<div class="common"><h4>Common</h4>{common_dwcs}</div><div class="different"><h4>Differing</h4>{gpt4_items_text}</div>'
-    else:
-        cols['gpt4'] = '\n'.join([f'{k}: {v}' for k, v in dict(sorted(gpt4.items())).items()])
-    df_dict[id] = cols
+    common, gbif_dwc_diff, gpt4_diff = compare_dwcs(gbif_dwc, get_gpt4_dwc(result['resolvable_object_id']))
+    common_text = f'<div class="common"><h4>Common</h4>{table_text(common)}</div>'
+    cols['gbif_dwc'] = f'{common_text}<div class="different"><h4>Differing</h4>{table_text(gbif_dwc_diff)}</div>'
+    cols['gpt4_dwc'] = f'{common_text}<div class="different"><h4>Differing</h4>{table_text(gpt4_diff)}</div>'
+    df_dict[result['resolvable_object_id']] = cols
 
 table = pd.DataFrame.from_dict(df_dict, orient='index')
 with open("index-uio.html", "w") as writer:
     writer.write(generate_html(table))
 import pdb; pdb.set_trace()
-table.to_csv('test.csv', index=False)
-
