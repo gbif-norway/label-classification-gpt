@@ -20,39 +20,28 @@ func main() {
 	if err != nil { log.Fatalf("Failed to open a channel: %s", err) }
 	defer ch.Close()
 
-	qInGPT, err := ch.QueueDeclare(os.Getenv("OUTPUT_QUEUE_GPT"), false, false, false, false, nil)
+	qIn, err := ch.QueueDeclare(os.Getenv("INPUT_QUEUE_ANNOTATE"), false, false, false, false, nil)
 	if err != nil { log.Fatalf("Failed to declare a queue: %s", err) }
 
 	qOut, err := ch.QueueDeclare(os.Getenv("OUTPUT_QUEUE_ANNOTATE"), false, false, false, false, nil)
 	if err != nil { log.Fatalf("Failed to declare a queue: %s", err) }
 
-	qInPythonDWC, err := ch.QueueDeclare(os.Getenv("OUTPUT_QUEUE_PYTHON_DWC"), false, false, false, false, nil)
-	if err != nil { log.Fatalf("Failed to declare a queue: %s", err) }
-
-	msgsGPT, err := ch.Consume(qInGPT.Name, "", true, false, false, false, nil)
-	if err != nil { log.Fatalf("Failed to register a consumer: %s", err) }
-
-	msgsPythonDWC, err := ch.Consume(qInPythonDWC.Name, "", true, false, false, false, nil)
+	msgs, err := ch.Consume(qIn.Name, "", true, false, false, false, nil)
 	if err != nil { log.Fatalf("Failed to register a consumer: %s", err) }
 
 	forever := make(chan bool)
 
-	type Message struct {
-		ID   string `json:"id"`
-		Text string `json:"text"`
-	}
-
-	go processMessages(msgsGPT, ch, qOut, "gpt4")
-	go processMessages(msgsPythonDWC, ch, qOut, "pythondwc_v1")
+	go processMessages(msgs, ch, qOut)
 
 	log.Printf(" [*] Waiting for messages. To exit press CTRL+C")
 	<-forever
 }
 
-func processMessages(msgs <-chan amqp.Delivery, ch *amqp.Channel, qOut amqp.Queue, modelName string) {
+func processMessages(msgs <-chan amqp.Delivery, ch *amqp.Channel, qOut amqp.Queue) {
 	type Message struct {
 		ID   string `json:"id"`
 		Text string `json:"text"`
+		Source string `json:"Source"`
 	}
 
 	for d := range msgs {
@@ -62,7 +51,7 @@ func processMessages(msgs <-chan amqp.Delivery, ch *amqp.Channel, qOut amqp.Queu
 			continue
 		}
 
-		response, err := annotate.Annotate(&msg.ID, &msg.Text, modelName, "")
+		response, err := annotate.Annotate(&msg.ID, &msg.Text, &msg.Source, "")
 		if err != nil {
 			log.Printf("Error running annotate: %s", err)
 			continue

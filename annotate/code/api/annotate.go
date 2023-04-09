@@ -10,7 +10,7 @@ import (
 	"log"
 )
 
-func Annotate(ID *string, text *string, source string, notes string) (map[string]interface{}, error) {
+func Annotate(ID *string, text *string, source *string, notes string) (map[string]interface{}, error) {
 	var url = os.Getenv("ANNOTATER_URI")
 	log.Printf("Starting annotation process for: %s", text)
 

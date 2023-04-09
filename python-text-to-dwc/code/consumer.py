@@ -10,11 +10,12 @@ import threading
 class Message(NamedTuple):
     ID: str
     Text: str
+    Source: str
 
 def publish(response):
     connection = pika.BlockingConnection(pika.URLParameters(os.getenv("RABBIT_MQ_URI")))
     channel = connection.channel()
-    out_queue = channel.queue_declare(queue=os.getenv("OUTPUT_QUEUE_PYTHON_DWC"))
+    out_queue = channel.queue_declare(queue=os.getenv("INPUT_QUEUE_ANNOTATE"))
     properties = pika.BasicProperties(content_type='text/plain', delivery_mode=pika.DeliveryMode.Persistent)
     channel.basic_publish(exchange='', routing_key=out_queue.method.queue, body=response, properties=properties)
     connection.close()
@@ -61,7 +62,7 @@ def do_work(connection, channel, delivery_tag, body):
     print('Converted to:')
     print(response)
     try:
-        new_msg = Message(ID=msg.ID, Text=json.dumps(response))
+        new_msg = Message(ID=msg.ID, Text=json.dumps(response), source='python-text-to-dwc')
         msg_bytes = json.dumps(new_msg._asdict())
         publish(msg_bytes)
     except Exception as err:

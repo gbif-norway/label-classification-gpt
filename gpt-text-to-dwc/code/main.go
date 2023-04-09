@@ -38,7 +38,7 @@ func main() {
 	}
 
 	qOut, err := ch.QueueDeclare(
-		os.Getenv("OUTPUT_QUEUE_GPT"),
+		os.Getenv("INPUT_QUEUE_ANNOTATE"),
 		false,
 		false,
 		false,
@@ -65,8 +65,9 @@ func main() {
 	forever := make(chan bool)
 
 	type Message struct {
-		ID      string `json:"id"`
-		Text    string `json:"text"`
+		ID   string `json:"id"`
+		Text string `json:"text"`
+		Source string `json:"Source"`
 	}
 
 	go func() {
@@ -93,6 +94,7 @@ func main() {
 			newMsg := Message{
 				ID:      msg.ID,
 				Text:    string(responseBytes),
+				Source:  "gpt4",
 			}
 
 			msgBytes, err := json.Marshal(newMsg)
