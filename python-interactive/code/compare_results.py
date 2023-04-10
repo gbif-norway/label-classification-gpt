@@ -1,13 +1,13 @@
 import os
-import json
+import numpy as np
 import requests
 import pandas as pd
 import re
 import time
+from collections import Counter
 
-FIELDS = ['scientificName', 'catalogNumber', 'recordNumber', 'recordedBy', 'year', 'month', 'day', 'dateIdentified', 'identifiedBy', 'verbatimIdentification', 'country', 'decimalLatitude', 'decimalLongitude', 'location', 'minimumElevationInMeters', 'maximumElevationInMeters', 'verbatimElevation', 'elevation', 'locality']
 
-def generate_html(dataframe: pd.DataFrame):
+def generate_html(dataframe: pd.DataFrame, stats = ''):
     table_html = dataframe.to_html(index=False, border=0, table_id="table", classes='table table-striped', justify='left', escape=False, render_links=True).replace('\\n', '<br>')
     # https://codepen.io/mugunthan/pen/RwbVqYO https://mark-rolich.github.io/Magnifier.js/ https://github.com/malaman/js-image-zoom
     script = """
@@ -32,7 +32,7 @@ def generate_html(dataframe: pd.DataFrame):
 
     return f"""
     <html>
-    <header>
+    <head>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
         <script src="https://unpkg.com/js-image-zoom@0.7.0/js-image-zoom.js" type="application/javascript"></script>
         <link href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css" rel="stylesheet">
@@ -48,9 +48,11 @@ def generate_html(dataframe: pd.DataFrame):
         .common {{ background-color: #ddffd6; padding: 2px; }}
         h4 {{ font-size: 0.8em; font-weight: bold;  }}
         .different {{ background-color: #ffd6d6; padding: 2px; }}
+        #stats {{ padding: 15px 0 }}
         </style>
-    </header>
+    </head>
     <body>
+    <div id="stats">{stats}</div>
     {table_html}
     {script}
     </body>
@@ -91,9 +93,9 @@ def get_gpt4_dwc(id):
     return gpt4_ann
 
 def get_dwc_fields(record):
-    dwcs = {key: value for (key, value) in record.items() if key in FIELDS and value is not None}
-    dwcs = rename_keys(dwcs, {'elevation': 'verbatimElevation', 'location': 'locality'})
-    return dwcs
+    fields = ['scientificName', 'catalogNumber', 'recordNumber', 'recordedBy', 'year', 'month', 'day', 'dateIdentified', 'identifiedBy', 'verbatimIdentification', 'country', 'decimalLatitude', 'decimalLongitude', 'location', 'minimumElevationInMeters', 'maximumElevationInMeters', 'verbatimElevation', 'elevation', 'locality']
+    dwcs = {key: value for (key, value) in record.items() if key in fields and value is not None}
+    return rename_keys(dwcs, {'elevation': 'verbatimElevation', 'location': 'locality'})
 
 def rename_keys(dct, key_map):
     return {key_map.get(key, key): value for key, value in dct.items()}
@@ -131,40 +133,75 @@ def get_genus_species(scientific_name):
 def table_text(dwc_dict):
     return '\n'.join([f'{k}: {v}' for k, v in dwc_dict.items()])
 
-def make_gbif_gpt4_comparison_tables(filter):
+def make_gbif_gpt4_comparison_table(filter):
     results = query_url(f"{os.environ['ANNOTATER_URI']}?{filter}")
-    html_dict = {}
-    df_dict = {}
+    data = []
     for result in results:
         print(result['resolvable_object_id'])
         ocr = re.sub('UiO : Natural History Museum University of Oslo inches.+\n', '', result['annotation'])
         img, gbif_dwc = get_gbif_dwc_and_img(result['resolvable_object_id'])
         common, gbif_dwc_diff, gpt4_diff = compare_dwcs(gbif_dwc, get_gpt4_dwc(result['resolvable_object_id']))
-        common_text = f'<div class="common"><h4>Common</h4>{table_text(common)}</div>'
-        html_dict[result['resolvable_object_id']] = {
-            'image': image_html(img),
-            'ocr': ocr,
-            'gbif_dwc': f'{common_text}<div class="different"><h4>Differing</h4>{table_text(gbif_dwc_diff)}</div>',
-            'gpt4_dwc': f'{common_text}<div class="different"><h4>Differing</h4>{table_text(gpt4_diff)}</div>'
-        }
-        df_dict[result['resolvable_object_id']] = {
-            'image': image_html(img),
+        
+        data.append({
+            'resolvable_object_id': result['resolvable_object_id'],
+            'image': img,
             'ocr': ocr,
             'common': common,
             'gbif_dwc_diff': gbif_dwc_diff,
             'gpt4_diff': gpt4_diff
-        }
+        })
+    return pd.DataFrame(data)
 
-    return pd.DataFrame.from_dict(html_dict, orient='index'), pd.DataFrame.from_dict(df_dict, orient='index')
+def generate_html_table(df):
+    def table_text(dwc_dict):
+        return '\n'.join([f'{k}: {v}' for k, v in dwc_dict.items()])
+
+    html_dict = {}
+    for index, row in df.iterrows():
+        common_text = f'<div class="common"><h4>Common</h4>{table_text(row["common"])}</div>'
+        html_dict[row['resolvable_object_id']] = {
+            'image': image_html(row['image']), 
+            'ocr': row['ocr'],
+            'gbif_dwc': f'{common_text}<div class="different"><h4>Differing</h4>{table_text(row["gbif_dwc_diff"])}</div>',
+            'gpt4_dwc': f'{common_text}<div class="different"><h4>Differing</h4>{table_text(row["gpt4_diff"])}</div>'
+        }
+    return pd.DataFrame.from_dict(html_dict, orient='index')
+
+def get_stats(df):
+    ratios = []
+    key_counter = Counter()
+    for index, row in df.iterrows():
+        len_common = len(row['common'])
+        ratio = len_common / (len_common + len(row['gbif_dwc_diff']))
+        ratios.append(ratio)
+        key_counter.update(row['common'].keys())
+
+    mean_ratio = np.mean(ratios)
+    std_dev_ratio = np.std(ratios)
+    mean_text = f'GPT-4 finds the same dwc value as is stored in GBIF {mean_ratio * 100:.2f}% of the time (std dev {std_dev_ratio:.4f}).'
+    print(mean_text)
+
+    term_text = ' These are the terms GPT-4 gets right most often: '
+    total_keys = sum(key_counter.values())
+    key_percentages = {}
+    for key, count in key_counter.items():
+        key_percentages[key] = (count / total_keys) * 100
+    sorted_key_percentages = sorted(key_percentages.items(), key=lambda x: x[1], reverse=True)
+    for key, percentage in sorted_key_percentages:
+        term_text += f'{key}: {percentage:.2f}%, '
+
+    return mean_text + term_text.strip(', ')
 
 filter = 'source=gcv_merged_close_blocks&search=urn:catalog:O&limit=200&offset=0'
-html_table, df_table = make_gbif_gpt4_comparison_tables(filter)
+df = make_gbif_gpt4_comparison_table(filter)
+html_table = generate_html_table(df)
 with open('index-uio.html', 'w') as writer:
-    writer.write(generate_html(html_table))
+    writer.write(generate_html(html_table, get_stats(df)))
+
 import pdb; pdb.set_trace()
 
 
-# filter = 'source=gcv_ocr_text&notes=ITALY:Test OCR for Padua&limit=200&offset=0' # for Italy specimens
+filter = 'source=gcv_merged_close_blocks&notes=ITALY:Test OCR for Padua&limit=200&offset=0'
 # img, gbif_dwc = id, None # for Italy specimens # .str.replace('https://storage.gbif-no.sigma2.no/italy/padua-2023-03-24/', '')
     
             # pythondwc = annotation['annotation']
