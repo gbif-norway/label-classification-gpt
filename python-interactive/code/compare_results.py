@@ -130,9 +130,6 @@ def handle_scientific_name(common, dict1, dict2):
 def get_genus_species(scientific_name):
     return ' '.join(scientific_name.split(' ')[0:2]).lower()
 
-def table_text(dwc_dict):
-    return '\n'.join([f'{k}: {v}' for k, v in dwc_dict.items()])
-
 def make_gbif_gpt4_comparison_table(filter):
     results = query_url(f"{os.environ['ANNOTATER_URI']}?{filter}")
     data = []
@@ -152,10 +149,10 @@ def make_gbif_gpt4_comparison_table(filter):
         })
     return pd.DataFrame(data)
 
-def generate_html_table(df):
-    def table_text(dwc_dict):
-        return '\n'.join([f'{k}: {v}' for k, v in dwc_dict.items()])
+def table_text(dwc_dict):
+    return '\n'.join([f'{k}: {v}' for k, v in dwc_dict.items()])
 
+def generate_html_table(df):
     html_dict = {}
     for index, row in df.iterrows():
         common_text = f'<div class="common"><h4>Common</h4>{table_text(row["common"])}</div>'
@@ -199,13 +196,3 @@ with open('index-uio.html', 'w') as writer:
     writer.write(generate_html(html_table, get_stats(df)))
 
 import pdb; pdb.set_trace()
-
-
-filter = 'source=gcv_merged_close_blocks&notes=ITALY:Test OCR for Padua&limit=200&offset=0'
-# img, gbif_dwc = id, None # for Italy specimens # .str.replace('https://storage.gbif-no.sigma2.no/italy/padua-2023-03-24/', '')
-    
-            # pythondwc = annotation['annotation']
-            # if 'agents' in pythondwc:
-            #     pythondwc['recordedBy'] = '|'.join(pythondwc['agents'])
-            #     del pythondwc['agents']
-            # pythondwc = dict(sorted(pythondwc.items()))
