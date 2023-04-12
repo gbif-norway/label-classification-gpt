@@ -19,7 +19,8 @@ def publish_to(results, queue, source=None):
 url = os.environ['ANNOTATER_URI']
 #filter = 'source=gcv_ocr_text&notes=ITALY:Test OCR for Padua&limit=200&offset=0'
 #filter = 'source=gcv_ocr_text&search=urn:catalog:O&limit=200&offset=0'
-filter = 'source=gcv_merged_close_blocks&search=urn:catalog:O&limit=200&offset=0'
+# filter = 'source=gcv_merged_close_blocks&search=urn:catalog:O&limit=200&offset=0'
+filter = 'source=gcv_td_whints_text&limit=200&offset=0'
 query_string = f'{url}?{filter}'
 response = requests.get(query_string)
 results = response.json()['results']
