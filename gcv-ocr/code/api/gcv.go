@@ -3,8 +3,6 @@ package gcv
 import (
 	"context"
 	"fmt"
-	"log"
-	"os"
 
 	vision "cloud.google.com/go/vision/apiv1"
 	pb "google.golang.org/genproto/googleapis/cloud/vision/v1"
@@ -26,7 +24,7 @@ func SendToOCR(imageURL string) (*pb.AnnotateImageResponse, error) {
 		},
 		Features: []*pb.Feature{
 			{
-				Type: pb.Feature_TEXT_DETECTION,
+				Type: pb.Feature_DOCUMENT_TEXT_DETECTION,
 			},
 		},
 		ImageContext: &pb.ImageContext{
