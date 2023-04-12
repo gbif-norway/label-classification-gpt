@@ -37,6 +37,22 @@ services:
       - rabbitmq
     links: 
       - rabbitmq
+  minio-to-gcv:
+    build: ./gcv-ocr
+    image: gbifnorway/minio-to-gcv:latest
+    container_name: minio-to-gcv
+    platform: linux/amd64
+    env_file: .env
+    restart: on-failure
+    depends_on:
+      - rabbitmq
+    links: 
+      - rabbitmq
+    entrypoint: /bin/bash
+    stdin_open: true
+    tty: true
+    volumes:
+      - ./gcv-ocr/code:/srv
   python-text-to-dwc:
     build: ./python-text-to-dwc
     container_name: python-text-to-dwc
