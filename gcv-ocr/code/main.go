@@ -9,8 +9,11 @@ import (
 	"github.com/streadway/amqp"
 )
 
-// Configuration settings.
-const ()
+type Message struct {
+	ID   string `json:"id"`
+	Text string `json:"text"`
+	Source string `json:"Source"`
+}
 
 func main() {
 	conn, err := amqp.Dial(os.Getenv("RABBIT_MQ_URI"))
@@ -64,12 +67,6 @@ func main() {
 
 	forever := make(chan bool)
 
-	type Message struct {
-		ID   string `json:"id"`
-		Text string `json:"text"`
-		Source string `json:"Source"`
-	}
-
 	go func() {
 		for d := range msgs {
 			var msg Message
@@ -85,38 +82,60 @@ func main() {
 				continue
 			} 
 
-			responseBytes, err := json.Marshal(response.GetTextAnnotations())
-			if err != nil {
-				log.Fatalf("Error converting text annotations to JSON: %v", err)
+			// Extract the 'pages' and 'text' objects from the API response
+			pages := response.FullTextAnnotation.Pages
+			text := response.FullTextAnnotation.Text
+
+			// Create two new messages for 'pages' and 'text'
+			pageMsg := Message{
+				ID:     msg.ID,
+				Text:   toJSON(pages),
+				Source: "gcv_ocr_pages",
 			}
 
-			newFullMsg := Message{
-				ID:      msg.ID,
-				Text:    string(responseBytes),
-				Source:  "gcv_pages",
+			textMsg := Message{
+				ID:     msg.ID,
+				Text:   toJSON(text),
+				Source: "gcv_ocr_text",
 			}
 
-			fullMsgBytes, err := json.Marshal(newFullMsg)
-			if err != nil {
-				log.Printf("Failed to encode message: %s", err)
-				return
-			}
-
-			err = ch.Publish(
-				"",
-				qOut.Name,
-				false,
-				false,
-				amqp.Publishing{
-					ContentType: "application/json",
-					Body:        fullMsgBytes,
-				})
-			if err != nil {
-				log.Printf("Failed to publish a message: %s", err)
-			}
+			// Publish the 'pages' and 'text' messages to the output queue
+			publishMsg(ch, qOut.Name, pageMsg)
+			publishMsg(ch, qOut.Name, textMsg)
 		}
 	}()
 
 	log.Printf(" [*] Waiting for messages. To exit press CTRL+C")
 	<-forever
+}
+
+func toJSON(v interface{}) string {
+	bytes, err := json.Marshal(v)
+	if err != nil {
+		log.Printf("Error converting value to JSON: %v", err)
+		return ""
+	}
+	return string(bytes)
+}
+
+func publishMsg(ch *amqp.Channel, queueName string, msg Message) {
+	bytes, err := json.Marshal(msg)
+	if err != nil {
+		log.Printf("Failed to encode message: %s", err)
+		return
+	}
+
+	err = ch.Publish(
+		"",
+		queueName,
+		false,
+		false,
+		amqp.Publishing{
+			ContentType: "application/json",
+			Body:        bytes,
+		},
+	)
+	if err != nil {
+		log.Printf("Failed to publish a message: %s", err)
+	}
 }
