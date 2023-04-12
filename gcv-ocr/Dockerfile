@@ -1,4 +1,13 @@
-FROM python:3-slim
-RUN pip install --upgrade pip && pip install pika requests minio
-RUN pip install google-auth google-cloud-core google-cloud-vision 
-WORKDIR /srv
+FROM golang:1.19.3-alpine AS build
+WORKDIR /app
+COPY ./code ./
+RUN go mod download
+RUN go build -o /gcv-ocr
+
+## Deploy
+FROM alpine:3
+WORKDIR /
+RUN addgroup -S appgroup && adduser -S appuser -G appgroup
+USER appuser
+COPY --from=build /gcv-ocr /gcv-ocr
+ENTRYPOINT [ "/gcv-ocr" ]
