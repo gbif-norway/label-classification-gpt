@@ -1,0 +1,102 @@
+
+    <html>
+    <head>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <script src="https://unpkg.com/js-image-zoom@0.7.0/js-image-zoom.js" type="application/javascript"></script>
+        <link href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css" rel="stylesheet">
+        <style>
+        .img-container {
+            max-width: 300px;
+            max-height: 400px;
+            display: block;
+        }
+        .img-container-wrapper { width: 550px; display: block;}
+        tbody tr { height: 400px; }
+        body { padding: 2em; }
+        .common { background-color: #ddffd6; padding: 2px; }
+        h4 { font-size: 0.8em; font-weight: bold;  }
+        .different { background-color: #ffd6d6; padding: 2px; }
+        #stats { padding: 15px 0 }
+        </style>
+    </head>
+    <body>
+    <div id="stats"></div>
+    <table class="dataframe table table-striped" id="table">
+  <thead>
+    <tr style="text-align: left;">
+      <th>image</th>
+      <th>ocr</th>
+      <th>gpt4</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><div class="img-container-wrapper"><div class="img-container"><img src="https://storage.gbif-no.sigma2.no/img/uio-algae/20230411_113214.jpg" class="zoom-image"></div></div></td>
+      <td>Griffithein berkatze Eugh. 83.<br>3<br>Herb. J. M. Areschoug.<br>Anotrichium barbatum<br>(C. Agardh) Nägeli<br>(syn. Griffithsia barbala)<br># Varit 718</td>
+      <td>recordedBy: J. M. Areschoug<br>recordNumber: 718<br>catalogNumber: 83<br>scientificName: Anotrichium barbatum (C. Agardh) Nägeli<br>verbatimIdentification: Griffithsia barbata</td>
+    </tr>
+    <tr>
+      <td><div class="img-container-wrapper"><div class="img-container"><img src="https://storage.gbif-no.sigma2.no/img/uio-algae/20230411_113214-1.jpg" class="zoom-image"></div></div></td>
+      <td>Griffithia corallina tz. Götze,<br>144.<br>Guffithsia corallinoides<br>(Linnaeus) Batters<br>(syn. G. corallina)<br>Von Västkanten of Late voren ved krin<br>pianie– September 1940. Schütberen</td>
+      <td>year: 1940<br>month: 9<br>locality: Västkanten of Late voren ved krin pianie<br>recordedBy: G. Götze<br>catalogNumber: 144<br>scientificName: Griffithia corallinoides</td>
+    </tr>
+    <tr>
+      <td><div class="img-container-wrapper"><div class="img-container"><img src="https://storage.gbif-no.sigma2.no/img/uio-algae/20230411_113136.jpg" class="zoom-image"></div></div></td>
+      <td>Desmotrichum undulatum.<br>mai 1846.<br>Lillesend.<br>Punktaria tenuissima<br>(C. Agardh) Greville<br>74<br>Gostera marund.<br>-<br>Schübesons<br>Hortus botanicus Christianiensis.</td>
+      <td>year: 1846<br>month: 5<br>locality: Hortus botanicus Christianiensis<br>recordedBy: Schübesons<br>identifiedBy: C. Agardh<br>catalogNumber: 74<br>scientificName: Desmotrichum undulatum<br>verbatimIdentification: Punktaria tenuissima</td>
+    </tr>
+    <tr>
+      <td><div class="img-container-wrapper"><div class="img-container"><img src="https://storage.gbif-no.sigma2.no/img/uio-algae/20230411_113047.jpg" class="zoom-image"></div></div></td>
+      <td>desmer and datum.<br>6<br>danning of<br>Punctaria tenuiss ima<br>(C. Agardh) Greville<br>(Syn- Desmotrichum undulation)<br>1<br>+ Myrisen. (aseveyel. Joobienture<br>bey, Haustion.<br>Vendefron.<br>Saf<br>Eletr<br>20.7.2017<br>Vindesport.<br>IN<br>Laz<br>ees veg<br>Vindes der<br>26--7-90.<br>Hortus botanicus Christianiensis.</td>
+      <td>day: 20<br>year: 2017<br>month: 7<br>locality: Hortus botanicus Christianiensis<br>scientificName: Punctaria tenuissima (C. Agardh) Greville</td>
+    </tr>
+    <tr>
+      <td><div class="img-container-wrapper"><div class="img-container"><img src="https://storage.gbif-no.sigma2.no/img/uio-algae/20230411_112616.jpg" class="zoom-image"></div></div></td>
+      <td>MADE IN GERMANY<br>RS 1<br>RAISER<br>Ceramiums.<br>Algæ Scandinaviæ exsiccatæ. Ser. nov.<br>ARESCHOUG<br>EX MUSEO BOTAN. STOCKHOLM.<br>Aresch.Alg.Scand.exs.Ser.nov.<br>12.Ceramium acanthonotum Carm.<br>Christiansund in Norvegia.Jul.<br>Fr.Ekman.<br>anbhonotum Cann.<br>J.E. Areschong.<br>Molde Norvegia<br>Rug.</td>
+      <td>month: 7<br>country: Norvegia<br>locality: Christiansund|Molde<br>recordedBy: Fr. Ekman<br>identifiedBy: J.E. Areschong<br>catalogNumber: RS 1<br>scientificName: Ceramium acanthonotum Carm.</td>
+    </tr>
+    <tr>
+      <td><div class="img-container-wrapper"><div class="img-container"><img src="https://storage.gbif-no.sigma2.no/img/uio-algae/20230411_112534.jpg" class="zoom-image"></div></div></td>
+      <td>10<br>8<br>11<br>fach<br>2<br>3<br>H. G. Simmons, Iter faeroense 1895.<br>No 123<br>Cern<br>Cramium acanthonothum (arn)<br>by.<br>Algae.<br>Faeroa. Ad Eide insulae Österö, in alt. m.<br>14.<br>VIII. 1895.<br>leg. & det. H. G. Simmons.<br>Hortus botanicus Christianiensis.<br>Coremeent<br>avauthorstein ( Com fly</td>
+      <td>day: 14<br>year: 1895<br>month: 8<br>country: Faeroa<br>locality: Ad Eide insulae Österö<br>recordedBy: H. G. Simmons<br>identifiedBy: H. G. Simmons<br>catalogNumber: 123<br>verbatimElevation: in alt. m<br>verbatimIdentification: Cramium acanthonothum (arn)</td>
+    </tr>
+    <tr>
+      <td><div class="img-container-wrapper"><div class="img-container"><img src="https://storage.gbif-no.sigma2.no/img/uio-algae/20230411_112440.jpg" class="zoom-image"></div></div></td>
+      <td>#17<br>Ceransium<br>um acauthonohun,<br>acaut<br>Fedje. 178.93.<br>Carm<br>2<br>Hortus botanicus Christianiensis.<br>Ceramium acanthonotine<br>***********</td>
+      <td>locality: Hortus botanicus Christianiensis<br>recordNumber: 178.93<br>catalogNumber: 17<br>scientificName: Ceransium</td>
+    </tr>
+    <tr>
+      <td><div class="img-container-wrapper"><div class="img-container"><img src="https://storage.gbif-no.sigma2.no/img/uio-algae/20230411_112237.jpg" class="zoom-image"></div></div></td>
+      <td>Alga marina Faroenses.<br>Laminaria færoensis Börgs.<br>juv.<br>Insula Sudero. Frangis vagy.<br>leg. F. Borgesen. Nr. 926<br>21 4<br>1898<br>Hortus botanicus Christianiensis.</td>
+      <td>day: 21<br>year: 1898<br>month: 4<br>country: Faroenses<br>locality: Insula Sudero. Frangis vagy<br>recordedBy: F. Borgesen<br>catalogNumber: Nr. 926<br>scientificName: Laminaria færoensis Börgs.</td>
+    </tr>
+    <tr>
+      <td><div class="img-container-wrapper"><div class="img-container"><img src="https://storage.gbif-no.sigma2.no/img/uio-algae/20230411_112203.jpg" class="zoom-image"></div></div></td>
+      <td>ALGE OF CALIFORNIA<br>Distributed by W. A. SETCHELL<br>Laminaria Farlowie<br>fruit<br>San Pedro<br>w.a.s.<br>Satchell</td>
+      <td>locality: San Pedro<br>recordedBy: W. A. Setchell<br>scientificName: Laminaria Farlowie</td>
+    </tr>
+  </tbody>
+</table>
+    
+    <script src="https://code.jquery.com/jquery-3.6.4.slim.min.js" integrity="sha256-a2yjHM4jnF9f54xUQakjZGaqYs/V1CYvWpoqZzC2/Bw=" crossorigin="anonymous"></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"> type="text/javascript"></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"> type="text/javascript"></script>
+    <script>
+        var options1 = {
+            width: 300,
+            height: 400,
+            zoomWidth: 300,
+            offset: {vertical: 0, horizontal: 10}
+        };
+        const containers = document.querySelectorAll('.img-container');
+        containers.forEach((container) => {
+            new ImageZoom(container, options1);
+        });
+        $(document).ready(function () {
+            $('#table').DataTable(  ); /*{ "columns": [ null, null, { "width": "390px" }, { "width": "390px" } ] }*/
+        });
+    </script>
+    
+    </body>
+    </html>
+    

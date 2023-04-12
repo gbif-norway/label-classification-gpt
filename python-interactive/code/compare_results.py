@@ -16,7 +16,8 @@ def generate_html(dataframe: pd.DataFrame, stats = ''):
     <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"> type="text/javascript"></script>
     <script>
         var options1 = {
-            width: 250,
+            width: 300,
+            height: 400,
             zoomWidth: 300,
             offset: {vertical: 0, horizontal: 10}
         };
@@ -25,7 +26,7 @@ def generate_html(dataframe: pd.DataFrame, stats = ''):
             new ImageZoom(container, options1);
         });
         $(document).ready(function () {
-            $('#table').DataTable( { "columns": [ null, null, { "width": "390px" }, { "width": "390px" } ] } );
+            $('#table').DataTable(  ); /*{ "columns": [ null, null, { "width": "390px" }, { "width": "390px" } ] }*/
         });
     </script>
     """
@@ -38,8 +39,8 @@ def generate_html(dataframe: pd.DataFrame, stats = ''):
         <link href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css" rel="stylesheet">
         <style>
         .img-container {{
-            max-width: 250px;
-            max-height: 200px;
+            max-width: 300px;
+            max-height: 400px;
             display: block;
         }}
         .img-container-wrapper {{ width: 550px; display: block;}}
@@ -149,6 +150,15 @@ def make_gbif_gpt4_comparison_table(filter):
         })
     return pd.DataFrame(data)
 
+def make_gpt4_comparison_table(filter):
+    results = query_url(f"{os.environ['ANNOTATER_URI']}?{filter}")
+    data = []
+    for result in results:
+        data.append({ 'image': result['resolvable_object_id'], 
+                      'ocr': result['annotation'], 
+                      'gpt4': get_gpt4_dwc(result['resolvable_object_id']) })
+    return pd.DataFrame(data)
+
 def table_text(dwc_dict):
     return '\n'.join([f'{k}: {v}' for k, v in dwc_dict.items()])
 
@@ -189,10 +199,29 @@ def get_stats(df):
 
     return mean_text + term_text.strip(', ')
 
-filter = 'source=gcv_merged_close_blocks&search=urn:catalog:O&limit=200&offset=0'
-df = make_gbif_gpt4_comparison_table(filter)
-html_table = generate_html_table(df)
-with open('index-uio.html', 'w') as writer:
-    writer.write(generate_html(html_table, get_stats(df)))
+def uio_comparison():
+    filter = 'source=gcv_merged_close_blocks&search=urn:catalog:O&limit=200&offset=0'
+    df = make_gbif_gpt4_comparison_table(filter)
+    html_table = generate_html_table(df)
+    with open('index-uio.html', 'w') as writer:
+        writer.write(generate_html(html_table, get_stats(df)))
 
+def italy_comparison():
+    filter = 'source=gcv_ocr_text&notes=ITALY:Test OCR for Padua&limit=200&offset=0'
+    df = make_gpt4_comparison_table(filter)
+    result_df = pd.concat([df.drop('gpt4', axis=1), pd.json_normalize(df['gpt4'])], axis=1)
+    result_df['ocr'] = result_df['ocr'].str.replace('\n', ' / ')
+    result_df['image'] = result_df['image'].str.replace(' ', '%20')
+    #df['image'] = df['image'].apply(image_html)
+    result_df.to_csv('source-padova.txt', index=False)
+
+
+filter = 'source=gcv_td_whints_text&limit=200&offset=0'
+df = make_gpt4_comparison_table(filter)
+df['image'] = df['image'].apply(image_html)
+df['gpt4'] = df['gpt4'].apply(table_text)
+with open('index-uio-algae.html', 'w') as writer:
+    writer.write(generate_html(df))
+ 
+#result_df.to_csv('uio-algae.txt', index=False)
 import pdb; pdb.set_trace()
