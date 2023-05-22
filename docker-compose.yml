@@ -37,6 +37,17 @@ services:
       - rabbitmq
     links: 
       - rabbitmq
+  gcv-ocr:
+    build: ./gcv-ocr
+    image: gbifnorway/gcv-ocr:latest
+    container_name: gcv-ocr
+    platform: linux/amd64
+    env_file: .env
+    restart: on-failure
+    depends_on:
+      - rabbitmq
+    links: 
+      - rabbitmq
   python-text-to-dwc:
     build: ./python-text-to-dwc
     container_name: python-text-to-dwc
