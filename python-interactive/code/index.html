@@ -1,0 +1,591 @@
+
+    <html>
+    <header>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <script src="https://unpkg.com/js-image-zoom@0.7.0/js-image-zoom.js" type="application/javascript"></script>
+        <link href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css" rel="stylesheet">
+        <style>
+        .img-container {
+            max-width: 250px;
+            height: 200px;
+            display: block;
+        }
+        .img-container-wrapper { width: 550px; display: block;}
+        tbody tr { height: 400px; }
+        body { padding: 2em; }
+        </style>
+    </header>
+    <body>
+    <table class="dataframe table table-striped" id="table">
+  <thead>
+    <tr style="text-align: left;">
+      <th>image</th>
+      <th>ocr</th>
+      <th>gpt4</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><div class="img-container-wrapper"><div class="img-container"><img src="https://storage.gbif-no.sigma2.no/italy/padua-2023-03-24/1.jpg" class="zoom-image"></div></div></td>
+      <td>#<br>FLORA DALMATICA<br>Asplenium Adianthum nigrum<br>L<br>El delen.<br>autam<br>ß.<br>In ins Lacroma saxerig umbrosis<br>saxosif<br>parrochy Vodopjeh<br>VISIANI<br>Lapad<br>132<br>Ol<br>HERB. PATAV. (PAD)<br>HD00095<br>2</td>
+      <td>catalogNumber: HD00095<br>location: Lapad|In ins Lacroma saxerig umbrosis saxosif<br>recordedBy: VISIANI<br>scientificName: Asplenium Adianthum nigrum</td>
+    </tr>
+    <tr>
+      <td><div class="img-container-wrapper"><div class="img-container"><img src="https://storage.gbif-no.sigma2.no/italy/padua-2023-03-24/32.jpg" class="zoom-image"></div></div></td>
+      <td>FLORA DA<br>Mentha<br>ad<br>Ad in<br>перер<br>V<br>une<br>1271<br>Menther<br>vertisplin<br>13<br>Menthe splossing<br>3. orliſ<br>VISIANI<br>Lessine<br>HERB. PATAV. (PAD)<br>HD04810</td>
+      <td>catalogNumber: HD04810<br>scientificName: Mentha</td>
+    </tr>
+    <tr>
+      <td><div class="img-container-wrapper"><div class="img-container"><img src="https://storage.gbif-no.sigma2.no/italy/padua-2023-03-24/35.jpg" class="zoom-image"></div></div></td>
+      <td>s, is<br>1358<br>1.49<br>3.<br>ad<br>*****<br>HERB. PATAV. (PAD)<br>Micromeria greu<br>prope Lesine<br>HD04822<br>gręce<br>8. pampon fldh<br>Mh. pauciflon Us. bub.<br>Stalio<br>Sofie & andren<br>py Lined<br>VISIANI</td>
+      <td>catalogNumber: HD04822<br>location: prope Lesine<br>recordedBy: Sofie & andren<br>scientificName: Micromeria greu<br>verbatimIdentification: Micromeria greu<br>year: 1358</td>
+    </tr>
+    <tr>
+      <td><div class="img-container-wrapper"><div class="img-container"><img src="https://storage.gbif-no.sigma2.no/italy/padua-2023-03-24/55.jpg" class="zoom-image"></div></div></td>
+      <td>98<br>Mij<br>HERB. PATAV. (PAD)<br>HD08116<br>HERB. PATAV. (PAD)<br>her miscering All.<br>p.ottigers<br>Malin niceven<br>HD08115<br>FLORA DALMATICA<br>Sebnisso.<br>Ait.<br>niceventy<br>B. obtrehatt<br>Civio Selences et ins Lesine<br>3<br>VISIANI</td>
+      <td>catalogNumber: HD08116|HD08115<br>location: Civio Selences et ins Lesine<br>recordedBy: VISIANI<br>verbatimIdentification: her miscering All. | FLORA DALMATICA | Malin niceven</td>
+    </tr>
+    <tr>
+      <td><div class="img-container-wrapper"><div class="img-container"><img src="https://storage.gbif-no.sigma2.no/italy/padua-2023-03-24/60.jpg" class="zoom-image"></div></div></td>
+      <td>HERB. PATAV. (PAD)<br>FLORA DALMATICA<br>Trifolium<br>HD09460<br>livier Japape<br>L.<br>ампи<br>ßß. glabren<br>VISIANI<br>Trifolium arvenhet,<br>Z glabren<br>Jaguh probiezing<br>HERB. PATAV. (PAD)<br>HD09459<br>823<br>Input are reiviaillop</td>
+      <td>catalogNumber: HD09460|HD09459<br>recordedBy: livier Japape<br>scientificName: Trifolium<br>verbatimIdentification: Trifolium arvenhet<br>year: 1832</td>
+    </tr>
+    <tr>
+      <td><div class="img-container-wrapper"><div class="img-container"><img src="https://storage.gbif-no.sigma2.no/italy/padua-2023-03-24/Chrysanthemum.jpg" class="zoom-image"></div></div></td>
+      <td>......<br>......<br>Località<br>abitat<br>itudine<br>}<br>Ottobre..<br>Giardino<br>ERBARIO DELLE VALLI VALDESI<br>Chrisautemmen vulgar<br>TIP. ALPINA-TORRE PELLICE<br>da Roorhon вдики<br>H0061358<br>MORE HE WAUA SINGLES IN<br>HERB. PATAV. (PAD)</td>
+      <td>catalogNumber: H0061358<br>location: Giardino<br>month: 10<br>recordedBy: ERBARIO DELLE VALLI VALDESI<br>scientificName: Chrisautemmen vulgar</td>
+    </tr>
+    <tr>
+      <td><div class="img-container-wrapper"><div class="img-container"><img src="https://storage.gbif-no.sigma2.no/italy/padua-2023-03-24/Cyrtonium falcatum  H0017098a.jpg" class="zoom-image"></div></div></td>
+      <td>HERBARIUM PATAVINUM (PAD)<br>Centro Interdipartimentale Musei Scientifici dell'Università<br>35123 Padova (Italia)<br>Cyrtomium falcatur<br>nuro delimitante il giarding delle<br>Winton anym lungo la canaletta dello<br>Allcorno-jadong I<br>Degrein L., Marcucci R., 8.11.2007<br>HV-VI<br>HERB. PATAV. (PAD)<br>H0017098</td>
+      <td>catalogNumber: H0017098<br>day: 8<br>month: 11<br>recordedBy: Degrein L., Marcucci R.<br>scientificName: Cyrtomium falcatur<br>year: 2007</td>
+    </tr>
+    <tr>
+      <td><div class="img-container-wrapper"><div class="img-container"><img src="https://storage.gbif-no.sigma2.no/italy/padua-2023-03-24/DSC_1873.JPG" class="zoom-image"></div></div></td>
+      <td>HERBARIUM<br>Verbena officinalis L<br>Colle dello Scheggia (Perugia)<br>14 ottobre 1950,<br>Leg.<br>m 600c.<br>Dr. ALESSANDRO MARCELLO<br>7138</td>
+      <td>catalogNumber: 7138<br>day: 14<br>location: Colle dello Scheggia (Perugia)<br>month: 10<br>recordedBy: Dr. ALESSANDRO MARCELLO<br>scientificName: Verbena officinalis L<br>verbatimElevation: m 600c.<br>year: 1950</td>
+    </tr>
+    <tr>
+      <td><div class="img-container-wrapper"><div class="img-container"><img src="https://storage.gbif-no.sigma2.no/italy/padua-2023-03-24/DSC_1882.JPG" class="zoom-image"></div></div></td>
+      <td>Aristolochia Clematitis L.<br>Ion erthenhaufen Rüchungeeten. 1897.<br>A Pro than<br>1115<br>HERB.BERENGER<br>Aristolochia Alematitis<br>Brix. 1831.<br>HERB.BERENGER<br>2174</td>
+      <td>catalogNumber: 1115|2174<br>recordedBy: Ion erthenhaufen<br>scientificName: Aristolochia Clematitis L.<br>verbatimIdentification: Aristolochia Alematitis<br>year: 1897|1831</td>
+    </tr>
+    <tr>
+      <td><div class="img-container-wrapper"><div class="img-container"><img src="https://storage.gbif-no.sigma2.no/italy/padua-2023-03-24/Dryopteris affinis H0017245.jpg" class="zoom-image"></div></div></td>
+      <td>SUNDS<br>1000<br>wa<br>www.<br>ww<br>WWW<br>JA<br>PR<br>10<br>Erbario Argenti<br>Drychteris affir<br>affinir<br>Borreri<br>Japa<br>loc..<br>ecol. eo<br>HERB. PATAV. (PAD)<br>10am<br>bosco costo<br>150<br>Prise III, vers and Montello (TV)<br>30 set 06<br>legit<br>H0017245<br>data<br>Belluno<br>m s.l.m.</td>
+      <td>catalogNumber: H0017245<br>country: Belluno<br>day: 30<br>location: Prise III, vers and Montello (TV)<br>month: 9<br>recordNumber: 1000<br>recordedBy: Erbario Argenti<br>scientificName: Drychteris affir<br>verbatimElevation: 150 m s.l.m.<br>year: 2006</td>
+    </tr>
+    <tr>
+      <td><div class="img-container-wrapper"><div class="img-container"><img src="https://storage.gbif-no.sigma2.no/italy/padua-2023-03-24/Erbario120.jpg" class="zoom-image"></div></div></td>
+      <td>HERBARIUM INSULARUM PONTIARUM<br>Centaurea aplolepa Monet var.<br>aneraris i pindataria +3<br>си<br>Ventotene, sulle rupi marittime presſo el Semofire<br>2.7.<br>J<br>1900<br>D. Aug. Béguinot<br>FORNO<br>9476</td>
+      <td>catalogNumber: 9476<br>day: 2<br>location: Ventotene, sulle rupi marittime presſo el Semofire<br>month: 7<br>recordedBy: D. Aug. Béguinot<br>scientificName: Centaurea aplolepa<br>year: 1900</td>
+    </tr>
+    <tr>
+      <td><div class="img-container-wrapper"><div class="img-container"><img src="https://storage.gbif-no.sigma2.no/italy/padua-2023-03-24/Girgantina.jpg" class="zoom-image"></div></div></td>
+      <td>Herb, Piccone-Forti<br>Figurtine Lessonſ<br>Cessonsi, J. Ag.<br>Perù: a Paita. - Luglio 1883.<br>Race, C. Marcacci..<br>Erbar. A. Picsone.<br>r<br>HERB. A. FORT!<br>H. B. PATAVINUS<br>A. 1937<br>*</td>
+      <td>catalogNumber: A. 1937<br>country: Perù<br>month: 7<br>recordedBy: C. Marcacci<br>scientificName: Piccone-Forti<br>year: 1883</td>
+    </tr>
+    <tr>
+      <td><div class="img-container-wrapper"><div class="img-container"><img src="https://storage.gbif-no.sigma2.no/italy/padua-2023-03-24/H0012590.jpg" class="zoom-image"></div></div></td>
+      <td>HERB. PATAV. (PAD)<br>H0012589<br>HERB. R. HORTI PATAVINI<br>Dactylorhiza traunsteineri (Saut.) Soo-<br>Conf. Rev. Det. Giorgio Perazza (ROV). 13.12.2006<br>V<br>Archis latifolia L. c. incarnate J.<br>Polumige - Gronde del Gergarre dietro,<br>24 27<br>la Chiesa<br>2<br>dags Bun<br>lunte<br>HERB. PATAV. (PAD)<br>H0012590<br>мед. акачивани<br>Elfens Drehis laxiflore<br>Lam.<br>juurts<br>16-1 27<br>Vachis laxiflora Lam.<br>Pordenone - sponde del lags Buride -<br>al limite sup. deefi arquitrei-<br>16.0.27<br>pr<br>-<br>نسبة له<br>02-02-03<br>1996</td>
+      <td>catalogNumber: H0012589|H0012590<br>dateIdentified: 13.12.2006<br>day: 24|2|27<br>identifiedBy: Giorgio Perazza<br>month: 2|1<br>scientificName: Dactylorhiza traunsteineri|Archis latifolia|Vachis laxiflora<br>year: 1996</td>
+    </tr>
+    <tr>
+      <td><div class="img-container-wrapper"><div class="img-container"><img src="https://storage.gbif-no.sigma2.no/italy/padua-2023-03-24/H0013077.jpg" class="zoom-image"></div></div></td>
+      <td>HERB. R. HORTI PATAVINI<br>PLANTAE LITOR<br>s<br>Bon<br>Por du Vergie<br>tonne queso furicea<br>Лагене<br>17 1210<br>UV<br>A. Béguinst<br>HERB. PATAV. (PAD)<br>H0013077<br>936</td>
+      <td>catalogNumber: H0013077<br>recordedBy: A. Béguinst<br>year: 1210</td>
+    </tr>
+    <tr>
+      <td><div class="img-container-wrapper"><div class="img-container"><img src="https://storage.gbif-no.sigma2.no/italy/padua-2023-03-24/H0013997.jpg" class="zoom-image"></div></div></td>
+      <td>1-V1-32<br>Morte. Uolien.<br>angilly<br>F.<br>V<br>прошідно<br>leg. Dr, N.Benacchio<br>k<br>100<br>HERB. R. HORTI PATAVINI<br>Вода<br>HERB. PATAV. (PAD)<br>Dett. Federico Quaglia<br>Aprile 2012<br>H0013997<br>HERBARIUM PATAVINUM (PAD)<br>Centro Interdipartimentale Musei Scientifiel<br>dell'Università<br>35123 Padova (Italia)<br>Rosa arvensis Hudson.<br>338<br>ww</td>
+      <td>catalogNumber: H0013997<br>country: Italy<br>countryCode: IT<br>dateIdentified: Aprile 2012<br>identifiedBy: Federico Quaglia<br>kingdom: Plantae<br>minimumElevationInMeters: 100<br>recordNumber: 1-V1-32<br>recordedBy: Dr. N.Benacchio<br>scientificName: Rosa arvensis Hudson</td>
+    </tr>
+    <tr>
+      <td><div class="img-container-wrapper"><div class="img-container"><img src="https://storage.gbif-no.sigma2.no/italy/padua-2023-03-24/H0014153.jpg" class="zoom-image"></div></div></td>
+      <td>HERB. R. HORTI PATAVINI<br>of<br>08<br>00:<br>Alismareal.<br>Alisma plantago Linu.<br>var. lanceolatum Schultz for terrestre Hlünk.<br>B. Salten: an den Tschaufen-Weiher,<br>1350 m, auf kalkhältigem Boden, 15. Aug.<br>1926.<br>116,1 1x1.5h/~leg.<br>вы<br>133.<br>Dr. W. Paff. PFAFF<br>BOZEN 934<br>BOLZANO<br>HERB. PATAV. (PAD)<br>H0014153</td>
+      <td>catalogNumber: H0014153<br>day: 15<br>location: B. Salten<br>maximumElevationInMeters: 1350<br>minimumElevationInMeters: 1350<br>month: 8<br>recordedBy: Dr. W. Paff<br>scientificName: Alisma plantago<br>year: 1926</td>
+    </tr>
+    <tr>
+      <td><div class="img-container-wrapper"><div class="img-container"><img src="https://storage.gbif-no.sigma2.no/italy/padua-2023-03-24/H0016289.jpg" class="zoom-image"></div></div></td>
+      <td>HERB. R. HORTI PATAVINI<br>Alisma<br>parnastifoliam L.<br>Nello Stagno Laingnone presſo<br>Coprotistima.<br>Desenzano.<br>1.7⁰97<br>RB.<br>11<br>U.<br>BRIXIAE<br>U<br>INI<br>I l<br>HERB. PATAV. (PAD)<br>H0016289</td>
+      <td>catalogNumber: H0016289<br>country: BRIXIAE<br>institutionCode: HERB. HORTI PATAVINI<br>location: Stagno Laingnone|Coprotistima|Desenzano<br>month: 7<br>recordNumber: 11<br>recordedBy: RB<br>scientificName: Alisma parnastifoliam L.<br>year: 1797</td>
+    </tr>
+    <tr>
+      <td><div class="img-container-wrapper"><div class="img-container"><img src="https://storage.gbif-no.sigma2.no/italy/padua-2023-03-24/H0017653.jpg" class="zoom-image"></div></div></td>
+      <td>Proi, G, Dal Piaz<br>Veronica.<br>Vicenza - Gogna -<br>додна<br>luogo seminato<br>15 maggio 1893<br>K<br>Proi, G, Dal Plaz<br>HERB. PATAV. (PAD)<br>H0017653<br>HERB. R. HORTI PATAVINI<br>Veronica chamaedrys L.<br>Det. Fedew to avogra<br>10 ottobre 2012<br>7579</td>
+      <td>catalogNumber: H0017653<br>country: Italy<br>countryCode: IT<br>dateIdentified: 2012-10-10<br>day: 15<br>identifiedBy: Fedew to avogra<br>location: Vicenza - Gogna<br>month: 5<br>recordNumber: 7579<br>recordedBy: Proi, G, Dal Piaz<br>scientificName: Veronica chamaedrys L.<br>verbatimIdentification: Veronica chamaedrys L.<br>year: 1893</td>
+    </tr>
+    <tr>
+      <td><div class="img-container-wrapper"><div class="img-container"><img src="https://storage.gbif-no.sigma2.no/italy/padua-2023-03-24/H0018106.jpg" class="zoom-image"></div></div></td>
+      <td>HERB. R. HORTI PATAVINI<br>NOW!<br>Eprzeaches aubremote<br>Epipactis palustris (L.) Crantz.<br>Conf. Rev. Det. Giorgio Perazza (ROV) 23.04.2007..<br>pralis ad<br>ad Placrim<br>18bb<br>HERB. PATAV. (PAD)<br>ERBARIO P.A. Saccardo<br>P₂<br>15-06-20<br>H0018106<br>1482</td>
+      <td>error: {'code': None, 'type': 'server_error', 'param': None, 'message': 'That model is currently overloaded with other requests. You can retry your request, or contact us through our help center at help.openai.com if the error persists. (Please include the request ID 1397e85d5cec736d9cead6499f41eda9 in your message.)'}</td>
+    </tr>
+    <tr>
+      <td><div class="img-container-wrapper"><div class="img-container"><img src="https://storage.gbif-no.sigma2.no/italy/padua-2023-03-24/H0018599.jpg" class="zoom-image"></div></div></td>
+      <td>VIII<br>ਚਰਨ ਸੰਤਾਂ-ਵਾਰ<br>Erbario Argenti<br>HERB. PATAV. (PAD)<br>| | | | | | | | |<br>H0018599<br>data<br>Belluno<br>Asplenium trichomanes<br>ecol. rupe cale.<br>1050<br>Constel Cesil - M.Palon - Mite Grappa (TV)<br>loc.<br>legit<br>16<br>"No ago 2007<br>m s.l.m.</td>
+      <td>catalogNumber: H0018599<br>country: Belluno<br>day: 16<br>decimalLatitude: 1050<br>location: Constel Cesil - M.Palon - Mite Grappa (TV)<br>scientificName: Asplenium trichomanes<br>year: 2007</td>
+    </tr>
+    <tr>
+      <td><div class="img-container-wrapper"><div class="img-container"><img src="https://storage.gbif-no.sigma2.no/italy/padua-2023-03-24/H0018612.jpg" class="zoom-image"></div></div></td>
+      <td>ammt<br>IV VIL<br>Hoffee for<br>Hff<br>**<br>DUOY<br>Erbario Argenti<br>Applenium trichomanes<br>subop quadrivaleres<br>HERB. PATAV. (PAD)<br>H0018612<br>data<br>for<br>Belluno<br>ecol..<br>rupestre<br>100=150<br>m s.l.m.<br>100. vers. settentrionale Presa 111 - Montello (r)<br>30 sett. 2006<br>legit</td>
+      <td>catalogNumber: HERB. PATAV. (PAD) H0018612<br>country: Belluno<br>day: 30<br>maximumElevationInMeters: 150<br>minimumElevationInMeters: 100<br>month: 9<br>recordNumber: 100=150<br>scientificName: Applenium trichomanes<br>year: 2006</td>
+    </tr>
+    <tr>
+      <td><div class="img-container-wrapper"><div class="img-container"><img src="https://storage.gbif-no.sigma2.no/italy/padua-2023-03-24/H0018625.jpg" class="zoom-image"></div></div></td>
+      <td>HV<br>Asplenium viride Hudson<br>Determinavit Duus Marchett,<br>13·2·1988<br>L<br>2<br>4<br>HERB. PATAV. (PAD)<br>H0018625<br>FLORA DEL CADORE<br>Asplenium viride Huds.<br>T<br>Valle del Boite: Ampezzo: M. Cristallo. Val Grande<br>alt. 1500-2000 m. 8 Agosto 1923<br>R. Pampanini<br>Erb.CadoreR,Pampan<br>VIU</td>
+      <td>catalogNumber: H0018625<br>dateIdentified: 1988-02-13<br>day: 8<br>identifiedBy: Duus Marchett<br>location: Valle del Boite: Ampezzo: M. Cristallo. Val Grande<br>maximumElevationInMeters: 2000<br>minimumElevationInMeters: 1500<br>month: 8<br>recordNumber: 2<br>recordedBy: R. Pampanini<br>scientificName: Asplenium viride Hudson<br>verbatimIdentification: Asplenium viride Huds.<br>year: 1923</td>
+    </tr>
+    <tr>
+      <td><div class="img-container-wrapper"><div class="img-container"><img src="https://storage.gbif-no.sigma2.no/italy/padua-2023-03-24/H0020905.jpg" class="zoom-image"></div></div></td>
+      <td>HV<br>:<br>HERB. PATAV. (PAD)<br>WORKING ON DAY<br>H0020905<br>FLORA ITALICA EXSICCATA<br>SERIES III.<br>curantibus<br>Adr. Fiori et A. Béguinot<br>2346. Leonurus Cardiaca L. var. villosus Desf. (pr. sp.) Cat.<br>Horti Par. p. 73 (1829).<br>Syn. L. condensatus Hornem., L. lacerus Lindl., L. canescens Dum.<br>et L. neglectus Schranck fide Benth. Lab. p. 518 et in DC.<br>Prodr., XII, p. 500.<br>Loc. Venetia. Patavii (Padova), cultus in R. Horto bota-<br>nico e seminibus plantae sponte nascentis prope Genova.<br>Maj.-Jun. 1913-14.<br>-<br>-<br>HERB. R. HORTI PATAVINI<br>Oss.<br>Corrisponde perfettamente ad esemplari conservati nell'Erb.<br>generale di Padova e raccolti presso Genova il 13-VI-1895 dal prof. R.<br>Gestro vale quanto a dire che la pianta ha conservato immutati i<br>suoi caratteri per 4 o 5 generazioni di seguito e desta l'impressione<br>che si tratti di qualche cosa di più di una semplice varietà. Si con-<br>fronti col n. 2345.<br>Béguinot</td>
+      <td>catalogNumber: H0020905<br>country: Italy<br>countryCode: IT<br>day: 13<br>location: Venetia. Patavii (Padova)<br>month: 5<br>recordedBy: Adr. Fiori|A. Béguinot<br>scientificName: Leonurus Cardiaca L. var. villosus Desf.<br>verbatimElevation: cultus in R. Horto bota- nico e seminibus plantae sponte nascentis prope Genova<br>year: 1913</td>
+    </tr>
+    <tr>
+      <td><div class="img-container-wrapper"><div class="img-container"><img src="https://storage.gbif-no.sigma2.no/italy/padua-2023-03-24/H0020929.jpg" class="zoom-image"></div></div></td>
+      <td>HERB. PATAV. (PAD)<br>Pani<br>Genova<br>da A. Bequent<br>H0020929<br>Leonurus Cardiaca L.<br>var villosus Benth.<br>13 VI 1895<br>lez R. Gestre<br>7273</td>
+      <td>catalogNumber: H0020929<br>country: Genova<br>day: 13<br>identifiedBy: A. Bequent<br>month: 6<br>recordNumber: 7273<br>recordedBy: R. Gestre<br>scientificName: Leonurus Cardiaca L.<br>verbatimIdentification: Leonurus Cardiaca L. var villosus Benth.<br>year: 1895</td>
+    </tr>
+    <tr>
+      <td><div class="img-container-wrapper"><div class="img-container"><img src="https://storage.gbif-no.sigma2.no/italy/padua-2023-03-24/H0022317.jpg" class="zoom-image"></div></div></td>
+      <td>HV<br>HERB. R. HORTI PATAVINI<br>Flora Tirolensis<br>Oxalidaceae.<br>Fam. nat.<br>4<br>Fundort:<br>F.PFAFF<br>BARIO<br>1934<br>BOLZANO<br>2150.<br>Oxalis acetosella Linn.<br>1. Bozen, beim Indenfriedhof im<br>Gebüsch.<br>Meereshöhe: 260m<br>Unterlage: Allevi.<br>Datum: 22. März 1910. leg. Dr. W. Piaff.<br>Mary<br>HERB. PATAV. (PAD)<br>H0022317<br>3936</td>
+      <td>catalogNumber: H0022317<br>country: Bolzano | Italy<br>dateIdentified: 22. März 1910<br>day: 22<br>identifiedBy: Dr. W. Piaff<br>location: Bozen, beim Indenfriedhof im Gebüsch<br>maximumElevationInMeters: 260<br>minimumElevationInMeters: 260<br>month: 3<br>recordNumber: 3936<br>recordedBy: Dr. W. Piaff<br>scientificName: Oxalis acetosella Linn.<br>verbatimElevation: Meereshöhe: 260m<br>verbatimIdentification: Oxalis acetosella Linn.<br>year: 1910</td>
+    </tr>
+    <tr>
+      <td><div class="img-container-wrapper"><div class="img-container"><img src="https://storage.gbif-no.sigma2.no/italy/padua-2023-03-24/H0022335.jpg" class="zoom-image"></div></div></td>
+      <td>HERB. PATAV. (PAD)<br>EXTRA<br>FORTE<br>C G<br>EXTRA FOR<br>H0022335<br>♦<br>-<br>FLORA DEL CADORE<br>Oxalis Acetosella L.<br>Valle del Piova: V. Prendera, alt 1600-1800 m<br>12 agosto 1937<br>R. Pampanini<br>Erb.CadoreR,Pampanini<br>2076</td>
+      <td>catalogNumber: H0022335<br>day: 12<br>location: Valle del Piova: V. Prendera<br>maximumElevationInMeters: 1800<br>minimumElevationInMeters: 1600<br>month: 8<br>recordNumber: 2076<br>recordedBy: R. Pampanini<br>scientificName: Oxalis Acetosella L.<br>year: 1937</td>
+    </tr>
+    <tr>
+      <td><div class="img-container-wrapper"><div class="img-container"><img src="https://storage.gbif-no.sigma2.no/italy/padua-2023-03-24/H0022378.jpg" class="zoom-image"></div></div></td>
+      <td>HERB. PATAV. (PAD)<br>H0022378<br>H<br>2547<br>Oxalis corniculata Linn.<br>O. pusilla Salisb.<br>Nogli orti di Chioggia.<br>2505.<br>W..<br>Erbario Chiamentl<br>HERB. R. HORTI PATAVINI<br><<br>3936</td>
+      <td>error: {'code': None, 'type': 'server_error', 'param': None, 'message': 'That model is currently overloaded with other requests. You can retry your request, or contact us through our help center at help.openai.com if the error persists. (Please include the request ID 61184e4f95901fd40b518d82170e7fd5 in your message.)'}</td>
+    </tr>
+    <tr>
+      <td><div class="img-container-wrapper"><div class="img-container"><img src="https://storage.gbif-no.sigma2.no/italy/padua-2023-03-24/H0022444.jpg" class="zoom-image"></div></div></td>
+      <td>HERB. PATAV. (PAD)<br>H0022444<br>B.<br>HERE<br>Η<br>U.<br>BRIXIAE<br>LINA<br>Oxalis acetoulla<br>Soth in manufatte sorgent<br>verbros es murs.<br>Angs is torrent a Gooine mul Sobien<br>in who<br>HERB. R. HORTI PATAVINI</td>
+      <td>catalogNumber: H0022444<br>recordedBy: HERB. PATAV. (PAD)|HERB. R. HORTI PATAVINI<br>scientificName: Oxalis acetoulla</td>
+    </tr>
+    <tr>
+      <td><div class="img-container-wrapper"><div class="img-container"><img src="https://storage.gbif-no.sigma2.no/italy/padua-2023-03-24/H0022460.jpg" class="zoom-image"></div></div></td>
+      <td>HERB. PATAV. (PAD)<br>H0022460<br>curantibus<br>Adr. Fiori, A. Béguinot, R. Pampanini<br>FLORA ITALICA EXSICCATA<br>925. Oxalis cernua Thunbg. Diss. Oxal., p. 14 (1871).<br>Loc. Sicilia. Messana (Messina) in cultis prope urbem, solo<br>vario. Dicembre 1904.<br>confermage<br>medve<br>Granng<br>Oss. Questa specie, originaria del C. di B. Speranza e scono-<br>sciuta nel Messinese fino ad un trentennio fa, si è ora straordi.<br>nariamente diffusa nei luoghi coltivati e frequentati dall' uomo<br>nella regione marittima e si è diffusa persino nelle piaggie arenose,<br>mostrando di resistere ad un certo grado di salsedine del suolo.<br>Vegeta ancora sui muri insieme ai Phagnalon, Antirrhinum siculum<br>ed alle Parietaria.<br>Diffondesi per numerosissimi bulbilli che produce sul rizoma<br>durante l'antesi, rarissimamente abbonisce qualche seme e spesso<br>presentasi a fiori doppi (var. pleniflora Ces. Pass. e Gib.) e ciò a<br>preferenza nei luoghi pingui coltivati (orti, vigneti ecc.).<br>G. Zodda.<br>p<br>3936<br>5<br>4<br>3<br>2<br>1<br>0</td>
+      <td>catalogNumber: H0022460<br>country: Sicilia<br>location: Messana (Messina)<br>month: 12<br>recordedBy: Adr. Fiori|A. Béguinot|R. Pampanini<br>scientificName: Oxalis cernua<br>year: 1904</td>
+    </tr>
+    <tr>
+      <td><div class="img-container-wrapper"><div class="img-container"><img src="https://storage.gbif-no.sigma2.no/italy/padua-2023-03-24/H0022791.jpg" class="zoom-image"></div></div></td>
+      <td>de impestrib.<br>bil.<br>Dianthen papillose, Me & P.<br>ad Ariken.<br>ہے اور<br>HERB. PATAV. (PAD)<br>calcar.<br>H0022791<br>Kaub<br>4<br>3<br>0<br>HERB. PATAV. (PAD)<br>H0022792<br>Dianthey papillopy<br>Pertengagillig obheft<br>inbich auſgeche<br>196<br>my<br>2502</td>
+      <td>catalogNumber: H0022791|H0022792<br>location: Ariken<br>minimumElevationInMeters: 2502<br>recordNumber: 4|3|0<br>recordedBy: HERB. PATAV. (PAD)<br>scientificName: Dianthen papillose<br>year: 196</td>
+    </tr>
+    <tr>
+      <td><div class="img-container-wrapper"><div class="img-container"><img src="https://storage.gbif-no.sigma2.no/italy/padua-2023-03-24/H0027462.jpg" class="zoom-image"></div></div></td>
+      <td>HERB. PATAV. (PAD)<br>H0027462<br>Erbarlo Chlament!<br>2562.<br>L.<br>Hibiscus pentacarpes<br>var. albiflerus<br>Luoghi poluden salsi (Barene) nella<br>aguna di Chioggia,<br>{<br>HERB. R. HORTI PATAVINI<br>5013</td>
+      <td>catalogNumber: H0027462<br>identifiedBy: HERB. R. HORTI PATAVINI<br>location: aguna di Chioggia<br>recordNumber: 2562<br>recordedBy: L.<br>scientificName: Hibiscus pentacarpes</td>
+    </tr>
+    <tr>
+      <td><div class="img-container-wrapper"><div class="img-container"><img src="https://storage.gbif-no.sigma2.no/italy/padua-2023-03-24/HD02104.jpg" class="zoom-image"></div></div></td>
+      <td>7<br>Laurus nobilis L.<br>IS. PELAGOSA<br>11<br>Dr. Marchesetti<br>0<br>20 LUGLIO 1877<br>1<br>2<br>3<br>4<br>5<br>HERB. PATAV. (PAD)<br>HD02104</td>
+      <td>catalogNumber: HD02104<br>day: 20<br>month: 7<br>recordNumber: 11<br>recordedBy: Dr. Marchesetti<br>scientificName: Laurus nobilis L.<br>year: 1877</td>
+    </tr>
+    <tr>
+      <td><div class="img-container-wrapper"><div class="img-container"><img src="https://storage.gbif-no.sigma2.no/italy/padua-2023-03-24/HD09808.jpg" class="zoom-image"></div></div></td>
+      <td>اردو<br>1-<br>د شد<br>HERB. PATAV, (PAD)<br>▪▪▪▪▪▪▪▪<br>HD09808<br>1: h<br>Va<br>شن<br>ج-<br>sation ..<br>دیگر<br>Www</td>
+      <td>error: {'code': None, 'type': 'server_error', 'param': None, 'message': 'That model is currently overloaded with other requests. You can retry your request, or contact us through our help center at help.openai.com if the error persists. (Please include the request ID 6cca05712e6e4b4eeea9fca832fbd48c in your message.)'}</td>
+    </tr>
+    <tr>
+      <td><div class="img-container-wrapper"><div class="img-container"><img src="https://storage.gbif-no.sigma2.no/italy/padua-2023-03-24/Halyseris.jpg" class="zoom-image"></div></div></td>
+      <td>Herb. Piccone-Forti<br>Halyserit Delicatula, J. Sy..<br>Pernambuco: Brasile. Luglio 1882.<br>Race C. Mareacci<br>Herb. Piccone-Forti<br>Eibar, A. Piccone.<br>AE<br>w<br>*<br>A. 1937<br>Habyseris delimitila, I. g.<br>*<br>H. B. PATAVINUS<br>HERBA<br>Pernambuco: Brasile. - Luglio 1882.<br>Race, C. Marcacci<br>orbar, A. Piccone.<br>HERB. A. FORT<br>H. B. PATAVINUS<br>A. 1937<br>Herb. Achille Forti<br>Exs, Moug. Dupr. et Roumeg.<br>Folgues de France. (2 Serie)<br>Halyseris delicatula Bogd. Sp. p.144.<br>Dielyopteris delicatula samheroux.<br>Cotes du Bresil, à Fernambouc (Amer. Sept.)<br>Reliqnicl Brebissoni )<br>colleet. Nettenius.<br>Lenormand–1864.<br>Balyvorin Veliahta Ag.<br>3TI<br>H. B. PATAVINUS<br>7<br>P<br>FORTI<br>H. 6. PATAVINUS<br>A. 1937<br>Herb. Piccone-Forti<br>ycotheca Boreali-Americana. Collins, Holden, and Setchell.<br>485. Haliseris delicatula (Lamour.) Ag.<br>rt Antonio, Jamaica, Aug., 1894.<br>H. B. PATAVINUS<br>A.<br>Agardh, Sp. Alg, Vol. I, p. 144, 1823.<br>J. G. Agardh, Sp. Alg., Vol. I, p. 116, 1848. 4. 1931<br>Harvey, Nereis Bor.-Am., part 1, p. 103, Pl. VII A, 1852.<br>urray, Cat. of Marine Algae of the W. I. Region, p. 26, 1889.<br>De Toni, Syll. Alg., Vol. III, p. 253, 1895.<br>Mrs. C. E. PEASE & Miss E. BUTLE<br>3. A. FORT!<br># S. PATAVINU<br>A. 1937<br>Pernambour<br>Herb. Piccone-Forti<br>RTI<br>HEAD<br>Herb. Piccone-Forti<br>H. B. PATAVINUS<br>A. 1937<br>Pernambuco: Brasile. - Luglio 1882,<br>Race, C. Marcacci<br>Erbar, A. Piccone.<br>H. B. PATAVINUS<br>A. 1937<br>TI<br>Pernambuco Brasile. - Luglio 1882.<br>Race, C. Marcacci<br>Erbai, A. Piccone.</td>
+      <td>error: {'code': None, 'type': 'server_error', 'param': None, 'message': 'That model is currently overloaded with other requests. You can retry your request, or contact us through our help center at help.openai.com if the error persists. (Please include the request ID d54e5fac312198d734773556f366856c in your message.)'}</td>
+    </tr>
+    <tr>
+      <td><div class="img-container-wrapper"><div class="img-container"><img src="https://storage.gbif-no.sigma2.no/italy/padua-2023-03-24/Helichrysum puglia.jpg" class="zoom-image"></div></div></td>
+      <td>*the.<br>FLORA ITALICA ESICO TA<br>SERIES III.<br>curantibus<br>Ad Fiori et A. Béguinot<br>FORTI<br>H. 8. PATAVINUS<br>A. 1937<br>2376. Helichrysum italicum G. Don in Lou Hort. bit.,<br>P. 342 (1830).<br>Syn. Gnaphalium angustifolium Lam. (1786) p parte tantu<br>italicum Roth (1790) - G. Stoechas S. et S., Ten..<br>non L.<br>Helichrysum angustifolium DC. (1815).<br>Stoechas Ces. Pass. et Gib.<br>Ic. Fl. Gr. tab. 857; Rchb. Ic. Germ., XVI, tab. CML, fig. 2.<br>Loc. Apulia. Tarentum (Taranto), in alveo glareoso, rarissime<br>inundato, loco dicto Gravina di Leucaspide, alt. 30 m.<br>14 Julio 1914.<br>-<br>-<br>-<br>Oss. Dagli autori francesi ed altri si adopera il nome specifico<br>di angustifolium creato da Lamarck, Dict. II, p. 745; nome che avrebbe<br>precedenza cronologica su quello di Roth in Roem. et Ust., Mag., IV,<br>X, p. 19. Secondo Gussone però, «Fl. Sic. II, p. 469, seguito dagli autori<br>italiani moderni, Lamarck descriveva non l'H. italicum ma l'H. lito-<br>reum Guss. D'altra parte è certo dalle località e dai sinonimi citati<br>da Lamarck, che egli confondeva nel suo G. angustifolium tanto l'H.<br>italicum quanto l'H. litoreum.<br>La figura di Barrelier, ic. 1125, spesso citata per l' H. italicum os-<br>sia angustifolium DC., si applica meglio, come osservava Gussone, al-<br>l'H. litoreum. Invece Barr. ic. 278, citato da Gussone per l'H. italicum,<br>ricorda piuttosto l'H. serotinum Boiss., dove lo riporta Willkomm nel<br>Prodr. Fl. Hisp, II, p. 60.<br>C. Lacaita.<br>HERB. R. HORTI PATAVINI<br>9006</td>
+      <td>catalogNumber: 2376<br>country: Apulia<br>day: 14<br>location: Tarentum (Taranto)<br>maximumElevationInMeters: 30<br>minimumElevationInMeters: 30<br>month: 07<br>recordedBy: C. Lacaita<br>scientificName: Helichrysum italicum G. Don<br>year: 1914</td>
+    </tr>
+    <tr>
+      <td><div class="img-container-wrapper"><div class="img-container"><img src="https://storage.gbif-no.sigma2.no/italy/padua-2023-03-24/Hyoscyamus.jpg" class="zoom-image"></div></div></td>
+      <td>HERB. PATAV. (PAD)<br>WOW MARINE<br>H0061504<br>HERB. HORTI PATAVINI<br>Istituto di Botanica e Fisiol. Vegetale<br>35100 Padova (Italia)<br>Thyos kiamus albus. L...<br>Jahanzibi's (Geganci)<br>vicino alla chiesa Veedia<br>4o Luglio 1954 Ley, Very's Chiesa<br>HV<br>Valsanzilio,<br>vicino acea<br>chiesa Secchia 4 duplis 1984<br>7396</td>
+      <td>catalogNumber: H0061504<br>country: Italia<br>day: 4<br>location: vicino alla chiesa Veedia | Valsanzilio<br>month: 7<br>recordedBy: Ley<br>scientificName: Thyos kiamus albus<br>verbatimElevation: chiesa Secchia 4 duplis 1984<br>year: 1954</td>
+    </tr>
+    <tr>
+      <td><div class="img-container-wrapper"><div class="img-container"><img src="https://storage.gbif-no.sigma2.no/italy/padua-2023-03-24/Hyoscyamus2.jpg" class="zoom-image"></div></div></td>
+      <td>H<br>8091900H<br>ᏙᏯ ᎪᏙᏆᏙᏧ ᎺᎻ<br>Hy oniam of albuy<br>Venesia<br>BERB.BERENGER<br>O<br>KA<br>20<br>HERE. HORTI PATAVINI<br>ry</td>
+      <td>catalogNumber: 8091900<br>day: 20<br>identifiedBy: BERB.BERENGER<br>location: Venesia<br>scientificName: Hy oniam of albuy</td>
+    </tr>
+    <tr>
+      <td><div class="img-container-wrapper"><div class="img-container"><img src="https://storage.gbif-no.sigma2.no/italy/padua-2023-03-24/Lupinus3b.jpg" class="zoom-image"></div></div></td>
+      <td>HERB. R. HORTI PATAVINI<br>Flora Tirolensis. Angebaut.<br>Leguminosae.<br>fam. nat.<br>Lupinus hirsutus L.<br>Rissen: Oberbaze<br>Fundort:<br>Unterlage: Fastengrund<br>ERBARE F<br>Datum:<br>BOLZANO<br>*<br>Meereshöhe: 1200.<br>P. Krautschneider<br>leg. Dr. W. Pfaff.</td>
+      <td>country: Bolzano<br>identifiedBy: Dr. W. Pfaff<br>minimumElevationInMeters: 1200<br>recordedBy: P. Krautschneider<br>scientificName: Lupinus hirsutus L.<br>verbatimIdentification: Lupinus hirsutus L.</td>
+    </tr>
+    <tr>
+      <td><div class="img-container-wrapper"><div class="img-container"><img src="https://storage.gbif-no.sigma2.no/italy/padua-2023-03-24/Maresia2.jpg" class="zoom-image"></div></div></td>
+      <td>HERBARIUM R. HORTI PATAVIN<br>Maresia Drumetiana (Cen) Ball<br>vas. ciòmica Tamp.<br>Tripolitania<br>Oasi di Gadames<br>18 Aprile 1931<br>leg. Dr A. Marcello<br>kas das as stava<br>2012<br>HERB. R. HORTI PATAVINI<br>30 3</td>
+      <td>country: Tripolitania<br>dateIdentified: 2012<br>day: 18<br>location: Oasi di Gadames<br>month: 4<br>recordedBy: Dr A. Marcello<br>scientificName: Maresia Drumetiana<br>year: 1931</td>
+    </tr>
+    <tr>
+      <td><div class="img-container-wrapper"><div class="img-container"><img src="https://storage.gbif-no.sigma2.no/italy/padua-2023-03-24/Marsili775.jpg" class="zoom-image"></div></div></td>
+      <td>AVAN<br>Scabiost<br>femorioidy<br>th<br>Serbia<br>Bry<br>sif<br>Pomer<br>fermaniordes<br>Scabiosa subachactà nov. quir<br>In glesevnii serpent. ad Raška<br>C. Cackens. Int 864<br>Pronima Sc. Webbiance Son. a que differt sad<br>except. De cl. Parnasſo) folin on will<br>rades<br>cois breviorib<br>interdum enbrenthe<br>ac<br>Fin.<br>vibrib.</td>
+      <td>country: Serbia<br>location: In glesevnii serpent. ad Raška<br>scientificName: Scabiosa subachactà</td>
+    </tr>
+    <tr>
+      <td><div class="img-container-wrapper"><div class="img-container"><img src="https://storage.gbif-no.sigma2.no/italy/padua-2023-03-24/Moretti,Facchini.jpg" class="zoom-image"></div></div></td>
+      <td>Gagen Liottardi Schult.<br>monti della Carnia<br>HV<br>€35<br>HERB. PATAV. (PAD)<br>H0045013<br>Erbario Moretti<br>HERB. R. HORTI PATAVINI<br>A<br>1<br>h<br>Amont<br>Gagea fiftuloja<br>Regione inferior alpina: in<br>Jahre; Sufferne<br>35<br>HERB. PATAV. (PAD)<br>H0045014<br>3 3<br>1048</td>
+      <td>catalogNumber: H0045013<br>location: monti della Carnia<br>recordNumber: 35<br>recordedBy: Erbario Moretti<br>scientificName: Gagen Liottardi Schult.<br>verbatimElevation: Regione inferior alpina<br>verbatimIdentification: Gagea fiftuloja</td>
+    </tr>
+    <tr>
+      <td><div class="img-container-wrapper"><div class="img-container"><img src="https://storage.gbif-no.sigma2.no/italy/padua-2023-03-24/Mughetto.jpg" class="zoom-image"></div></div></td>
+      <td>HERB. PATAV. (PAD)<br>H0061263<br>ERBARIO DELLE VALLI VALDESI<br>Sotts famiglia delle Asparagacee.<br>tomallaria macalis<br>Località Pesaro/Inverno).<br>Habitat Boch<br>Berchin.<br>Altitudine 845<br>Guigne<br>da Prstan Edwrn.<br>Tipografia Apins Torre Pellee,</td>
+      <td>catalogNumber: H0061263<br>country: Italy<br>location: Pesaro|Inverno<br>maximumElevationInMeters: 845<br>minimumElevationInMeters: 845<br>recordedBy: da Prstan Edwrn<br>scientificName: tomallaria macalis<br>verbatimElevation: 845</td>
+    </tr>
+    <tr>
+      <td><div class="img-container-wrapper"><div class="img-container"><img src="https://storage.gbif-no.sigma2.no/italy/padua-2023-03-24/Ornithogalum nutans.jpg" class="zoom-image"></div></div></td>
+      <td>autaus<br>Ornithogelen alloranthen set<br>In prato prope helgrad.<br>Apr. 854<br>1. Belül)<br>in vivo bene<br>diversum.<br>HERB. PATAV. (PAD)<br>H0048092<br>WN<br>k<br>Vratislavia, in gramin<br>24.TV 1882<br>ss rs os er 3r Triar ar ar er stor e a ad<br>SS IS US<br>21. that ar per Store a<br>Hora Silesiae centralis.<br>GINOVIH<br>HERB. PATAV. (PAD)<br>H0048093<br>Ornithogalum<br>thogalum chloranthurn<br>V. Bracheanum (Kth.) Aschers» !)<br>pomaries que<br>gramin osis umbrosios passim copizze, O. nutante<br>multo frequention in<br>Polnisch– Neudorf, in societate O. nutanti<br>10 89<br>mst en Santer!)<br>5001-1118T!<br>TO: 800S<br>pomro</td>
+      <td>catalogNumber: H0048092|H0048093<br>countryCode: PAD<br>day: 24<br>location: Vratislavia|Hora Silesiae centralis|Polnisch– Neudorf<br>maximumElevationInMeters: 1118<br>minimumElevationInMeters: 5001<br>month: 4<br>recordedBy: WN<br>scientificName: Ornithogelen alloranthen<br>verbatimElevation: TO: 800S<br>year: 854|1882</td>
+    </tr>
+    <tr>
+      <td><div class="img-container-wrapper"><div class="img-container"><img src="https://storage.gbif-no.sigma2.no/italy/padua-2023-03-24/Phaseolus3 (2).JPG" class="zoom-image"></div></div></td>
+      <td>Angiospermär<br>Cl. Dicotyledoneae<br>Sotted, Archichlamydeal<br>Rosales<br>Ord<br>18<br>4. Fem. Leguminosae<br>Phaseolus erelgaris L.<br>H.B. 1924.<br>3901</td>
+      <td>catalogNumber: 3901<br>recordNumber: 18<br>scientificName: Phaseolus erelgaris L.<br>year: 1924</td>
+    </tr>
+    <tr>
+      <td><div class="img-container-wrapper"><div class="img-container"><img src="https://storage.gbif-no.sigma2.no/italy/padua-2023-03-24/Picridium 2.jpg" class="zoom-image"></div></div></td>
+      <td>2/4 di erot er en gi<br>Unin<br>cum<br>WTF<br>quod reperi, semen<br>!<br>HERB. PATAV. (PAD)<br>H0048090<br>Pieridene.<br>In spestrib. celearens ad Mo<br>Pra gora Serb. occd. Ang 8bit<br>Species crimin glanca, 9599<br>tolioſ. Forma verin, ieuen. J. Saun<br>am<br>me enterroris Anttrodie cordatie.</td>
+      <td>catalogNumber: H0048090<br>verbatimIdentification: Pieridene</td>
+    </tr>
+    <tr>
+      <td><div class="img-container-wrapper"><div class="img-container"><img src="https://storage.gbif-no.sigma2.no/italy/padua-2023-03-24/Pinguicula alpina1.jpg" class="zoom-image"></div></div></td>
+      <td>HERB. R. HORTI PATAVINI<br>FLORA ITALICA EXSICCATA<br>to e<br>A<br>7 8 9 10 11 12 13 14 15 16 1<br>-S<br>A<br>654. Pinguicula alpina L. Sp. pl., ed. 1, p. 17 (1753).<br>Loc. Venetia.<br>B<br>A,<br>C<br>curantibus<br>Adr. Fiori, A. Béguinot, R. Pampanni37<br>DEF<br>HERB. A. FORTI<br>H. B. PATAVINUS<br>Prov. di Treviso: Vittorio, in rupibus umbrosis<br>et humidis, prope pagum Tovena, loco dicto Passo di<br>S. Uboldo, Praealpium Bellunensium, solo calcareo, alt. 450-<br>900 m.<br>6 Maj. 1904.<br>R. Pampanini.<br>I<br>ang pa<br>10 11 12 13 14 15 16 17 18<br>2 3 4 5 6 7 8<br>--LaserSoft Imagirig<br>IT8.7/1-1993<br>2008:07<br>389</td>
+      <td>catalogNumber: 654<br>country: Italy<br>day: 6<br>location: Prov. di Treviso: Vittorio, in rupibus umbrosis et humidis, prope pagum Tovena, loco dicto Passo di S. Uboldo, Praealpium Bellunensium, solo calcareo<br>maximumElevationInMeters: 900<br>minimumElevationInMeters: 450<br>month: 5<br>recordedBy: R. Pampanini<br>scientificName: Pinguicula alpina L.<br>year: 1904</td>
+    </tr>
+    <tr>
+      <td><div class="img-container-wrapper"><div class="img-container"><img src="https://storage.gbif-no.sigma2.no/italy/padua-2023-03-24/Polypodium interjectum H0017692.jpg" class="zoom-image"></div></div></td>
+      <td>HV |||<br>Erbario Argenti<br>Polypodium interjectum<br>Dino Marchetti<br>HERB. PATAV. (PAD)<br>16.5.2008<br>H0017692<br>Belluno<br>Polypodium of interfectum<br>ecol..<br>m s.l.m.<br>Ostryets ou cale. 200÷750<br>100. Boarnal di Val di Sezen - M Crappe (B4)<br>23 Feb 2008<br>legit.<br>data S<br>12.<br>0036/2<br>Shivas</td>
+      <td>catalogNumber: H0017692<br>country: Belluno<br>dateIdentified: 23 Feb 2008<br>day: 16<br>location: Boarnal di Val di Sezen - M Crappe (B4)<br>maximumElevationInMeters: 750<br>minimumElevationInMeters: 200<br>month: 5<br>recordedBy: Dino Marchetti<br>scientificName: Polypodium interjectum<br>verbatimIdentification: Polypodium of interfectum<br>year: 2008</td>
+    </tr>
+    <tr>
+      <td><div class="img-container-wrapper"><div class="img-container"><img src="https://storage.gbif-no.sigma2.no/italy/padua-2023-03-24/Polypodium vulgare H0017837.jpg" class="zoom-image"></div></div></td>
+      <td>and<br>Polypodium vulgare L.<br>subsp. prionodes (Aschers.) Rothm.<br>determ.: M. A. Mirapella<br>-<br>Polypodium vulgare<br>بھیج<br>поссо<br>Bosco di Castagni a 1. Rocce<br>1. Caſtagni<br>di Pregara (Veronese),<br>12. IV. 1906.<br>by<br>STAB. FRANCHINI-VERONA<br>梁<br>HERB. A.<br>FORTI<br>H. B. PATAVINUS<br>D. ACHILLE FORTI - VERONA 937<br>www<br>226<br>HERB. PATAV. (PAD)<br>HERB. R. HORTI PATAVINI<br>H0017837<br>Poly odium vulgare L.<br>subsp. vulgare<br>determ.: M. A. Mirabella<br>85"<br>J<br>///</td>
+      <td>catalogNumber: H0017837<br>day: 12<br>identifiedBy: M. A. Mirapella|M. A. Mirabella<br>location: Bosco di Castagni a 1. Rocce|1. Caſtagni di Pregara (Veronese)<br>month: 4<br>recordedBy: D. Achille Forti<br>scientificName: Polypodium vulgare L.|Polypodium vulgare<br>verbatimIdentification: Polypodium vulgare L.|Polypodium vulgare<br>year: 1906</td>
+    </tr>
+    <tr>
+      <td><div class="img-container-wrapper"><div class="img-container"><img src="https://storage.gbif-no.sigma2.no/italy/padua-2023-03-24/Potentilla.jpg" class="zoom-image"></div></div></td>
+      <td>Ibsencilla merkiiside</td>
+      <td>scientificName: Ibsencilla merkiiside</td>
+    </tr>
+    <tr>
+      <td><div class="img-container-wrapper"><div class="img-container"><img src="https://storage.gbif-no.sigma2.no/italy/padua-2023-03-24/Rosa7.jpg" class="zoom-image"></div></div></td>
+      <td>HERB. R. HORTI PATAVINI<br>T<br>Flora Tirolensis Augepflanzt.<br>Rosaceae.<br>fam. nat.<br>Rosa chinensis face, v. fragrans Menstlefes<br>4<br>(= K. indica Lindley) ««Fecrose<br>Sundort: hies b. Bozen.<br>934<br>Unterlage:<br>BOLZANO<br>Gartengrund. Meereshöhe:<br>Datum: 10. Oktober 1914. leg. Dr. W. Pfaff.<br>II.14d.<br>ERBARIO<br>F. PFAF<br>{<br>938</td>
+      <td>country: BOLZANO<br>day: 10<br>location: Gartengrund<br>month: 10<br>recordNumber: 934<br>recordedBy: Dr. W. Pfaff<br>scientificName: Rosa chinensis<br>year: 1914</td>
+    </tr>
+    <tr>
+      <td><div class="img-container-wrapper"><div class="img-container"><img src="https://storage.gbif-no.sigma2.no/italy/padua-2023-03-24/Rovere.jpg" class="zoom-image"></div></div></td>
+      <td>ERBARIO DI LUIGI FILIPPO TIBERTELLI<br>DE PISIS (FERRARA)<br>Famiglia delle.<br>Specie_Quercus Rolove L.<br>Dr. jur<br>Div - 24.<br>Varietá eftillom (dotisb.)<br>Località full de delle Gabice; bettertane<br>nux puercon vecchesina<br>The Jr 1914.<br>Venedin fydd<br>Data della raccolta.<br>Osservazioni<br>8<br>in<br>1893</td>
+      <td>catalogNumber: ERBARIO DI LUIGI FILIPPO TIBERTELLI DE PISIS (FERRARA)<br>dateIdentified: 1914<br>day: 8<br>location: Località full de delle Gabice; bettertane nux puercon vecchesina<br>recordedBy: Venedin fydd<br>scientificName: Quercus Rolove L.<br>verbatimIdentification: Famiglia delle.<br>year: 1893</td>
+    </tr>
+    <tr>
+      <td><div class="img-container-wrapper"><div class="img-container"><img src="https://storage.gbif-no.sigma2.no/italy/padua-2023-03-24/S.microsporus.jpg" class="zoom-image"></div></div></td>
+      <td>h<br>ERBARIUM MY<br>H.B. PATAVINUS<br>4. SACCARDO<br>XIZ<br>S.<br>Slysana, pudi.<br>miersports &<br>cort. Robinie<br>5<br>J.75.8<br>663</td>
+      <td>catalogNumber: J.75.8<br>recordNumber: 663</td>
+    </tr>
+    <tr>
+      <td><div class="img-container-wrapper"><div class="img-container"><img src="https://storage.gbif-no.sigma2.no/italy/padua-2023-03-24/Salix babylonica.JPG" class="zoom-image"></div></div></td>
+      <td>HERB. R. HORTI PATAVINI<br>Selix Bebylonice<br>ERBARIO DI LUIGI FILIPPO TIBERTELLI<br>Famiglia delle<br>Specie.<br>arietá-<br>Data<br>Forrars, & dintor<br>Osservazioni-<br>olta.<br>28<br>1873</td>
+      <td>recordedBy: Luigi Filippo Tibertelli<br>scientificName: Selix Bebylonice<br>year: 1873</td>
+    </tr>
+    <tr>
+      <td><div class="img-container-wrapper"><div class="img-container"><img src="https://storage.gbif-no.sigma2.no/italy/padua-2023-03-24/Scirpus sylvaticus1.jpg" class="zoom-image"></div></div></td>
+      <td>1X<br>HERBARIUM HORTI PATAVINI<br>ISTITUTO DI BOTANICA & FISIOLOGIA VEGETALE<br>35100 PADOVA (Italia)<br>Sarpus sylvatives &</td>
+      <td>catalogNumber: 1X<br>countryCode: IT<br>scientificName: Sarpus sylvatives</td>
+    </tr>
+    <tr>
+      <td><div class="img-container-wrapper"><div class="img-container"><img src="https://storage.gbif-no.sigma2.no/italy/padua-2023-03-24/Spartina s. 13.jpg" class="zoom-image"></div></div></td>
+      <td>HV<br>9, 898 58 3<br>s os er or stat air et store sa a<br>SS rs Os et 81 301 21 A & S T OF G 8<br>2102926<br>8001-NT.871<br>10:800S<br>HERBARIUM<br>HERB. PATAV. (PAD)<br>ANA SANTAN<br>H0029079<br>Spartina stricta Roth.<br>Laguna di Venezia -Barena presso S.Erasmo<br>stato fenoantesico ++ ( +++?).<br>17 Luglio 1944.<br>Leg. A.Giordani Soika<br>Dr. ALESSANDRO MARCELLO<br>G<br>N</td>
+      <td>catalogNumber: H0029079<br>day: 17<br>identifiedBy: Dr. ALESSANDRO MARCELLO<br>location: Laguna di Venezia -Barena presso S.Erasmo<br>month: 7<br>recordedBy: A.Giordani Soika<br>scientificName: Spartina stricta Roth.<br>year: 1944</td>
+    </tr>
+    <tr>
+      <td><div class="img-container-wrapper"><div class="img-container"><img src="https://storage.gbif-no.sigma2.no/italy/padua-2023-03-24/Spartina s. 3.jpg" class="zoom-image"></div></div></td>
+      <td>HV<br>HERB. R. HORTI PATAVINI<br>2008:06<br>118 11-1993<br>4-153420121mipaino<br>341 340 15 13 14 12 16 15 18 18 50 51 35<br>L<br>ee18 8 10 125 12 14 16 18 19 20 34 35<br>1009. S<br>Sol<br>Syn. D<br>L.<br>Li<br>HERB. PATAV. (PAD)<br>Loc.<br>ORA ITALICA EXSICCATA<br>SERIES II.<br>H0029067<br>curantibus<br>Ad Fiori et A. Béguinot<br>a stricta Roth Cat. bot. III, p. 9 (1806) Dactylis<br>(1789).<br>cynosuroides Loefl. (1758), non L. (1762) ex p. nec<br>Trachynotia stricta Lam. et DC. (1805).<br>-<br>-<br>s pungens Rich. in Pers. (1805).<br>ia.<br>Prov. di Rovigo; in arenosis mari inundatis<br>Postinm Padi (Po di Levante), copiosa. - 20 Jul. (1908).<br>Oss<br>Scoperta nella Laguna prossima a Venezia dallo Zanni-<br>chelle dal Micheli ed il primo (Stor. piant. Lid. Venezia, 1735,<br>p. 1, ig. 36) così la indica: << Fra le gramigne marine questa<br>sol nasce ne'luoghi inondati dall' acqua salsa, detti comunemente<br>Baene, ne' quali crescono ancora varie specie di Cali e di Limo-<br>n>d il secondo (in Tilli Cat. pl. Hort. pis., 1733, p. 72) « in<br>suli circa Venetias, et praesertim in illis, quae plerumque per<br>yem m aqua inundatae ». Essa fu segnalata in seguito dai bota-<br>nici veneziani di varie stazioni ed io la raccolsi nell' orlatura are-<br>noso nelmosa eminentemente salsa (velme) lungo il canale tra Por<br>di Lele Porte del Cavallino e nelle barene umide in Val Figheri.<br>cercai invano nella laguna di Padova e di Ferrara. La sta-<br>2<br>e, donde provengono i saggi qui distribuiti, oltrechè estendere<br>l'a a distributiva della specie nell'arco adriatico-padano, è fito-<br>torraficamente interessante, poichè la pianta prospera nelle arene,<br>parte marine e parte fluviali, accumulatesi presso la foce del Po<br>di Levante e periodicamente inondate ogni sei ore dall'alta marea.<br>V cresce associata a Glyceria festucaeformis (cfr. il num. 507 di<br>questa Essiccata), Suaeda maritima, Salicornia herbacea e S. fruti-<br>casa (questa seconda assai più rara della prima), Juncus acutus,<br>Sirpus maritimus, Statice Limonium ed Aster Tripolium. Specie<br>tatte alofile in grado massimo e specialmente barenicole e cioè<br>dei terreni argillosi ed umidi. La presenza di queste specie in ter-<br>reni arenosi sta a dimostrare la loro tolleranza ed adattabilità per<br>questo substrato, quando contenga una certa percentuale di acqua,<br>ifuggendolo invece quando è asciutto. Spartina stricta, come le al-<br>1 specie sopra nominate, segnano nel distretto forse il grado più<br>ele tato di resistenza alla salsedine: la quale deve essere notevole<br>in questo settore periodicamente investito dalla marea, ma è da<br>tenere presente che la salsedine è temperata dalle acque del Po<br>e sta fatto che colonie di alofile, per quanto tra le più resi-<br>stenti, non trovai in queste peculiari condizioni che in vicinanza<br>delle foci padane. Coltivata a Padova, da pianta adulta della La-<br>guna di Venezia, resistè, in terreno dissalato, solo pochi mesi.<br>L'area S. stricta nei territori adriatici procede dall' Istria al<br>Polesine, rappresentandone la stazione donde raccolsi i saggi qui<br>distribuiti forse il limite meridionale: area, allo stato delle cono-<br>scenze, eminentemente isolata, le stazioni più prossime trovandosi<br>nella Europa occid. (Francia, Inghilterra, Pen. iberica) e nell'Africa<br>settentrionale:<br>A. Béguinot.<br>283</td>
+      <td>catalogNumber: H0029067<br>country: Italy<br>day: 20<br>location: Prov. di Rovigo<br>month: 06<br>recordNumber: 118 11-1993<br>recordedBy: Ad Fiori et A. Béguinot<br>scientificName: Spartina stricta<br>year: 2008</td>
+    </tr>
+    <tr>
+      <td><div class="img-container-wrapper"><div class="img-container"><img src="https://storage.gbif-no.sigma2.no/italy/padua-2023-03-24/Thalictrum.jpg" class="zoom-image"></div></div></td>
+      <td>Chalictrum saxatile D. b.<br>Рожня<br>Ferrers<br>Luglis 1911.<br>Mertag.<br>Muſte<br>H0061197<br>HERB. PATAV. (PAD)</td>
+      <td>catalogNumber: H0061197<br>location: Рожня|Mertag|Muſte<br>recordedBy: Ferrers|Luglis<br>scientificName: Chalictrum saxatile<br>year: 1911</td>
+    </tr>
+    <tr>
+      <td><div class="img-container-wrapper"><div class="img-container"><img src="https://storage.gbif-no.sigma2.no/italy/padua-2023-03-24/Thalictrum2.jpg" class="zoom-image"></div></div></td>
+      <td>HERB. PATAV. (PAD)<br>H0061178<br>Sponde muide<br>Chalictrum aquilegifoleinen<br>2161 deutz Maſſ<br>Sus</td>
+      <td>catalogNumber: H0061178<br>scientificName: Chalictrum aquilegifoleinen<br>verbatimIdentification: Sponde muide</td>
+    </tr>
+    <tr>
+      <td><div class="img-container-wrapper"><div class="img-container"><img src="https://storage.gbif-no.sigma2.no/italy/padua-2023-03-24/Viola canina1.JPG" class="zoom-image"></div></div></td>
+      <td>ERBARIO DI LUIGI FILIPPO TIBERTELLI<br>DE PISIS FERRARA)<br>Violoncar<br>Famiglia delle.<br>Specie.<br>Varietá-<br>Localita<br>Data della raccolta.<br>Osservazioni<br>Vedi Prevedin Hot 35<br>fani pale<br>J. Girren<br>HERB. R. HORTI PATAVINI<br>Viole cemine L.<br>5274</td>
+      <td>catalogNumber: 5274<br>recordedBy: J. Girren<br>scientificName: Viole cemine L.</td>
+    </tr>
+    <tr>
+      <td><div class="img-container-wrapper"><div class="img-container"><img src="https://storage.gbif-no.sigma2.no/italy/padua-2023-03-24/alyssum.jpg" class="zoom-image"></div></div></td>
+      <td>Myrmen Latifition big<br>Мунши<br>.<br>stalv.<br>FLORA DALMATICA<br>Alysuim batifolium bis<br>sie agrich cultif, strutibaggen.<br>Insule Lepine<br>shlis<br>VISIANI<br>423,<br>HERB. PATAV. (PAD)<br>HD06977</td>
+      <td>catalogNumber: HD06977<br>location: Insule Lepine<br>recordedBy: VISIANI<br>scientificName: Alysuim batifolium<br>verbatimIdentification: Myrmen Latifition big</td>
+    </tr>
+    <tr>
+      <td><div class="img-container-wrapper"><div class="img-container"><img src="https://storage.gbif-no.sigma2.no/italy/padua-2023-03-24/ambrosia maritima.jpg" class="zoom-image"></div></div></td>
+      <td>www<br>Ambrosia<br>maritima 2₁<br>Poids Eater<br>1994<br>V<br>PAD)<br>ll'Università<br>35123 Padova (Italia)<br>Ambrosia maritima I<br>Sorto Galeri 50fto bre] 1994<br>£ Jap's Ellicer<br>K<br>9146</td>
+      <td>recordNumber: 9146<br>scientificName: Ambrosia maritima<br>year: 1994</td>
+    </tr>
+    <tr>
+      <td><div class="img-container-wrapper"><div class="img-container"><img src="https://storage.gbif-no.sigma2.no/italy/padua-2023-03-24/ambrosia tenui.jpg" class="zoom-image"></div></div></td>
+      <td>HERB. PATAV. (PAD)<br>H0060317<br>A<br>HERBARIUM PATAVINUM (PAD)<br>Centro Interdipartimentale Musei Scientifici dell'Università<br>35123 Padova (Italia)<br>Ambrosia for tenuifelia Speng<br>Ingolte altres al Lido di Vilano<br>(Ferrara)<br>A<br>Lotegrum<br>14.07.2004<br>Ambrosia aff. temuifolia<br>Speng.<br>or narrow leaved form<br>A. psilostachye ? )<br>Revidit G. KARRER, Vienne<br>2016-07-22<br>9146</td>
+      <td>catalogNumber: H0060317<br>country: Italia<br>dateIdentified: 2016-07-22<br>day: 14<br>identifiedBy: G. KARRER<br>location: Lido di Vilano<br>month: 7<br>recordNumber: 9146<br>recordedBy: Lotegrum<br>scientificName: Ambrosia for tenuifelia Speng<br>verbatimIdentification: Ambrosia aff. temuifolia Speng|A. psilostachye<br>year: 2004</td>
+    </tr>
+    <tr>
+      <td><div class="img-container-wrapper"><div class="img-container"><img src="https://storage.gbif-no.sigma2.no/italy/padua-2023-03-24/anemone.jpg" class="zoom-image"></div></div></td>
+      <td>ERBARIO DI LUIGI FILIPPO TIBERTELLI<br>DE PISIS FERRARA)<br>Famiglia delle Anemone Hepetree.<br>Specie.<br>Varietá-<br>Localitá<br>Data della raccolta.<br>Osservazioni<br>Jologra colline<br>furore / D Arrigh<br>2541</td>
+      <td>catalogNumber: 2541<br>location: Jologra colline<br>recordedBy: Luigi Filippo Tibertelli de Pisis<br>scientificName: Anemone Hepetree</td>
+    </tr>
+    <tr>
+      <td><div class="img-container-wrapper"><div class="img-container"><img src="https://storage.gbif-no.sigma2.no/italy/padua-2023-03-24/arum.jpg" class="zoom-image"></div></div></td>
+      <td>HERBARIUM PATAVINUM (PAD)<br>Centro Interdipartimentale Musei Scientifici dell'Università<br>35123 Padova (Italia)<br>Amus seculatums L<br>AMe...<br>farzania lungo<br>вижда<br>dicembre Jeff<br>вре<br>fassets<br>Benell</td>
+      <td>country: Italia<br>location: farzania lungo<br>scientificName: Amus seculatums L</td>
+    </tr>
+    <tr>
+      <td><div class="img-container-wrapper"><div class="img-container"><img src="https://storage.gbif-no.sigma2.no/italy/padua-2023-03-24/belladonna.jpg" class="zoom-image"></div></div></td>
+      <td>HERB. R. HORTI PATAVINI<br>Herbarium plantarum Vindobonae<br>Lolancens<br>Catalogus № 1933.<br>Atropa Belladonna.<br>Pertia ante Calendar Julias.<br>LXXVII<br>EXXVZBrdo:<br>Erb. R. Solla<br>Pola<br>himme.<br>Crossan<br>Juss.<br>zu.<br>les alpis Rox s'intelva.<br>ombros.<br>Sols calcares.<br>7390</td>
+      <td>catalogNumber: 1933<br>country: Pola<br>location: les alpis Rox s'intelva<br>minimumElevationInMeters: 7390<br>recordedBy: Crossan<br>scientificName: Atropa Belladonna<br>year: LXXVII</td>
+    </tr>
+    <tr>
+      <td><div class="img-container-wrapper"><div class="img-container"><img src="https://storage.gbif-no.sigma2.no/italy/padua-2023-03-24/carduus pteracanthus2.jpg" class="zoom-image"></div></div></td>
+      <td>HERB. R. HORTI PATAVINI<br>HERBARIUM R. HORTI PATAVINI<br>Carduus pteracanthus DR.<br>R?<br>Tripolitania<br>undi<br>a messa strada tra<br>Jars - Farabulli e Cripoli<br>19. Marso<br>1921<br>-<br>leg. Dr A. Marcello<br>02</td>
+      <td>catalogNumber: HERB. R. HORTI PATAVINI<br>country: Tripolitania<br>day: 19<br>location: a messa strada tra Jars - Farabulli e Cripoli<br>month: 3<br>recordedBy: Dr A. Marcello<br>scientificName: Carduus pteracanthus<br>year: 1921</td>
+    </tr>
+    <tr>
+      <td><div class="img-container-wrapper"><div class="img-container"><img src="https://storage.gbif-no.sigma2.no/italy/padua-2023-03-24/cecropia.jpg" class="zoom-image"></div></div></td>
+      <td>Cecropia palmate Will.<br>Strated. 1863.<br>1.071</td>
+      <td>catalogNumber: 1.071<br>scientificName: Cecropia palmata Will.<br>year: 1863</td>
+    </tr>
+    <tr>
+      <td><div class="img-container-wrapper"><div class="img-container"><img src="https://storage.gbif-no.sigma2.no/italy/padua-2023-03-24/ceramium2.jpg" class="zoom-image"></div></div></td>
+      <td>Ceranium sanellatum<br>dipp.<br>W. TYSON: SOUTH AFRICAN MARINE ALGÆ.<br>85. Ceramium cancellatum Ag.<br>De Toni Syll. Alg. vol. sect. III no. 2273 p. 1455<br>An various also. Table Bach<br>Inongol Mynte<br>lineari<br>HERB.<br>16<br>A. FOR<br>B. A.<br>(prinimale)<br>TT<br>8. A.<br>FORTI<br>VINUS<br>H. B. PATAVINUS<br>1937<br>A.<br>Ex hers. Beloon,<br>7<br>allo Ilm²<br>Kangaroo Point The<br>it'e membranalle dine con ...<br>дотви<br>Gmbre 187<br>DOBO<br>FORTI<br>WO<br>Articolag! evidentissime soltanto in alcunir-<br>-<br>mit<br>HERB. A. FORT!<br>H. B. PATAVINUS<br>A. 1937<br>})<br>Ceramium cancellatum / stichidiosum<br>Kangaroo Toint (Sud Australia)<br>1937<br>*H. B. PATAVINUS<br>RECONOMATO G B MILANC<br>ARRIVI 4-GEN X/<br>N° The<br>Qamati<br>in seconden, u 5-10 milli<br>i in millim.<br>Romi primerie buchen 3– 40<br>Interamente corticato.<br>imati<br>Portamento t<br>Cystocloniumpropfing<br>atires<br>But the refrane in pin &<br>completo 0, or bith marante, incondate der<br>celluke oblonghe proses perperionlard alle<br>periferia To ve sig companjores incollate pinede<br>colorate moniliferni ramificate-sub<br>conrnbiform.<br>land and<br>& merio.<br>virticular por procupidats & quasi assenti<br>Approces ved sexe phed in basso<br>3150</td>
+      <td>catalogNumber: 16<br>country: SOUTH AFRICAN<br>location: Kangaroo Point<br>minimumElevationInMeters: 3150<br>recordNumber: 85<br>recordedBy: W. TYSON<br>scientificName: Ceranium sanellatum | Ceramium cancellatum | Cystocloniumpropfing<br>year: 1937</td>
+    </tr>
+    <tr>
+      <td><div class="img-container-wrapper"><div class="img-container"><img src="https://storage.gbif-no.sigma2.no/italy/padua-2023-03-24/cerastium sic2.jpg" class="zoom-image"></div></div></td>
+      <td>Cerastium siculemen<br>i gustoschl<br>f. ziculum (Arc.) Möschl<br>16.81.51<br>rev.Mösch).<br>FLORA ITALICA EXSICCATA<br>curantibus.<br>Adr. Fiori, A. Béguinot, R. Pampanini<br>808. Cerastium siculum Guss. Suppl. Fl. Sic. Prodr., p. 137 (1832).<br>Syn. Cerastium aggregatum Dur., lit. 1839 in F. G. Schultz,<br>Flora, 1840, 1, p. 123 et Flora Galliae et Germ. exsiccata<br>Centuria III, p. 5.<br>Loc. Etruria. Prope Florentiam (Firenze), in aggeribus loco<br>dicto alla Nave, al di là dell' Indiano delle Cascine, alt.<br>40 m., solo vario. 30 April. 1908.<br>66<br>Oss. Il confronto con esemplari autotipici di Gussone non<br>lascia alcun dubbio che questo sia il suo C. siculum; e da esso non<br>differisce il C. aggregatum Dur. della Francia meridionale. La de-<br>scrizione di Gussone potrebbe lasciare qualche dubbio, perchè non<br>è detto che i fiori sono non meno spesso tetrameri che pentameri,<br>il che però si osserva negli esemplari da Gussone stesso determinati.<br>Neppure Schultz nè Des Moulins (da Schultz citato in Fl. Gall. et<br>Germ. exsicc.) accennano alla frequente tetrameria del C. aggre-<br>gatum. Però Grenier e Godron, Fl. Fr., I, p. 269, dicono esplicita-<br>mente che è spesso tetramero. Anche Parlatore, Fl. It., IX, p. 485<br>scrive: sepalis, staminibus, stylis 5; tuttavia dice: capsulis 8-dentatis,<br>il che anche nella nostra pianta si osserva spesso tanto nei fiori a 5<br>quanto in quelli a 4 sepali, ma non sempre però, non mancando le<br>capsule con 10 denti.<br>Questa specie, che fino a poco tempo fa era stata indicata soltanto<br>della Francia meridionale, di Algeria, di Sicilia, Corsica e Basili-.<br>cata, fu già da me rinvenuta nelle isole toscane di Gorgona e di<br>Pianosa (Bull. Soc. bot. it., 1899, p. 118-119; ibid., 1901, p. 302, e Pro-<br>spetto d. fl. dell' Arcipelago Tosc., N. Giorn. bot. ital., n. ser., vol. X,<br>1903, p. 147). Ora l' ho trovata abbondante in due luoghi presso Fi-<br>renze su di un argine poco al di là della estremità delle Cascine<br>dove cresce insieme ai C. brachypetalum, semidecandrum e glomeratum;<br>e nella pineta al di là dei Collazzi sulla stradą Volterrana, dove<br>cresce insieme ai C. brachypetalum, campanulatum, glomeratum e semi-<br>decandrum.<br>In tutte queste località i fiori tetrameri si trovano promiscua-<br>mente coi pentameri, talvolta anche sulla stessa pianta. Battandier,<br>Flore de l'Algérie, p. 148, ha istituito una varietà tetrandrum del<br>C. siculum, probabilmente perchè dagli autori il C. siculum è gene-<br>ralmente detto pentamero. Ma questa varietà non ha luogo di sus-<br>sistere quando si sa che anche nel tipo Gussoneano del C. siculum<br>di Sicilia, come nei tipi del C. aggregatum di Francia, i fiori sono<br>spesso tetrameri. Nè maggior valore ha la varietà densiflorum (Guss.<br>pro sp.) Parl., poichè ad essa si possono riferire nelle isole le piante<br>precoci della microflora mediterranea, e nei dintorni di Firenze gli<br>esemplari piccoli a cime contratte nati in terreno arido, che trovansi<br>accanto ad altri cresciuti in humus più profondo e che sono tipici,<br>avendo statura più elevata, peduncoli più lunghi e cime più lasse.<br>Questo Cerastium è pianta molto affine a quella del Lido di Ve-<br>nezia distribuita in questa centuria (N. 407) col nome di C. pumi-<br>lum var. alsinoides. Se ne distingue principalmente per i peduncoli<br>più corti e per le capsule più lunghe, più strette e più curvate. Ha<br>inoltre le cime meno lasse, i sepali più acuti, ed i calici più stretti.<br>S. Sommier.<br>HERB. PATAV. (PAD)<br>H0056733<br>HERB. R. HORTI PATAVINI<br>Cerastium litiforen<br>beffen<br>16. XI. 31.<br>De Lens<br>rev.Möschl.<br>2430</td>
+      <td>catalogNumber: 808<br>country: Etruria<br>dateIdentified: 16. XI. 31.<br>day: 16<br>identifiedBy: Möschl<br>location: Prope Florentiam (Firenze)<br>minimumElevationInMeters: 40<br>month: 11<br>recordedBy: S. Sommier<br>scientificName: Cerastium litiforen<br>verbatimIdentification: Cerastium litiforen<br>year: 1931</td>
+    </tr>
+    <tr>
+      <td><div class="img-container-wrapper"><div class="img-container"><img src="https://storage.gbif-no.sigma2.no/italy/padua-2023-03-24/chaetophora.jpg" class="zoom-image"></div></div></td>
+      <td>151<br>FOR<br>FORTI<br>Herb. Picconsorti<br>M. B. PATAVINUS<br>A. 1937<br>Dall'erbario di ALESSIO MALINVERNI<br>nel Vercellese.<br>Erbar. Crittogam. Ital.<br>580. CHAETOPHORA ELEGANS<br>Ag. Syst. 27. Kütz Sp. algar. 532. Tab. phycol. III.<br>tab. 20. fig. I. Trevis. Alg. udin. 8. Hass. Brit.<br>freshw. alg. 127. lab. IX. fig. 3. 1. Rabenh. Alg.<br>Sachs. 77. 897.<br>Nel così detto Fontanone ad Oldenico, pro-<br>vincia di Vercelli.<br>Gennaio 1860. MALINVERNI.<br>Herb. Piccone-Forti<br>A. 1937<br>H. B. PATAVINUS<br>HERO<br>-<br>HERB.<br>Rabenhorst, Algen Europa's.<br>1773. Chaetophora longipila Ktz.<br>Ktz. Spec. p. 531. Tab. phycol. III. f. 17.<br>An Wasserpflanzen in Wiesengräben zwischen Scholt-<br>witz und Glockschütz bei Breslau. Mit Chaetophora zuſammen<br>kommt noch in der Masse Draparnaldia acuta Ktz. vor. Ges.<br>den 24. October 1863.<br>Hilse.<br>*<br>Herb. Piccone-Forti<br>Chartophose deg<br>dz<br>A. F<br>Finken terug.<br>bei Berlin 26.5.7%<br>FORTI<br>H. B. PATAVINUS<br>A. 1<br>RTI<br>aus<br>Gantung<br>Chatophora elegans. A<br>GOJOJ O<br>top<br>Q3010<br>+7<br>to Tota<br>Tine.<br>HERB.<br>integ<br>FORTI<br>H. B. PATAVINUS<br>A. 1937<br>Chatophoréa<br>335,336<br>1558<br>75<br>2558</td>
+      <td>catalogNumber: 151|580|1773<br>country: Germany|Italy<br>day: 24<br>identifiedBy: Rabenhorst|Hilse<br>location: Wiesengräben zwischen Scholtwitz und Glockschütz bei Breslau|Oldenico, provincia di Vercelli<br>maximumElevationInMeters: 336<br>minimumElevationInMeters: 335<br>month: 1|10<br>recordedBy: ALESSIO MALINVERNI|Hilse<br>scientificName: CHAETOPHORA ELEGANS|Chaetophora longipila|Chatophora elegans<br>verbatimIdentification: Chaetophora elegans Ag. Syst. 27. Kütz Sp. algar. 532. Tab. phycol. III. tab. 20. fig. I. Trevis. Alg. udin. 8. Hass. Brit. freshw. alg. 127. lab. IX. fig. 3. 1. Rabenh. Alg. Sachs. 77. 897|Chaetophora longipila Ktz. Ktz. Spec. p. 531. Tab. phycol. III. f. 17|Chatophora elegans<br>year: 1937|1860|1863</td>
+    </tr>
+    <tr>
+      <td><div class="img-container-wrapper"><div class="img-container"><img src="https://storage.gbif-no.sigma2.no/italy/padua-2023-03-24/cistus.jpg" class="zoom-image"></div></div></td>
+      <td>HERB. A<br>FORT FLORA ITALICA EXSICCATA<br>H. B. PATAVINUS<br>curantibus<br>A. 19Adr. Fiori, A. Béguinot, R. Pampanini<br>63. Cistus albidus L. Sp. pl., ed. I, p. 524 (1753).<br>-<br>Loc. Venetia. - Prov. di Verona: circa Torri loco le Prandine<br>dicto (loc. class.) in collibus apricis benacensibus, alt. 130-160<br>m., solo calcareo. - 21 Maj. 1904.<br>G. Rigo.<br>Oss. Specie dell' Europa occid.-merid. e dell'Algeria, scoperta<br>dal Fontana nelle colline presso Torri (cfr. Poll. Fl. Ver., II, p. 179)<br>e precisamente nel luogo detto le Prandine: troverebbesi anche ad<br>Albisano (località sovrastante alla precedente) e nei Lessini presso<br>Roverè di Velo (sec. Goiran, Piant. fan. agr. ver., II, p. 91); ma<br>questa ultima stazione pare incriminabile (sec. Rigo, in litt.). In<br>ogni modo le stazioni veronesi sono nell'attualità completamente<br>isolate e forse la pianta vi rappresenta un superstite della vegeta-<br>zione macrotermica preglaciale.<br>HV<br>HERB. PATAV. (PAD)<br>H0060314<br>A. Béguinot.<br>T<br>52.</td>
+      <td>catalogNumber: H0060314<br>country: Italy<br>day: 21<br>location: Venetia<br>maximumElevationInMeters: 160<br>minimumElevationInMeters: 130<br>month: 5<br>recordNumber: 52<br>recordedBy: G. Rigo<br>scientificName: Cistus albidus L.<br>verbatimElevation: 130-160 m<br>year: 1904</td>
+    </tr>
+    <tr>
+      <td><div class="img-container-wrapper"><div class="img-container"><img src="https://storage.gbif-no.sigma2.no/italy/padua-2023-03-24/drypis4.jpg" class="zoom-image"></div></div></td>
+      <td>Herbier Arm. Thielens, Tirlemont (Belgique).<br>D<br>Dryppues<br>H0056825<br>récolté par<br>HERB. PATAV. (PAD)<br>Gunida<br>an<br>mosa Sin<br>Croatie<br>eller 18/5<br>& Rossi<br>Typis spinn-<br>ériano Murb. el Watt.<br>V.<br>Jarquin<br>a. Bejen ditt<br>V.<br>Ex herbario ANTONII ORSINI<br>Lion. Fr.<br>Degpu's Spinosa<br>lapidasit anseral. Minif<br>Flora Praetutiana<br>Lynn M.IN.<br>ar<br>HERB. PATAV. (PAD)<br>H0056826<br>249 5</td>
+      <td>catalogNumber: H0056825<br>country: Croatie<br>dateIdentified: 18/5<br>identifiedBy: Rossi|V. Jarquin|V. Bejen|Lion. Fr.<br>kingdom: Gunida<br>location: Herbier Arm. Thielens, Tirlemont (Belgique)<br>recordedBy: HERB. PATAV. (PAD)|Antonii Orsini<br>scientificName: Dryppues<br>verbatimIdentification: Typis spinn-ériano Murb. el Watt.</td>
+    </tr>
+    <tr>
+      <td><div class="img-container-wrapper"><div class="img-container"><img src="https://storage.gbif-no.sigma2.no/italy/padua-2023-03-24/echinops.jpg" class="zoom-image"></div></div></td>
+      <td>Echings Neumayer<br>by<br>Neuevayet<br>FLORA DALMATICA<br>In Mr. Orien<br>HERB. PATAV. (PAD)<br>Echinops Neumayeri<br>12/<br>Neumayer.<br>HD02730<br>VISIANI</td>
+      <td>catalogNumber: HD02730<br>identifiedBy: VISIANI<br>location: Mr. Orien<br>recordedBy: Neuevayet<br>scientificName: Echinops Neumayeri</td>
+    </tr>
+    <tr>
+      <td><div class="img-container-wrapper"><div class="img-container"><img src="https://storage.gbif-no.sigma2.no/italy/padua-2023-03-24/ehrharta5.jpg" class="zoom-image"></div></div></td>
+      <td>Ehrharta panicea<br>مر<br>Ehrharra paniceas<br>Portie<br>2<br>201</td>
+      <td>scientificName: Ehrharta panicea<br>year: 201</td>
+    </tr>
+    <tr>
+      <td><div class="img-container-wrapper"><div class="img-container"><img src="https://storage.gbif-no.sigma2.no/italy/padua-2023-03-24/heliotropiumundul2.jpg" class="zoom-image"></div></div></td>
+      <td>HERB. PATAV. (PAD)<br>H0057928<br>Heliotropium undulatum. Vahl.<br>Pyramides.<br>HERB. PATAV. (PAD)<br>H0057929<br>K<br>Heliotropium<br>crippundulater<br>Corolla monopetala, uneolata,<br>l'imbo quinquefide. Se deperté<br>vellich Shait Brochie<br>legit Sieber.<br>K<br>Heliotropien<br>undulater Vall,<br>HERB. MENEGH.<br>; Acesti in<br>следурат<br>Visiani<br>legit<br>det..<br>HERB. PATAV. (PAD)<br>H0057930<br>7052</td>
+      <td>catalogNumber: H0057928|H0057929|H0057930<br>identifiedBy: Visiani<br>kingdom: K<br>recordedBy: Sieber<br>scientificName: Heliotropium undulatum<br>verbatimIdentification: Heliotropium undulater|Heliotropien undulater Vall</td>
+    </tr>
+    <tr>
+      <td><div class="img-container-wrapper"><div class="img-container"><img src="https://storage.gbif-no.sigma2.no/italy/padua-2023-03-24/isoetes malinverniana2.jpg" class="zoom-image"></div></div></td>
+      <td>Erb. PICCONE<br>Societé auphinoise. GENOVA<br>No 1045. Isoetes Malinverniana Ces. et<br>De Not. in Ind. sem. Hrt. bot. gen. 1858, et in Erb.<br>critt. ital. nº 103; -Mlde, filic. eur. et atl. 287.<br>Quinto, près Vercelli Italie, Piémont): canaux<br>d'irrigation des rizières.<br>Septembre 1875.<br>A.-F. Negri.<br>1045. Isoetes Malinverniana Cesati et de Notaris. Cormo trisulco ::<br>foliorum coma supra bulhum majusculum constricta; foliis hasi elongata<br>cochleariformi, longe alato-marginatis, prismatico-subulatis, fasciculis<br>fibrosis stomatibusque (parce) præditis; glandulæ processu cordato<br>oblongo, ligula lineari subulata apice bidentata; sporotheciis peltafor-<br>mibus, nudis; macrosporis majusculis granuloso-papillosis, vertice tri-<br>gonis, tricostatisque, faciebus intercostalibus angustis, læviusculis, angu-<br>lis tuberculo mammaformi terminatis: microsporis triquetris lævibus.<br>(Extrait du Commentario della Societa crittogamologica italiana, Genova,<br>1861, page 102: Rivista delle Isoetee della Flora italiana.)<br>0<br>2<br>3<br>4<br>S<br>Erb. PICCONE<br>GENOVA<br>105. ISOËTES MALINVERNIANA<br>Cesat. et DNtrs in Ind. Semin. H. Botan. Genuens. 1858.<br>Negli acquedotti a Greggio ed Oldenico nell'agro Vercellese.<br>Estate ed Autunno 1858. MALINVERNI.</td>
+      <td>catalogNumber: 1045|105<br>country: Italie<br>location: Quinto, près Vercelli|Vercelli, Piémont|Greggio|Oldenico<br>month: 9<br>recordedBy: A.-F. Negri|MALINVERNI<br>scientificName: Isoetes Malinverniana Ces. et De Not.<br>year: 1875|1858</td>
+    </tr>
+    <tr>
+      <td><div class="img-container-wrapper"><div class="img-container"><img src="https://storage.gbif-no.sigma2.no/italy/padua-2023-03-24/juniperus18.jpg" class="zoom-image"></div></div></td>
+      <td>HERB. PATAV. (PAD)<br>H0058594<br>Juniperus oxycedrus L.<br>v. macrocarpa S.et S.<br>Coniferae<br>M.Circeo, dune marine<br>21/IV/1965<br>HERB. HORTI PATAVINI<br>ISTITUTO BOTANICO PADOVA (Italia)<br>Tip. Bertaglia<br>L</td>
+      <td>catalogNumber: H0058594<br>country: Italia<br>day: 21<br>location: M.Circeo, dune marine<br>month: 4<br>recordedBy: HERB. HORTI PATAVINI|ISTITUTO BOTANICO PADOVA<br>scientificName: Juniperus oxycedrus L.<br>year: 1965</td>
+    </tr>
+    <tr>
+      <td><div class="img-container-wrapper"><div class="img-container"><img src="https://storage.gbif-no.sigma2.no/italy/padua-2023-03-24/juniperus9a.jpg" class="zoom-image"></div></div></td>
+      <td>HERB. PATAV. (PAD)<br>H0058614<br>1<br>HERBARIUM R. HORTI PATAVINI<br>Juniperus macrocarpa Set 8.<br>Boko di Lesiva, prov. di Fazzia<br>1877–1898.<br>Daifieri.<br>45--</td>
+      <td>catalogNumber: H0058614<br>location: Boko di Lesiva, prov. di Fazzia<br>minimumElevationInMeters: 45<br>recordedBy: Daifieri<br>scientificName: Juniperus macrocarpa<br>year: 1877</td>
+    </tr>
+    <tr>
+      <td><div class="img-container-wrapper"><div class="img-container"><img src="https://storage.gbif-no.sigma2.no/italy/padua-2023-03-24/limonium vaccari.jpg" class="zoom-image"></div></div></td>
+      <td>HERB. R. HORTI_PATAVINI<br>m.<br>2494<br>revis. S. PIGNAT<br>L. sibthopianum<br>vaccarii mob.<br>TYPUS<br>ܐ܂<br>ما<br>1<br>was maciasi stava<br>22 12 02 51 91 24 91 91 21 91 21 11 8 682<br>-<br>32312 0<br>FLORA LYBICA EXSICCATA<br>-<br>B<br>curantibus<br>A. 1931<br>Aug. Béguinot et Ant. Vaccar<br>SI SI FUEL ZEIL OLSZOSP<br>HERB. A<br>H. B. RATAVINUS<br>147. Statice delicatula De Girard in Ann. Sc. Nat. ser. 3ª,<br>II, p. 327 (1844); Dur. et Barr. Fl. Lib. prodr. p. 195;<br>Bég. et Vacc. Contr. Fl. Lib. p. 56; Sec. contr. Fl. Lib.,<br>Roma p. 28 e Modena p. 25; Terzo contr. Fl. Lib. in<br>Ann. di Bot. XII, p. 113; Pamp. Pl. Tripol. p. 188.<br>Tobruk costa sud in arenosis maritimis.<br>Loc. Marmarica.<br>23 Maj. 1912.<br>-<br>A. Vaccari.<br>-<br>Oss.<br>La pianta qui distribuita è una forma remotispicula (forse<br>il tipo?). ma a Misrata il Vaccari raccolse (15-X-1912) una forma a<br>foglie più larghe ed a spighette più grandi e dense e che ricorda la<br>S. tunetana, dalla quale tuttavia si distingue per i caratteri delle brattee<br>posti in evidenza nel n. 148 di questa Essiccata.<br>A. Béguinot.<br>FORTI</td>
+      <td>catalogNumber: 2494<br>country: Loc. Marmarica<br>day: 23<br>identifiedBy: A. Béguinot<br>location: Tobruk costa sud in arenosis maritimis<br>month: 5<br>recordedBy: A. Vaccari<br>scientificName: Statice delicatula<br>verbatimIdentification: 147. Statice delicatula De Girard in Ann. Sc. Nat. ser. 3ª<br>year: 1912</td>
+    </tr>
+    <tr>
+      <td><div class="img-container-wrapper"><div class="img-container"><img src="https://storage.gbif-no.sigma2.no/italy/padua-2023-03-24/linospora magnagutiana.jpg" class="zoom-image"></div></div></td>
+      <td>Big459 61911AT01<br>блиотроси Мамадивческа<br>Carmo ?<br>t. Fagome<br>100-120x3 = -4<br>190<br>context pachy's<br>fachejt<br>день нуй<br>an<br>Is 0100<br>Linospora Pacca diania<br>100-128 x ½-3½ cut. vese guilt. hyaſ.<br>O<br>1<br>Jeſterum inveni istung & hanzellen<br>py<br>funzillerm<br>ad folia exiccata aducé suffedule<br>Phiphiophord<br>KIUM<br>Exposi !!!<br>بي<br>778<br>8 In Vite inveni<br>Hysterographium<br>J. 8 wirdum (pubblican<br>HERBARIUM MYCOL<br>H.B. PATAVINUS<br>PA, SACCARDO<br>bong<br>Hysteri delu tipicam<br>Longiun<br>неуверим двотборну<br>#get. viticolen, veramente.<br>drum in Megcoth.<br>8 Ven- et frislidien</td>
+      <td>catalogNumber: 61911AT01<br>countryCode: بي<br>identifiedBy: Jeſterum inveni istung & hanzellen|Hysterographium|H.B. PATAVINUS|PA, SACCARDO|Hysteri delu tipicam<br>location: context pachy's|In Vite inveni|Longiun<br>maximumElevationInMeters: 128<br>minimumElevationInMeters: 100<br>recordedBy: Carmo<br>scientificName: Linospora Pacca diania<br>verbatimIdentification: KIUM|Exposi !!!|HERBARIUM MYCOL|неуверим двотборну|#get. viticolen, veramente.<br>year: 190</td>
+    </tr>
+    <tr>
+      <td><div class="img-container-wrapper"><div class="img-container"><img src="https://storage.gbif-no.sigma2.no/italy/padua-2023-03-24/mandragora.jpg" class="zoom-image"></div></div></td>
+      <td>L<br>Pentandvia Monogynia<br>Spr<br>Mandragora autumnalis<br>Bertol Syst- Vol-1-paz<br>ووه<br>ogg. Non.<br>Gron・ 75'R.<br>7413</td>
+      <td>catalogNumber: 7413<br>scientificName: Mandragora autumnalis</td>
+    </tr>
+    <tr>
+      <td><div class="img-container-wrapper"><div class="img-container"><img src="https://storage.gbif-no.sigma2.no/italy/padua-2023-03-24/monotropa hg12.jpg" class="zoom-image"></div></div></td>
+      <td>HERB. PATAV. (PAD)<br>warmannaey<br>H0039662<br>FLORA DEL CADORE<br>100<br>Monotropa Hypopithys L.<br>var. glabra Roth<br>Valle del Boite: Sopra S. Vito. alt. 1200-1400 m.<br>16 Agosto 1922.<br>R. Pampanini<br>Erb.CadoreR,Pampanini<br>6169</td>
+      <td>catalogNumber: H0039662<br>day: 16<br>location: Valle del Boite: Sopra S. Vito<br>maximumElevationInMeters: 1400<br>minimumElevationInMeters: 1200<br>month: 8<br>recordedBy: R. Pampanini<br>scientificName: Monotropa Hypopithys L.<br>year: 1922</td>
+    </tr>
+    <tr>
+      <td><div class="img-container-wrapper"><div class="img-container"><img src="https://storage.gbif-no.sigma2.no/italy/padua-2023-03-24/myrothecium2.jpg" class="zoom-image"></div></div></td>
+      <td>Crypto games da Lyonnais -J.J.Therry N (200)<br>Mynetharinen trockiboides<br>Мурмоста<br>(a typpergener mayone<br>Prith, 250-260, I pressen.<br>Thoma<br>Lan<br>mayine now v. vik<br>6603<br>Myprotholian huchiloises<br>Jan. Mich. 11. p. 367<br>Thragmites<br>pellidiorecen a beture<br>offit<br>Sp. 7-9 x 15-2<br>basit. 18–24 x 1,5-27 iul<br>Lyon<br>Communis quines des teps mortes<br>1880-hivern.<br>Prentenpr 188<br>Themy.</td>
+      <td>dateIdentified: hivern<br>recordNumber: 6603<br>scientificName: Mynetharinen trockiboides<br>year: 1880</td>
+    </tr>
+    <tr>
+      <td><div class="img-container-wrapper"><div class="img-container"><img src="https://storage.gbif-no.sigma2.no/italy/padua-2023-03-24/nigella.jpg" class="zoom-image"></div></div></td>
+      <td>باعث<br>Willa Bonto amari -. 21. "Jught<br>Bartol<br>отарі<br>квапиталяние<br>wella damasiona<br>sans. L. Bongour. Wella ge<br>Boli<br>DE FISIS FERNATA)<br>Воспитатвием<br>Famiglia delle<br>F<br>Nagella damasens S.<br>Specie.<br>Varietá.<br>Località Sousta di. Vonjang<br>Pron. th<br>ہے<br>Data della raccolta 2<br>Osservazioni_<br>Tuglie<br>911919<br>ن<br>2530</td>
+      <td>recordNumber: 2530<br>year: 1919</td>
+    </tr>
+    <tr>
+      <td><div class="img-container-wrapper"><div class="img-container"><img src="https://storage.gbif-no.sigma2.no/italy/padua-2023-03-24/nitophyllum.jpg" class="zoom-image"></div></div></td>
+      <td>81.5<br>Con Sori<br>12.5 dupl. Nitophyllum (Cryptomenza)<br>Nitiph. (byphonenyantionatum<br>Playa Esté Cabo Forningo, Tierra del Fuego, 25-2-1966. Legit A. Benove.<br>n:39.<br>I<br>Laciniatum et,<br>y。<br>0⁰0<br>N<br>fietst.<br>TIX<br>·laciniatin<br>Nitoph. (Cimptonewia)<br>*<br>FORTI<br>HERB. A. FO<br>Nelle attenuazion" infecion<br>A<br>HERB. H<br>- Come il 42-<br>(Terra del<br>21-1-1916<br>Esté de Pors. Gente Grande<br>FORTI<br>H. B. PATAVINUS<br>A. 1937<br>H. B. PATAVINUS<br>A. 1937<br>& L<br>SYO<br>Jusco)<br>S<br>Vibiunto</td>
+      <td>catalogNumber: 39<br>day: 25<br>decimalLatitude: -54.810129<br>decimalLongitude: -68.324890<br>location: Playa Esté Cabo Forningo, Tierra del Fuego<br>month: 2<br>recordedBy: A. Benove<br>scientificName: Nitophyllum (Cryptomenza)<br>year: 1966</td>
+    </tr>
+    <tr>
+      <td><div class="img-container-wrapper"><div class="img-container"><img src="https://storage.gbif-no.sigma2.no/italy/padua-2023-03-24/phragmites.jpg" class="zoom-image"></div></div></td>
+      <td>HERB. R. HORTI PATAVINI<br>Phragmites<br>commun?...<br>ERBARIO DI LUIGI FILIPPO TIBERTELLI<br>DE PISIS (FERRARA)<br>Famiglia delle<br>Specie.<br>Varietá.<br>Localitá.<br>Data della raccolta.<br>Osservazioni_<br>Ay<br>nata<br>Joltivate nelle<br>upp<br>mich<br>es<br>333.</td>
+      <td>scientificName: Phragmites commun</td>
+    </tr>
+    <tr>
+      <td><div class="img-container-wrapper"><div class="img-container"><img src="https://storage.gbif-no.sigma2.no/italy/padua-2023-03-24/pikea californica2.jpg" class="zoom-image"></div></div></td>
+      <td>1<br>Herb. Piccone-Forti<br>A. 1937<br>PHYCOTHECA BOREALI-AMERICANA.<br>HERB. A. FORTI<br>D. PATAVINUS<br>Tikea californica Han<br>Californ.<br>FRB. A.<br>COLLINS, HOLDEN, AND SETCHELL.<br>897. Pikea Californica Harv.<br>Harvey, Nereis Bor.-Am., part 2, p. 246, 1853; part 3, p. 131, Pl.<br>XLIX B, 1858.<br>Farlow, Proc. Amer. Acad., Vol. X, p. 376, 1875; Report of U. S.<br>Fish Commission for 1875, p. 698, 1876.<br>MRS. E. SNYDER.<br>HERB.<br>Anderson, Zoe, Vol. II, p. 222, 1891.<br>Howe, Erythea, Vol. I, p. 68, 1893.<br>McClatchie, Proc. Southern Calif. Acad., Vol. I, p. 356, 1897.<br>Farl. And. and Eaton, Alg. Am.-Bor. Exsicc., No. 27, 1877.<br>Pacific Beach, California.<br>1<br>A.<br>HERB...<br>H. B.<br>H. B. PATAVINUS<br>H. B. PATAVINUS<br>A. 1937<br>FORTI<br>*<br>A. 1937<br>FRATION<br>FORT<br>RTI<br>PATAVINUS<br>A. 1937<br>*<br>Herb. Piccone-Forti<br>Herb. Achille Forti<br>Pikea californica Hard<br>Que bonus be<br>Hauck et Richter. Phykotheka universalis.<br>502. Pikea californica Harvey.<br>Nereis Boreali-Americana p. 246.<br>California, Avila Beach.<br>HERB.<br>8<br>of<br>coliforn.<br>RB. A.<br>coll. Miss Mabel Miles.<br>Mitgetheilt durch Frank S. Collins.<br>FORTI<br>HERB. F. S. COLLINS.<br>Pikea Californica. Haur<br>California.<br>H. B. PATAVINUS<br>1937-<br>HERB. A.<br>*<br>*<br>FORT<br>1937<br>H. B. PATAVINUS<br>3220</td>
+      <td>catalogNumber: 1|3220<br>country: Californ<br>countryCode: FRB. A.<br>identifiedBy: A. FORTI|D. PATAVINUS|H. B. PATAVINUS<br>kingdom: PHYCOTHECA BOREALI-AMERICANA|Phykotheka universalis<br>location: Pacific Beach, California<br>recordNumber: 897|502<br>recordedBy: MRS. E. SNYDER|Miss Mabel Miles<br>scientificName: Pikea californica<br>verbatimIdentification: Tikea californica Han|Pikea californica Hard<br>year: 1937</td>
+    </tr>
+    <tr>
+      <td><div class="img-container-wrapper"><div class="img-container"><img src="https://storage.gbif-no.sigma2.no/italy/padua-2023-03-24/polytrichum4b.jpg" class="zoom-image"></div></div></td>
+      <td>azal.<br>ERBARIO F. PFAFF<br>BOZANG<br>Polybrichen<br>Poly trichum commune<br>B. Kitten: im Sumpfs beim Stickerses u. beim Signater<br>Schwarque, 1250 u. 1275 m, 18. Okl. 1925 u. 18632 (502.<br>Polytrichum commune<br>PII 31-104.<br>L. f. procumbens Pfalf. B. Ueberetich, Eslöcha, 520 m, 15. Aug. 1992.</td>
+      <td>catalogNumber: PII 31-104<br>day: 18<br>identifiedBy: F. Pfaff<br>location: bozang|B. Kitten: im Sumpfs beim Stickerses u. beim Signater|Schwarque<br>maximumElevationInMeters: 1275<br>minimumElevationInMeters: 520<br>month: 10<br>recordNumber: 18632<br>recordedBy: L. f. procumbens Pfalf<br>scientificName: Poly trichum commune|Polytrichum commune<br>verbatimElevation: 1250 u. 1275 m|Eslöcha, 520 m<br>verbatimIdentification: Polybrichen|Poly trichum commune|Polytrichum commune<br>year: 1925</td>
+    </tr>
+    <tr>
+      <td><div class="img-container-wrapper"><div class="img-container"><img src="https://storage.gbif-no.sigma2.no/italy/padua-2023-03-24/primula venzoides.jpg" class="zoom-image"></div></div></td>
+      <td>**** the<br>Primula tirolensis Scholz (<br>HERB. A. F<br>HV<br>Forojulius-M. Cavallo in presures rupine 10).<br>cale. In 1800 – 2000. Leg, Porta<br>Бола довідо<br>just. 1904.<br>A. 1931<br>H. B. PATAVINO<br>1<br>VIND<br>FURTI<br>typoleusi;<br>P. conistica? Whafference?<br>af<br>Action Luysio raccolte in pochu<br>Luppic<br>eſc umpluri fiorité nelle Votte di<br>Feltre<br>Verzo<br>ERBARIO P. A. Saccardo<br>P. Leur aides<br>ex Walfunda<br>tyrohenfif<br>Luglio. In podi denpelare<br>nel molle Valbenou,<br>ai<br>ravolta quest'anno in diver-<br>si du C. dr. Anber nella<br>ERBARIO P.Accidentagna<br>S. tyrolensis ;chotte<br>a<br>byrolen<br>) P.A. Saccardo Allion Loisi-<br>all;<br>Timula Stroffene<br>10<br>Sve vata i 20 Luglis 1875<br>nelle l'atté du Feltre presodiè<br>tutre sfiorita, cornò dubbia<br>a me<br>P. Tyrolensi, schott.<br>fellion dois.<br>d. Welteniana<br>Leglio, idel mon'x Vulbenor<br>delle<br>Carquea<br>ERGARIO P. A. Saccardo<br>HERB. R. HORTI PATAVINI<br>Verry:<br>6315</td>
+      <td>country: Forojulius-M. Cavallo<br>dateIdentified: 1904<br>day: 20<br>identifiedBy: H. B. PATAVINO|P.A. Saccardo<br>location: Feltre|Verzo|Bola|Vind|Walfunda<br>maximumElevationInMeters: 2000<br>minimumElevationInMeters: 1800<br>month: 7<br>recordedBy: Leg, Porta<br>scientificName: Primula tirolensis Scholz<br>verbatimIdentification: P. conistica? Whafference?|Primula tirolensis Scholz|P. Leur aides|P. tyrolensis ;chotte|P.A. Saccardo Allion Loisi-|Timula Stroffene|P. Tyrolensi, schott.|d. Welteniana<br>year: 1931</td>
+    </tr>
+    <tr>
+      <td><div class="img-container-wrapper"><div class="img-container"><img src="https://storage.gbif-no.sigma2.no/italy/padua-2023-03-24/racemosus1.jpg" class="zoom-image"></div></div></td>
+      <td>{<br>HERB. PATAV. (PAD)<br>dibu<br>L<br>HD05069<br>Squang cally c. marginal vom ciliates<br>ut will theft.<br>назк<br>Diantley recemony<br>in coller S. Georzie<br>Sept.</td>
+      <td>catalogNumber: HD05069</td>
+    </tr>
+    <tr>
+      <td><div class="img-container-wrapper"><div class="img-container"><img src="https://storage.gbif-no.sigma2.no/italy/padua-2023-03-24/ranunculus.jpg" class="zoom-image"></div></div></td>
+      <td>4.<br>komana. Dinten in delle shive<br>Витура в Уличи<br>vil humpe t<br>м мий<br>& mönnte di antichi<br>cout presso l'amor<br>portion - Monumentus. Kivunia<br>- Bonumenna vomita<br>14- Mung 1413<br>1113. Conmiſchtenn.<br>ERBARIO DI LUIGI FILIPPO TIBERTELLI<br>DE PISIS FERRARA<br>Выпискившем<br>Famiglia delle<br>Specieвипитомвич<br>Ficuria<br>Varietá-<br>Località Montagions<br>Data della raccolta.<br>Osservazioni_<br>16 Marys 1913<br>Coon Feter. Ven 389<br>2546</td>
+      <td>catalogNumber: 389<br>day: 16<br>location: Montagions<br>month: 3<br>recordNumber: 1113<br>recordedBy: Luigi Filippo Tibertelli de Pisis<br>scientificName: Ficuria<br>year: 1913</td>
+    </tr>
+    <tr>
+      <td><div class="img-container-wrapper"><div class="img-container"><img src="https://storage.gbif-no.sigma2.no/italy/padua-2023-03-24/salvia.jpg" class="zoom-image"></div></div></td>
+      <td>HERB. PATAV. (PAD)<br>H0056343<br>Salvia Litte<br>H. P. Jun.<br>Littue. Vis<br>12.<br>{<br>7290</td>
+      <td>catalogNumber: H0056343<br>day: 12<br>month: 6<br>recordedBy: Littue. Vis<br>scientificName: Salvia Litte</td>
+    </tr>
+    <tr>
+      <td><div class="img-container-wrapper"><div class="img-container"><img src="https://storage.gbif-no.sigma2.no/italy/padua-2023-03-24/salvia1.jpg" class="zoom-image"></div></div></td>
+      <td>S. Vorbereir<br>Celinge<br>Jabo beton cacfon<br>Palvia<br>отрії Упр.<br>27/672<br>HERB. PATAV. (PAD)<br>AVENUE<br>HD04883<br>HERB. PATAV. (PAD)<br>C.<br>HD05034<br>FLORA DALMATICA<br>Salvia Berterici Sch<br>In passics locifque herbidig<br>sina Schevine, Desig<br>VISIANI</td>
+      <td>catalogNumber: HD04883|HD05034<br>location: FLORA DALMATICA<br>recordedBy: S. Vorbereir<br>scientificName: Salvia Berterici Sch</td>
+    </tr>
+    <tr>
+      <td><div class="img-container-wrapper"><div class="img-container"><img src="https://storage.gbif-no.sigma2.no/italy/padua-2023-03-24/senecio doria10.jpg" class="zoom-image"></div></div></td>
+      <td>HERB. R. HORTI PATAVINI<br>Seueris Varis L.<br>Golare miti<br>so. danubialis michi<br>Kansain<br>}<br>FLORA EXSICCATA AUSTRO-HUNGARICA.<br>237. Senecio Doria.<br>Linné Syst. nat. ed. X. p. 1215. (1759); Jacq. Fl. Austr. II. p. 51., t. 185.<br>Austria inferior. In pratis prope Aspern ad Danubium.<br>Erb. R.Salla<br>Pola<br>Woloszczak.<br>9411</td>
+      <td>catalogNumber: 237<br>country: Austria<br>countryCode: AT<br>kingdom: Plantae<br>location: Aspern<br>recordedBy: R. Salla|Woloszczak<br>scientificName: Senecio Doria<br>verbatimElevation: so. danubialis<br>year: 1759</td>
+    </tr>
+    <tr>
+      <td><div class="img-container-wrapper"><div class="img-container"><img src="https://storage.gbif-no.sigma2.no/italy/padua-2023-03-24/senecio doria5.jpg" class="zoom-image"></div></div></td>
+      <td>HERB. R. HORTI PATAVINI<br>вилый<br>Jonna h<br>v suboceurrens nich-<br>ſ. ty piens Aust. pl.<br>18:47 Ferian<br>Perr. & Sadern<br>مسلہ<br>HERBARIUM R. HORTI PATAVINI<br>Senecio Doria L.<br>Faludi torbone<br>8 T 1910<br>HV<br>مغرب<br>+86-<br>a<br>S. Martires des Japan<br>A. Béguinist</td>
+      <td>catalogNumber: HERB. R. HORTI PATAVINI<br>location: S. Martires des Japan<br>recordNumber: 8<br>scientificName: Senecio Doria L.<br>verbatimIdentification: Faludi torbone<br>year: 1910</td>
+    </tr>
+    <tr>
+      <td><div class="img-container-wrapper"><div class="img-container"><img src="https://storage.gbif-no.sigma2.no/italy/padua-2023-03-24/senecio2.jpg" class="zoom-image"></div></div></td>
+      <td>being<br>p<br>Colin<br>HERB. R. HORTI PATAVINI<br>HERBARIUM R. HORTI PATAVINI<br>Senecio coronspiflius Desf.<br>is<br>var. shebrentatus (Ledeb.) Boits.<br>f. cidmicus Tamp,<br>Tripolitania<br>Oasi di Gadames<br>18 Aprile 1931<br>P.P.<br>Jeg. Dr. A. Marcello<br>941.</td>
+      <td>catalogNumber: 941<br>day: 18<br>location: Oasi di Gadames, Tripolitania<br>month: 4<br>recordedBy: Dr. A. Marcello<br>scientificName: Senecio coronspiflius Desf.<br>year: 1931</td>
+    </tr>
+    <tr>
+      <td><div class="img-container-wrapper"><div class="img-container"><img src="https://storage.gbif-no.sigma2.no/italy/padua-2023-03-24/sym.bulbosum.jpg" class="zoom-image"></div></div></td>
+      <td>5008: GA<br>118 AV-1002<br>Montian<br>Symphytum hulle<br>Malghera<br>3 14 15 13 14 12 11 10 50 34 35<br>sateei. 8 10.44 15 13 14 12 10 8 10 5 31 58<br>asum<br>Schimperſ<br>HERB. R. HORTI PATAVINI<br>Boragince<br>Symphytum<br>bulbosum fy<br>Schiempre.<br>luoghi ambe-jelvatici<br>Sammano.<br>HERB. SPRANZI<br>7090</td>
+      <td>catalogNumber: 5008<br>country: GA<br>elevation: asum<br>kingdom: Boragince<br>location: Montian<br>recordNumber: 118<br>recordedBy: Schimperſ<br>scientificName: Symphytum hulle</td>
+    </tr>
+    <tr>
+      <td><div class="img-container-wrapper"><div class="img-container"><img src="https://storage.gbif-no.sigma2.no/italy/padua-2023-03-24/sym5.jpg" class="zoom-image"></div></div></td>
+      <td>HERB. R. HORTI PATAVINI<br>HERBARIUM R. HORTI PATAVINI<br>p.<br>Symphytum officinale h. a typerum Froni<br>Lage della Burida-seaspata anticarro-<br>ft. di ründ.<br>your arrintte.<br>28.1X-47<br>Томмина<br>euanin<br>3<br>7090</td>
+      <td>catalogNumber: 7090<br>day: 28<br>month: 10<br>scientificName: Symphytum officinale<br>year: 47</td>
+    </tr>
+    <tr>
+      <td><div class="img-container-wrapper"><div class="img-container"><img src="https://storage.gbif-no.sigma2.no/italy/padua-2023-03-24/trigonella hamosa.jpg" class="zoom-image"></div></div></td>
+      <td>HERB. PATAV. (PAD)<br>H0057911<br>Trigonella hamoja . Arab. Händaym<br>sponte : repit inter sejetes<br>Brouchs<br>O Trigonelles hamoſa &<br>Attica.<br>Jun<br>HERB. PATAV. (PAD)<br>H0057912<br>Frigonella<br>Trigonella pamosen<br>de april Gypti modine.<br>Brochi<br>En<br>Farigon<br>Conella.<br>Jamosa L.<br>HERB. PATAV. (PAD)<br>{<br>H0057913<br>86 87</td>
+      <td>catalogNumber: H0057911|H0057912|H0057913<br>location: Attica|gypti modine<br>month: 4|6<br>recordedBy: Brouchs|Brochi|Jamosa L.<br>scientificName: Trigonella hamoja|Trigonella pamosen</td>
+    </tr>
+    <tr>
+      <td><div class="img-container-wrapper"><div class="img-container"><img src="https://storage.gbif-no.sigma2.no/italy/padua-2023-03-24/tulipa sylvestris.jpg" class="zoom-image"></div></div></td>
+      <td>the<br>Sh<br>C₁. G.<br>Ord. monogyn.<br>HERB. R. HORTI PATAVINI<br>Julipa jylvestris (<br>HERD SPRANZI<br>in Collibig Bericis inter segetes, Sasso di d. Berta<br>Giglince<br>Julipa sylvesters h<br>Colli Berici ne campsi circostanti<br>al Santuario<br>HERB. SPRE<br>1075</td>
+      <td>location: Collibig Bericis|Colli Berici<br>recordedBy: HERB. R. HORTI PATAVINI|HERD SPRANZI|HERB. SPRE<br>scientificName: Julipa jylvestris|Julipa sylvesters<br>verbatimElevation: 1075</td>
+    </tr>
+    <tr>
+      <td><div class="img-container-wrapper"><div class="img-container"><img src="https://storage.gbif-no.sigma2.no/italy/padua-2023-03-24/verbasco.jpg" class="zoom-image"></div></div></td>
+      <td>ERBARIO DI LUIGI FILIPPO TIBERTELLI<br>DE PISIS (FERRARA)<br>Famiglia delle amphularise<br>Specie Verbascum<br>a<br>Varietá.<br>Aiva di<br>Località Ana 1. Roewe Longera leg<br>Data della raccolta 14<br>yrste<br>24 Agoste 1714.<br>Jell' esime fans<br>Osservazioni.<br>Tin<br>niven<br>vedi thassi forume Lehrad.<br>149<br>HERB. R. HORTI PATAVINI<br>Verbaru<br>num<br>7460</td>
+      <td>catalogNumber: 7460<br>day: 24<br>location: Ana 1. Roewe Longera<br>month: 8<br>recordNumber: 149<br>recordedBy: Luigi Filippo Tibertelli de Pisis<br>scientificName: Verbascum<br>year: 1714</td>
+    </tr>
+    <tr>
+      <td><div class="img-container-wrapper"><div class="img-container"><img src="https://storage.gbif-no.sigma2.no/italy/padua-2023-03-24/vicia calcarata4.jpg" class="zoom-image"></div></div></td>
+      <td>2<br>C<br>DS<br>Mot<br>MANN<br>Mr<br>catearate<br>Vicia triflam den<br>Gressone<br>Paglin<br>IT<br>4.5<br>170<br>WI<br>منصر<br>2<br>700<br>AXL<br>ANIL<br>a<br>a<br>calcarata Bast.<br>Horto Pat 1905 te gost<br>1905.<br>Madrid.<br>82<br>""<br>3852</td>
+      <td>catalogNumber: 2<br>country: IT<br>dateIdentified: 1905<br>decimalLatitude: 4.5<br>location: Gressone|Paglin<br>maximumElevationInMeters: 700<br>minimumElevationInMeters: 170<br>recordedBy: C|MANN<br>scientificName: Vicia triflam<br>verbatimElevation: WI<br>verbatimIdentification: a|a|calcarata Bast.</td>
+    </tr>
+    <tr>
+      <td><div class="img-container-wrapper"><div class="img-container"><img src="https://storage.gbif-no.sigma2.no/italy/padua-2023-03-24/vicia monantha1.jpg" class="zoom-image"></div></div></td>
+      <td>AN<br>King.<br>Coppóteria<br>Ervare.<br>In<br>multin<br>monan<br>monon<br>Ahoj<br>Me<br>I<br>da Madrid 97<br>18.1<br>Joder<br>HERBARIUM R. HORTI PATAVINI<br>Coppoleria monantha<br>(Vicia)<br>Toe-<br>o<br>P. Boljon<br>hall<br>미<br>Hold/<br>A<br>mala<br>V<br>3852</td>
+      <td>catalogNumber: 97<br>kingdom: Coppóteria<br>location: HERBARIUM R. HORTI PATAVINI<br>maximumElevationInMeters: 3852<br>recordedBy: P. Boljon<br>scientificName: Coppoleria monantha<br>year: 18.1</td>
+    </tr>
+    <tr>
+      <td><div class="img-container-wrapper"><div class="img-container"><img src="https://storage.gbif-no.sigma2.no/italy/padua-2023-03-24/vitis aconitifolia.jpg" class="zoom-image"></div></div></td>
+      <td>HERB. R. HORTI PATAVINI<br>Flora Tirolensis. Augepflaust.<br>Ampelidaceae<br>1. nat.<br>ERBAID<br>Band.<br>Unt<br>atum: 14. Mai 1912,<br>u. 16. Juni 1916.<br>aconitifolia He<br>For<br>Schutzengelhof.<br>1.DAA<br>1934<br>BOLZANO<br>Meereshöhe: 280m<br>leg. Dr. W. Pfaff.<br>49</td>
+      <td>catalogNumber: 1<br>country: BOLZANO<br>day: 14|16<br>location: Schutzengelhof<br>minimumElevationInMeters: 280<br>month: 5|6<br>recordNumber: 1934<br>recordedBy: Dr. W. Pfaff<br>scientificName: Ampelidaceae<br>verbatimElevation: Meereshöhe: 280m<br>year: 1912|1916</td>
+    </tr>
+    <tr>
+      <td><div class="img-container-wrapper"><div class="img-container"><img src="https://storage.gbif-no.sigma2.no/italy/padua-2023-03-24/vitis cinerea.jpg" class="zoom-image"></div></div></td>
+      <td>HERBARIUM PATAVINUM (PAD)<br>Centro Interdipartimentale Musei Scientifici dell'Università<br>35123 Padova (Italia)<br>Vitis cinerea Wild<br>CRA<br>Derupts- Seynaro<br>Краче<br>(PD)<br>S. Mode sittembre 2009<br>HV<br>Djº533<br>2<br>4909</td>
+      <td>catalogNumber: HERBARIUM PATAVINUM (PAD)<br>country: Italia<br>location: Derupts- Seynaro<br>month: 9<br>recordNumber: Djº533<br>recordedBy: S. Mode<br>scientificName: Vitis cinerea<br>verbatimIdentification: Vitis cinerea Wild<br>year: 2009</td>
+    </tr>
+    <tr>
+      <td><div class="img-container-wrapper"><div class="img-container"><img src="https://storage.gbif-no.sigma2.no/italy/padua-2023-03-24/vitis riparia2.jpg" class="zoom-image"></div></div></td>
+      <td>FLORA TRIVIGIANA<br>Votch Riparia<br>Hab.<br>Selve ag go<br>(Famiglia Ampelider)<br>D. Saccardo<br>ERBARIO P. A. Saccardo<br>HERB. R. HORTI PATAVINI<br>4909</td>
+      <td>catalogNumber: 4909<br>identifiedBy: P. A. Saccardo<br>location: Selve ag go<br>recordedBy: D. Saccardo<br>scientificName: Votch Riparia</td>
+    </tr>
+    <tr>
+      <td><div class="img-container-wrapper"><div class="img-container"><img src="https://storage.gbif-no.sigma2.no/italy/padua-2023-03-24/vitis vinifera5.jpg" class="zoom-image"></div></div></td>
+      <td>ensis. Augenflaugh."<br>HERB. R. HORTI PATAVINI<br>Ampelidaceae.<br>Vitis vulpina Linné<br>var. rotundifolia Melix,<br>Fundort: Benen, im Dorf....<br>Unterlage: Fartengrund<br>Datum: 13. Heller 1914.<br>Oktober<br>9 u. 8. Sept 1915.<br>1934<br>BOLZANO<br>e: 280m.<br>Meereshöhe:<br>leg. Dr. W. Pfaff.<br>490</td>
+      <td>catalogNumber: HERB. R. HORTI PATAVINI<br>dateIdentified: 8. Sept 1915<br>day: 13<br>location: Benen, im Dorf<br>minimumElevationInMeters: 280<br>month: 10<br>recordedBy: Dr. W. Pfaff<br>scientificName: Vitis vulpina<br>year: 1914</td>
+    </tr>
+    <tr>
+      <td><div class="img-container-wrapper"><div class="img-container"><img src="https://storage.gbif-no.sigma2.no/italy/padua-2023-03-24/vitis vinifera6.jpg" class="zoom-image"></div></div></td>
+      <td>R. ISTITUTO FORESTALE DI VALLOMBROSA<br>Erbario<br>Vitis vinifera L.<br>& silvestres H.<br>Toscana a Follonica nelle macchie<br>5.VT-901<br>Ade Fiori<br>......<br>4909</td>
+      <td>catalogNumber: 5.VT-901<br>country: Toscana<br>location: Follonica nelle macchie<br>recordNumber: 4909<br>recordedBy: Ade Fiori<br>scientificName: Vitis vinifera L.</td>
+    </tr>
+  </tbody>
+</table>
+    
+    <script src="https://code.jquery.com/jquery-3.6.4.slim.min.js" integrity="sha256-a2yjHM4jnF9f54xUQakjZGaqYs/V1CYvWpoqZzC2/Bw=" crossorigin="anonymous"></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"> type="text/javascript"></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"> type="text/javascript"></script>
+    <script>
+        var options1 = {
+            width: 250,
+            zoomWidth: 300,
+            offset: {vertical: 0, horizontal: 10}
+        };
+        const containers = document.querySelectorAll('.img-container');
+        containers.forEach((container) => {
+            new ImageZoom(container, options1);
+        });
+        $(document).ready(function () {
+            $('#table').DataTable();
+        });
+    </script>
+    
+    </body>
+    </html>
+    

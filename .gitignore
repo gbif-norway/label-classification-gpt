@@ -1,1 +1,7 @@
 **/.env
+rabbitmq
+gapi-secret.json
+.DS_Store
+__pycache__/
+*.pyc
+*.jpg

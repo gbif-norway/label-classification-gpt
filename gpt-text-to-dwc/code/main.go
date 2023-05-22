@@ -2,25 +2,18 @@ package main
 
 import (
 	"encoding/json"
-	gpt "label-classification-gpt/api"
+	gpt "gpt-text-to-dwc/api"
 	"log"
 	"os"
 
 	"github.com/streadway/amqp"
 )
 
-// Insert the extractDWC function from the previous response here.
-
 // Configuration settings.
 const ()
 
 func main() {
-	var rabbitMQURI = os.Getenv("RABBIT_MQ_URI")
-	var apiKey = os.Getenv("GPT_API_KEY")
-	var model = os.Getenv("GPT_MODEL")
-	var inputQueueName = os.Getenv("INPUT_QUEUE")
-	var outputQueueName = os.Getenv("OUTPUT_QUEUE")
-	conn, err := amqp.Dial(rabbitMQURI)
+	conn, err := amqp.Dial(os.Getenv("RABBIT_MQ_URI"))
 	if err != nil {
 		log.Fatalf("Failed to connect to RabbitMQ: %s", err)
 	}
@@ -33,7 +26,7 @@ func main() {
 	defer ch.Close()
 
 	qIn, err := ch.QueueDeclare(
-		inputQueueName,
+		os.Getenv("INPUT_QUEUE_GPT"),
 		false,
 		false,
 		false,
@@ -45,7 +38,7 @@ func main() {
 	}
 
 	qOut, err := ch.QueueDeclare(
-		outputQueueName,
+		os.Getenv("INPUT_QUEUE_ANNOTATE"),
 		false,
 		false,
 		false,
@@ -71,24 +64,43 @@ func main() {
 
 	forever := make(chan bool)
 
+	type Message struct {
+		ID   string `json:"id"`
+		Text string `json:"text"`
+		Source string `json:"Source"`
+	}
+
 	go func() {
 		for d := range msgs {
-			var ocrText string
-			if err := json.Unmarshal(d.Body, &ocrText); err != nil {
+			var msg Message
+			if err := json.Unmarshal(d.Body, &msg); err != nil {
 				log.Printf("Failed to decode message: %s", err)
+				log.Printf("Failed to decode message: %s", d.Body)
 				continue
 			}
-
-			response, err := gpt.ExtractDWC(apiKey, model, &ocrText)
+			
+			response, err := gpt.ExtractDWC(msg.Text)
 			if err != nil {
 				log.Printf("Error running extractDWC: %s", err)
 				continue
-			}
+			} 
 
 			responseBytes, err := json.Marshal(response)
 			if err != nil {
 				log.Printf("Failed to encode response: %s", err)
 				continue
+			}
+
+			newMsg := Message{
+				ID:      msg.ID,
+				Text:    string(responseBytes),
+				Source:  "gpt4",
+			}
+
+			msgBytes, err := json.Marshal(newMsg)
+			if err != nil {
+				log.Printf("Failed to encode message: %s", err)
+				return
 			}
 
 			err = ch.Publish(
@@ -98,7 +110,7 @@ func main() {
 				false,
 				amqp.Publishing{
 					ContentType: "application/json",
-					Body:        responseBytes,
+					Body:        msgBytes,
 				})
 			if err != nil {
 				log.Printf("Failed to publish a message: %s", err)

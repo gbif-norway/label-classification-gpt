@@ -1,4 +1,4 @@
-module label-classification-gpt
+module annotate
 
 go 1.18
 
