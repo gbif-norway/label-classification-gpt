@@ -47,7 +47,7 @@ func SendToOCR(imageURL string) (*pb.AnnotateImageResponse, error) {
 			},
 		},
 		ImageContext: &pb.ImageContext{
-			LanguageHints: []string{"no", "la"},
+			LanguageHints: []string{"ru", "tg", "la"},
 		},
 	}
 

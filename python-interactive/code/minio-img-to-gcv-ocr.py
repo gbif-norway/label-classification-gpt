@@ -9,19 +9,18 @@ def get_images(bucket_name, prefix):
     return [obj.object_name for obj in objects if obj.object_name.endswith((".jpg", ".jpeg", ".png"))]
  
 bucket_name = "test"
-prefix = "test/TNU/"
+prefix = "TNU/Labiatae/"
 image_names = get_images(bucket_name, prefix)
+# import pdb; pdb.set_trace()
 
 connection_params = pika.ConnectionParameters(host='rabbitmq')
 connection = pika.BlockingConnection(connection_params)
 channel = connection.channel()
 channel.queue_declare(queue=os.environ['INPUT_QUEUE_GCV_OCR'])
 
-import pdb; pdb.set_trace()
 
 for image_name in image_names:
     minio_url = f"https://{os.getenv('MINIO_URI')}/{bucket_name}/{image_name}"
     body = json.dumps({ 'ID': minio_url, 'Text': minio_url, 'Source': 'minio'})
     channel.basic_publish(exchange='', routing_key=os.environ['INPUT_QUEUE_GCV_OCR'], body=body)
-
-
+    # import pdb; pdb.set_trace()
