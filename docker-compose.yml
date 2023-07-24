@@ -48,21 +48,21 @@ services:
       - rabbitmq
     links: 
       - rabbitmq
-  python-text-to-dwc:
-    build: ./python-text-to-dwc
-    container_name: python-text-to-dwc
-    platform: linux/amd64
-    env_file: .env
-    restart: on-failure
-    depends_on:
-      - rabbitmq
-    links: 
-      - rabbitmq
-    entrypoint: /bin/bash
-    stdin_open: true
-    tty: true
-    volumes:
-      - ./python-text-to-dwc/code:/srv
+  # python-text-to-dwc:
+  #   build: ./python-text-to-dwc
+  #   container_name: python-text-to-dwc
+  #   platform: linux/amd64
+  #   env_file: .env
+  #   restart: on-failure
+  #   depends_on:
+  #     - rabbitmq
+  #   links: 
+  #     - rabbitmq
+  #   entrypoint: /bin/bash
+  #   stdin_open: true
+  #   tty: true
+  #   volumes:
+  #     - ./python-text-to-dwc/code:/srv
   python:
     build: ./python-interactive
     container_name: python
