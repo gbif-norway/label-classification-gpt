@@ -10,8 +10,8 @@ import (
 )
 
 type Message struct {
-	ID   string `json:"id"`
-	Text string `json:"text"`
+	ID     string `json:"id"`
+	Text   string `json:"text"`
 	Source string `json:"Source"`
 }
 
@@ -75,12 +75,12 @@ func main() {
 				log.Printf("Failed to decode message: %s", d.Body)
 				continue
 			}
-			
+
 			response, err := gcv.SendToOCR(msg.Text)
 			if err != nil {
 				log.Printf("Error running sendToOCR: %s", err)
 				continue
-			} 
+			}
 
 			// Extract the 'pages' and 'text' objects from the API response
 			pages := response.FullTextAnnotation.Pages
