@@ -203,7 +203,7 @@ def uio_comparison():
     filter = 'source=gcv_merged_close_blocks&search=urn:catalog:O&limit=200&offset=0'
     df = make_gbif_gpt4_comparison_table(filter)
     html_table = generate_html_table(df)
-    with open('index-uio.html', 'w') as writer:
+    with open('github-pages/index-uio.html', 'w') as writer:
         writer.write(generate_html(html_table, get_stats(df)))
 
 def italy_comparison():
@@ -220,7 +220,7 @@ filter = 'source=gcv_td_whints_text&limit=200&offset=0'
 df = make_gpt4_comparison_table(filter)
 df['image'] = df['image'].apply(image_html)
 df['gpt4'] = df['gpt4'].apply(table_text)
-with open('index-uio-algae.html', 'w') as writer:
+with open('github-pages/index-uio-algae.html', 'w') as writer:
     writer.write(generate_html(df))
  
 #result_df.to_csv('uio-algae.txt', index=False)
