@@ -5,3 +5,4 @@ gapi-secret.json
 __pycache__/
 *.pyc
 *.jpg
+source*.txt
