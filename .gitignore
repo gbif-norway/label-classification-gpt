@@ -5,4 +5,6 @@ gapi-secret.json
 __pycache__/
 *.pyc
 *.jpg
-source*.txt
+python-interactive/code/source_files_out/**/*
+python-interactive/code/images_in/**/*
+python-interactive/code/images_out/**/*
