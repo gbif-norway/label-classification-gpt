@@ -1,67 +1,20 @@
 version: '3'
 
 services:
-  rabbitmq:
-    image: rabbitmq:3-management-alpine
-    container_name: rabbitmq
-    ports:
-        - 5672:5672
-        - 15672:15672
-    volumes:
-        - ./rabbitmq/data/:/var/lib/rabbitmq/
-        - ./rabbitmq/log/:/var/log/rabbitmq
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:15672"]
-      interval: 30s
-      timeout: 10s
-      retries: 5
-  gpt-text-to-dwc:
-    build: ./gpt-text-to-dwc
-    image: gbifnorway/gpt-text-to-dwc:latest
-    container_name: gpt
-    platform: linux/amd64
-    env_file: .env
-    restart: on-failure
-    depends_on:
-      - rabbitmq
-    links: 
-      - rabbitmq
-  annotate:
-    build: ./annotate
-    image: gbifnorway/annotate:latest
-    container_name: annotate
-    platform: linux/amd64
-    env_file: .env
-    restart: on-failure
-    depends_on:
-      - rabbitmq
-    links: 
-      - rabbitmq
-  gcv-ocr:
-    build: ./gcv-ocr
-    image: gbifnorway/gcv-ocr:latest
-    container_name: gcv-ocr
-    platform: linux/amd64
-    env_file: .env
-    restart: on-failure
-    depends_on:
-      - rabbitmq
-    links: 
-      - rabbitmq
   python:
     build: ./python-interactive
     container_name: python
     platform: linux/amd64
     env_file: .env
     restart: on-failure
-    depends_on:
-      - rabbitmq
-    links: 
-      - rabbitmq
+    # depends_on:
+    #   - rabbitmq
+    # links:
+    #   - rabbitmq
     entrypoint: /bin/bash
     stdin_open: true
     tty: true
     ports:
       - "8888:8888"
     volumes:
-      - ./python-interactive/code:/srv
+      - ./python-interactive/:/srv

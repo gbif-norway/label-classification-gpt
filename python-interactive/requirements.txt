@@ -1,0 +1,16 @@
+# requirements.txt
+pika
+requests
+pandas
+numpy
+google-auth
+google-cloud-core
+google-cloud-vision
+Pillow
+# psycopg2-binary
+# sqlalchemy
+minio
+# pyzbar
+# opencv-python
+scikit-image
+jupyter
