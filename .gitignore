@@ -8,3 +8,4 @@ __pycache__/
 python-interactive/code/source_files_out/**/*
 python-interactive/code/images_in/**/*
 python-interactive/code/images_out/**/*
+.vscode/
